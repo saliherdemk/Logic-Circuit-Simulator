@@ -11,11 +11,25 @@
     <div class="tools">
         <button onclick="generateInput()">input</button>
         <button onclick="generateOutput()">output</button>
-        <button onclick="generateAndGate()">and</button>
+        <button onclick="generateANDGate()">and</button>
+        <button onclick="generateORGate()">or</button>
+        <button onclick="generateNOTGate()">not</button>
+        <button onclick="generateNANDGate()">nand</button>
+        <button onclick="generateNORGate()">nor</button>
+        <button onclick="generateXORGate()">xor</button>
+        <button onclick="generateXNORGate()">xnor</button>
+
+        <button class="delete-btn" onclick="toggleDeleteMode()">DeleteMode:false</button>
+
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js" integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="script.js"></script>
-    <script src="gates.js"></script>
-    <script src="canvas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js" integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <script src="js/functions.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/draggable.js"></script>
+    <script src="js/node.js"></script>
+    <script src="js/wire.js"></script>
+    <script src="js/gates.js"></script>
+    <script src="js/canvas.js"></script>
+
 </body>
 </html>

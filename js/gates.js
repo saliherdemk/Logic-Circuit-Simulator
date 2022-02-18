@@ -123,14 +123,15 @@ class Gates extends Draggable {
 
     show() {
         this.imgX = this.x - 55
-        this.imgY = this.y - 35 
+        this.imgY = this.y - 35
+        strokeWeight(2)
+        this.rollover ? stroke(173, 216, 230) :  noStroke()
+        rect(this.imgX,this.imgY,this.width,this.height)
+        strokeWeight(4)
+        stroke(0)
         switch (this.type) {
             case "andGate":
-                strokeWeight(2)
-                this.rollover ? stroke(173, 216, 230) :  noStroke()
-                rect(this.imgX,this.imgY,this.width,this.height)
-                strokeWeight(4)
-                stroke(0)
+                
                 andGate.resize(this.width,this.height)
                 image(andGate,this.imgX,this.imgY)
 

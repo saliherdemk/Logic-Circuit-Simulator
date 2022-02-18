@@ -10,31 +10,40 @@ class Node{
         this.isLineActive = false,
         this.inputY = 0,
         this.color = this.value? color(0,255,0) : color(255,0,0)
-        this.isOutput = false
+        this.isOutput = false,
+        this.isrollover = false
+    }
+
+    rollover(){
+        let d = dist(mouseX, mouseY, this.x, this.y);
+        if (d < 6) {
+            this.isrollover = true
+        } else{
+            this.isrollover = false
+        }
     }
 
     draw() {
         fill(this.color)
-        ellipse(this.x,this.y, 15);
+        ellipse(this.x,this.y, this.isrollover? 18 : 14);
         this.drawLine()
         this.update()
+        this.rollover()
         fill(255)
     }
 
     changeValue() {
-        let d = dist(mouseX, mouseY, this.x, this.y);
 
-        if (d < 7 && !this.isInput && !this.isOutput) {
+        if (this.isrollover && !this.isInput && !this.isOutput) {
             this.value = !this.value
 
         }
     }
 
     active() {
-        let d = dist(mouseX, mouseY, this.x, this.y);
         const control = currentWires.find(el => el.isLineActive == true)
 
-        if (d < 7 && !control) {
+        if (this.isrollover && !control) {
             
             this.isLineActive = !this.isLineActive;
 
@@ -50,8 +59,8 @@ class Node{
             if(!this.parent.input1){
                 this.parent.input1 = this
                 if(!(this.parent instanceof NotGate)){
-                    this.y = this.y -27
-                    this.inputY = - 27
+                    this.y = this.y -23
+                    this.inputY = - 23
                 } else{
                     this.y = this.y -10
                     this.inputY = -10
@@ -60,8 +69,8 @@ class Node{
             } else if(!this.parent.input2){
                 this.parent.input2 = this
                 if(!(this.parent instanceof NotGate)){
-                    this.y = this.y + 5
-                    this.inputY = 5
+                    this.y = this.y + 3
+                    this.inputY = 3
                 }
 
             }
@@ -91,11 +100,9 @@ class Node{
     }
 
     receive(){
-        const element = currentWires.find(el => el.isLineActive == true)
-        let d = dist(mouseX, mouseY, this.x, this.y);
-       
+        const element = currentWires.find(el => el.isLineActive == true)       
 
-        if(this.isInput && element && d < 25){
+        if(this.isInput && element && this.isrollover){
             if(!this.hasWire){
                 element.setEndNode(this)
                 this.hasWire = true

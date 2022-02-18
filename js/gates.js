@@ -8,9 +8,14 @@ class Input extends Draggable {
     }
 
     show() {
-        fill(this.value ? "green" : "red")
-        ellipse(this.x, this.y, 0, 0);
         fill(255)
+        strokeWeight(2)
+        this.rollover ? stroke(173, 216, 230) :  noStroke()
+        rect(this.x + 10, this.y - 10, 50, 20);
+        stroke(0)
+        fill(255)
+        strokeWeight(4)
+        line(this.x + 10,this.y,this.x + 50,this.y)
 
     }
 
@@ -43,10 +48,14 @@ class Output extends Draggable {
 
 
     show() {
-        fill(this.value ? "green" : "red")
-        stroke(0);
-        ellipse(this.x, this.y, 0, 0);
         fill(255)
+        strokeWeight(2)
+        this.rollover ? stroke(173, 216, 230) :  noStroke()
+        rect(this.x - 50, this.y - 10, 40, 20);
+        stroke(0)
+        fill(255)
+        strokeWeight(4)
+        line(this.x - 10,this.y,this.x - 50,this.y)
     }
 
     draw() {
@@ -69,8 +78,13 @@ class NotGate extends Draggable{
     }
 
     show() {
-        notGate.resize(110,60)
-        image(notGate,this.x - 55,this.y -40)
+        strokeWeight(2)
+        this.rollover ? stroke(173, 216, 230) :  noStroke()
+        rect(this.x - 55,this.y - 35,110,50)
+        strokeWeight(4)
+        stroke(0)
+        notGate.resize(110,50)
+        image(notGate,this.x - 55,this.y - 35)
 
 
     }
@@ -100,46 +114,53 @@ class Gates extends Draggable {
         this.input1 = null;
         this.input2 = null;
         this.output = null;
-        this.type = type
+        this.type = type,
+        this.width = 110,
+        this.height = 50,
+        this.imgX = this.x - 55,
+        this.imgY = this.y - 35 
     }
 
     show() {
+        this.imgX = this.x - 55
+        this.imgY = this.y - 35 
         switch (this.type) {
             case "andGate":
-                andGate.resize(110,60)
-                image(andGate,this.x - 55,this.y -40)
+                strokeWeight(2)
+                this.rollover ? stroke(173, 216, 230) :  noStroke()
+                rect(this.imgX,this.imgY,this.width,this.height)
+                strokeWeight(4)
+                stroke(0)
+                andGate.resize(this.width,this.height)
+                image(andGate,this.imgX,this.imgY)
 
                 break;
             case "orGate":
-                orGate.resize(110,60)
-                image(orGate,this.x - 55,this.y -40)
+                orGate.resize(this.width,this.height)
+                image(orGate,this.imgX,this.imgY)
 
                 break;
             case "nandGate":
-                nandGate.resize(110,60)
-                image(nandGate,this.x - 55,this.y -40)
+                nandGate.resize(this.width,this.height)
+                image(nandGate,this.imgX,this.imgY)
                 break;
             case "norGate":
-                norGate.resize(110,60)
-                image(norGate,this.x - 55,this.y -40)
+                norGate.resize(this.width,this.height)
+                image(norGate,this.imgX,this.imgY)
                 break;
             case "xorGate":
-                xorGate.resize(110,60)
-                image(xorGate,this.x - 55,this.y -40)
+                xorGate.resize(this.width,this.height)
+                image(xorGate,this.imgX,this.imgY)
                 break;
             case "xnorGate":
-                xnorGate.resize(110,60)
-                image(xnorGate,this.x - 55,this.y -40)
+                xnorGate.resize(this.width,this.height)
+                image(xnorGate,this.imgX,this.imgY)
                 break;
         
             default:
                 break;
         }
-        
-        if(this.type == "andGate"){
-            andGate.resize(110,60)
-            image(andGate,this.x - 55,this.y -40)
-        }
+      
         
 
     }

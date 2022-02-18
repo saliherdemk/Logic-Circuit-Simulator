@@ -15,7 +15,7 @@ class Node{
 
     draw() {
         fill(this.color)
-        ellipse(this.x,this.y, 25);
+        ellipse(this.x,this.y, 15);
         this.drawLine()
         this.update()
         fill(255)
@@ -24,7 +24,7 @@ class Node{
     changeValue() {
         let d = dist(mouseX, mouseY, this.x, this.y);
 
-        if (d < 12 && !this.isInput && !this.isOutput) {
+        if (d < 7 && !this.isInput && !this.isOutput) {
             this.value = !this.value
 
         }
@@ -34,7 +34,7 @@ class Node{
         let d = dist(mouseX, mouseY, this.x, this.y);
         const control = currentWires.find(el => el.isLineActive == true)
 
-        if (d < 25 && !control) {
+        if (d < 7 && !control) {
             
             this.isLineActive = !this.isLineActive;
 
@@ -50,21 +50,26 @@ class Node{
             if(!this.parent.input1){
                 this.parent.input1 = this
                 if(!(this.parent instanceof NotGate)){
-                    this.y = this.y - 15
-                    this.inputY = -15
+                    this.y = this.y -27
+                    this.inputY = - 27
+                } else{
+                    this.y = this.y -10
+                    this.inputY = -10
                 }
                 
             } else if(!this.parent.input2){
                 this.parent.input2 = this
                 if(!(this.parent instanceof NotGate)){
-                    this.y = this.y + 15
-                    this.inputY = 15
+                    this.y = this.y + 5
+                    this.inputY = 5
                 }
 
             }
 
             if(!this.parent.output && !this.isInput){
                 this.parent.output = this
+                this.y = this.y - 9
+                this.inputY =  - 9
 
             }
             this.isOutput = true

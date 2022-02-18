@@ -69,9 +69,8 @@ class NotGate extends Draggable{
     }
 
     show() {
-        ellipse(this.x, this.y, 80, 80);
-        stroke(0)
-        text("Not", this.x - 20, this.y);
+        notGate.resize(110,60)
+        image(notGate,this.x - 55,this.y -40)
 
 
     }
@@ -105,9 +104,43 @@ class Gates extends Draggable {
     }
 
     show() {
-        ellipse(this.x, this.y, 80, 80);
-        stroke(0)
-        text(this.type, this.x - 20, this.y);
+        switch (this.type) {
+            case "andGate":
+                andGate.resize(110,60)
+                image(andGate,this.x - 55,this.y -40)
+
+                break;
+            case "orGate":
+                orGate.resize(110,60)
+                image(orGate,this.x - 55,this.y -40)
+
+                break;
+            case "nandGate":
+                nandGate.resize(110,60)
+                image(nandGate,this.x - 55,this.y -40)
+                break;
+            case "norGate":
+                norGate.resize(110,60)
+                image(norGate,this.x - 55,this.y -40)
+                break;
+            case "xorGate":
+                xorGate.resize(110,60)
+                image(xorGate,this.x - 55,this.y -40)
+                break;
+            case "xnorGate":
+                xnorGate.resize(110,60)
+                image(xnorGate,this.x - 55,this.y -40)
+                break;
+        
+            default:
+                break;
+        }
+        
+        if(this.type == "andGate"){
+            andGate.resize(110,60)
+            image(andGate,this.x - 55,this.y -40)
+        }
+        
 
     }
 

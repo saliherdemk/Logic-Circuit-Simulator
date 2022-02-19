@@ -31,7 +31,8 @@ function changeValueActionForElements(arr){
 
 function toggleDeleteMode(){
     deleteMode = !deleteMode
-    deleteButton.innerHTML = "DeleteMode:" + deleteMode
+    deleteMode ? deleteButton.classList.add("delete-on") : deleteButton.classList.remove("delete-on")
+
 }
 
 function dist(x1, y1, x2, y2) {

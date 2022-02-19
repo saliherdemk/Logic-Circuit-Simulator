@@ -1,5 +1,4 @@
-var currentInputs = []
-var currentOutputs = []
+var currentIOs = []
 var currentGates = []
 var currentWires = []
 var currentNodes = []
@@ -7,16 +6,16 @@ var currentNodes = []
 var deleteMode = false
 
 function generateInput() {
-    let input = new Input(0, 50, 200);
-    currentInputs.push(input);
+    let input = new InputOutput(0, (width / 10) / 5, height - 20,true);
+    currentIOs.push(input);
 
     let node = new Node(0,input,false)
     currentNodes.push(node)
 }
 
 function generateOutput() {
-    let output = new Output(0, 50, 200);
-    currentOutputs.push(output)
+    let output = new InputOutput(0, (width / 10) * 1.3, height - 20,false);
+    currentIOs.push(output)
 
     let node = new Node(0,output,true)
     currentNodes.push(node)
@@ -24,7 +23,7 @@ function generateOutput() {
 }
 
 function generateANDGate() {
-    let andGate = new Gates(50, 200,"andGate");
+    let andGate = new Gates((width / 10) * 2, height - 20,"andGate");
     currentGates.push(andGate)
 
     let input1 = new Node(0,andGate,true)
@@ -39,7 +38,7 @@ function generateANDGate() {
 }
 
 function generateNOTGate() {
-    let notGate = new NotGate(50,200);
+    let notGate = new NotGate((width / 10) * 4.1,height - 20);
     currentGates.push(notGate)
 
     let input = new Node(0,notGate,true)
@@ -51,7 +50,7 @@ function generateNOTGate() {
 }
 
 function generateORGate() {
-    let orGate = new Gates(50, 200,"orGate");
+    let orGate = new Gates((width / 10) * 3, height - 20,"orGate");
     currentGates.push(orGate)
 
     let input1 = new Node(0,orGate,true)
@@ -66,7 +65,7 @@ function generateORGate() {
 }
 
 function generateNANDGate(){
-    let nandGate = new Gates(50, 200,"nandGate");
+    let nandGate = new Gates((width / 10) * 5.2, height - 20,"nandGate");
     currentGates.push(nandGate)
 
     let input1 = new Node(0,nandGate,true)
@@ -81,7 +80,7 @@ function generateNANDGate(){
 }
 
 function generateNORGate(){
-    let norGate = new Gates(50, 200,"norGate");
+    let norGate = new Gates((width / 10) * 6.3, height - 20,"norGate");
     currentGates.push(norGate)
 
     let input1 = new Node(0,norGate,true)
@@ -96,7 +95,7 @@ function generateNORGate(){
 }
 
 function generateXORGate(){
-    let xorGate = new Gates(50, 200,"xorGate");
+    let xorGate = new Gates((width / 10) * 7.3, height - 20,"xorGate");
     currentGates.push(xorGate)
 
     let input1 = new Node(0,xorGate,true)
@@ -111,7 +110,7 @@ function generateXORGate(){
 }
 
 function generateXNORGate(){
-    let xnorGate = new Gates(50, 200,"xnorGate");
+    let xnorGate = new Gates((width / 10) * 8.4, height - 20,"xnorGate");
     currentGates.push(xnorGate)
 
     let input1 = new Node(0,xnorGate,true)

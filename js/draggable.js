@@ -23,6 +23,15 @@ class Draggable {
             this.x = mouseX + this.offsetX;
             this.y = mouseY + this.offsetY;
         }
+
+        let united = [...currentGates,...currentIOs]
+
+        const oversea = united.find(e => e.x > width || e.y < 0 || e.y > height || e.x < 0)
+        console.log(oversea)
+        
+        if(oversea){
+            this.delete("force")
+        }
     }
 
 
@@ -40,16 +49,13 @@ class Draggable {
         this.dragging = false;
     }
 
-    delete(){
-        if(this.rollover && deleteMode){
-            const index = currentInputs.indexOf(this);
+    delete(type = "natural"){
+        if((this.rollover && deleteMode) || type == "force"){
+            const index = currentIOs.indexOf(this);
             if (index > -1) {
-                currentInputs.splice(index, 1);
+                currentIOs.splice(index, 1);
             }
-            const index0 = currentOutputs.indexOf(this);
-            if (index0 > -1) {
-                currentOutputs.splice(index0, 1);
-            }
+
             const index1 = currentGates.indexOf(this);
             if (index1 > -1) {
                 currentGates.splice(index1, 1);

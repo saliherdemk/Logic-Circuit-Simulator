@@ -1,29 +1,35 @@
-class Input extends Draggable {
-    constructor(value, x, y) {
+class InputOutput extends Draggable {
+    constructor(value, x, y,type) {
         super(x, y)
         this.value = value;
         this.x = x;
         this.y = y;
-
+        this.type = type;
+        this.hitboxWidth = type? 50 : 40;
+        this.lineX1 = type? 10 : -10;
+        this.lineX2 = type? 50 : -50
     }
 
     show() {
+        const isFilled = currentIOs.find(e => dist(e.x,e.y,this.x,this.y) < 5 && e !== this)
+        if(isFilled){
+            this.y = this.y - 50
+        }
+
+        let hitboxX = this.type? this.x + 10 : this.x - 50;
         fill(255)
         strokeWeight(2)
         this.rollover ? stroke(173, 216, 230) :  noStroke()
-        rect(this.x + 10, this.y - 10, 50, 20);
+        rect(hitboxX, this.y - 10, this.hitboxWidth, 20);
         stroke(0)
+        strokeWeight(1)
+        fill(0)
+        text(this.value? 1 : 0,this.x,this.y)
+        strokeWeight(2)
         fill(255)
         strokeWeight(4)
-        line(this.x + 10,this.y,this.x + 50,this.y)
+        line(this.x + this.lineX1,this.y,this.x + this.lineX2,this.y)
 
-    }
-
-    changeValue() {
-        if (this.rollover) {
-            this.value = !this.value
-
-        }
     }
 
     draw() {
@@ -37,37 +43,6 @@ class Input extends Draggable {
 
 }
 
-class Output extends Draggable {
-    constructor(value, x, y) {
-        super(x, y)
-        this.value = value;
-        this.x = x;
-        this.y = y;
-
-    }
-
-
-    show() {
-        fill(255)
-        strokeWeight(2)
-        this.rollover ? stroke(173, 216, 230) :  noStroke()
-        rect(this.x - 50, this.y - 10, 40, 20);
-        stroke(0)
-        fill(255)
-        strokeWeight(4)
-        line(this.x - 10,this.y,this.x - 50,this.y)
-    }
-
-    draw() {
-        this.show();
-        this.over();
-        this.update();
-
-
-    }
-
-}
-
 class NotGate extends Draggable{
     constructor(x,y){
         super(x, y);
@@ -78,6 +53,11 @@ class NotGate extends Draggable{
     }
 
     show() {
+        const isFilled = currentGates.find(e => dist(e.x,e.y,this.x,this.y) < 5 && e !== this)
+        if(isFilled){
+            this.y = this.y - 50
+        }
+
         strokeWeight(2)
         this.rollover ? stroke(173, 216, 230) :  noStroke()
         rect(this.x - 55,this.y - 35,110,50)
@@ -118,10 +98,15 @@ class Gates extends Draggable {
         this.width = 110,
         this.height = 50,
         this.imgX = this.x - 55,
-        this.imgY = this.y - 35 
+        this.imgY = this.y - 35 ,
+        this.IsOverlapping = false
     }
 
     show() {
+        const isFilled = currentGates.find(e => dist(e.x,e.y,this.x,this.y) < 5 && e !== this)
+        if(isFilled){
+            this.y = this.y - 50
+        }
         this.imgX = this.x - 55
         this.imgY = this.y - 35
         strokeWeight(2)
@@ -196,6 +181,8 @@ class Gates extends Draggable {
             this.output.value = result
         }
     }
+
+    
 
     draw() {
         this.show();

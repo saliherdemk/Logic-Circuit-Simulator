@@ -18,18 +18,16 @@ function setup() {
 function draw() {
     background(255);
     
-    drawForElements(currentInputs)
     drawForElements(currentGates)
-    drawForElements(currentOutputs)
+    drawForElements(currentIOs)
     drawForElements(currentWires)
     drawForElements(currentNodes)
 
 }
 
 function mousePressed() {
-    pressedActionForElements(currentInputs)
+    pressedActionForElements(currentIOs)
     pressedActionForElements(currentGates)
-    pressedActionForElements(currentOutputs)
 
     for (let i = 0; i < currentNodes.length; i++) {
         currentNodes[i].active()
@@ -43,14 +41,12 @@ function mousePressed() {
 }
 
 function mouseReleased() {
-    releasedActionForElements(currentInputs)
+    releasedActionForElements(currentIOs)
     releasedActionForElements(currentGates)
-    releasedActionForElements(currentOutputs)
 
 }
 
 function doubleClicked() {
-    changeValueActionForElements(currentInputs)
     changeValueActionForElements(currentNodes)
     
 }

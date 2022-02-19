@@ -51,7 +51,7 @@ class Wire{
         const wireLength = dist(this.startNode.x, this.startNode.y,this.endNode.x, this.endNode.y);
            
         if (distance[0] + distance[1] >= wireLength - (this.width / (10 * 2)) && distance[0] + distance[1] <= wireLength + (this.width / (10 * 2))){
-            this.color = color(255, 255, 0)
+            this.color = color(100, 100, 255)
 
             return true
 

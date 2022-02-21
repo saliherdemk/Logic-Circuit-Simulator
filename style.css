@@ -17,7 +17,12 @@ body{
 button{
     background: none;
     border: none;
-    cursor: pointer
+    cursor: pointer;
+    width: 100px;
+    height: 100%;
+    background-size:contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .github-logo{
@@ -26,12 +31,51 @@ button{
     width: 70px;
 }
 
-img{
-    width: 100px;
+.input{
+    width: 70px !important;
+    background-image: url('./img/input.png');
+
 }
 
-.io{
-    width: 70px;
+.output{
+    width: 70px !important;
+    background-image: url('./img/output.png');
+
+}
+
+.andGate{
+    background-image: url('./img/andGate.png');
+
+}
+
+.orGate{
+    background-image: url('./img/orGate.png');
+
+}
+
+.notGate{
+    background-image: url('./img/notGate.png');
+
+}
+
+.nandGate{
+    background-image: url('./img/nandGate.png');
+
+}
+
+.norGate{
+    background-image: url('./img/norGate.png');
+
+}
+
+.xorGate{
+    background-image: url('./img/xorGate.png');
+
+}
+
+.xnorGate{
+    background-image: url('./img/xnorGate.png');
+
 }
 
 .bin{
@@ -39,11 +83,7 @@ img{
 }
 
 .delete-btn{
-    width: 40px;
-    height: 100%;
-    background-size:contain;
-    background-position: center;
-    background-repeat: no-repeat;
+    width: 40px !important;
     background-image: url('./img/bin.png');
 
 }

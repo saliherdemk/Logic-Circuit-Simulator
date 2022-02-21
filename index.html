@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,52 +8,37 @@
     <link rel="stylesheet" href="style.css">
     <title>Logic Circuit Simulator</title>
 </head>
+
 <body>
     <a href="https://github.com/saliherdemk/Logic-Circuit-Simulator" target="_blank">
         <img class="github-logo" src="./img/githubLogo.png" alt="">
 
     </a>
     <div class="tools">
-        <button onclick="generateInput()">
-            <img class="io" src="./img/input.png" alt="">
-        
-        </button>
-        <button onclick="generateOutput()">
-            <img class="io" src="./img/output.png" alt="">
-        </button>
-        <button onclick="generateANDGate()">
-            <img src="./img/andGate.png" alt="">
-        
-        </button>
-        <button onclick="generateORGate()">
-            <img src="./img/orGate.png" alt="">
+        <button class="input" onclick="generateInput()"></button>
 
-        </button>
-        <button onclick="generateNOTGate()">
-            <img src="./img/notGate.png" alt="">
+        <button class="output" onclick="generateOutput()"></button>
 
-        </button>
-        <button onclick="generateNANDGate()">
-            <img src="./img/nandGate.png" alt="">
+        <button class="andGate" onclick="generateANDGate()"></button>
 
-        </button>
-        <button onclick="generateNORGate()">
-            <img src="./img/norGate.png" alt="">
+        <button class="orGate" onclick="generateORGate()"></button>
 
-        </button>
-        <button onclick="generateXORGate()">
-            <img src="./img/xorGate.png" alt="">
+        <button class="notGate" onclick="generateNOTGate()"></button>
 
-        </button>
-        <button onclick="generateXNORGate()">
-            <img src="./img/xnorGate.png" alt="">
+        <button class="nandGate" onclick="generateNANDGate()"></button>
 
-        </button>
+        <button class="norGate" onclick="generateNORGate()"></button>
+
+        <button class="xorGate" onclick="generateXORGate()"></button>
+
+        <button class="xnorGate" onclick="generateXNORGate()"></button>
 
         <button class="delete-btn" onclick="toggleDeleteMode()"></button>
 
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js" integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"
+        integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/functions.js"></script>
     <script src="js/canvas.js"></script>
     <script src="js/script.js"></script>
@@ -62,4 +48,5 @@
     <script src="js/gates.js"></script>
 
 </body>
+
 </html>

@@ -1,30 +1,30 @@
-class Wire{
-    constructor(startNode,endNode){
+class Wire {
+    constructor(startNode, endNode) {
         this.startNode = startNode,
-        this.endNode = endNode,
-        this.isLineActive = true,
-        this.x = this.startNode.x,
-        this.y = this.startNode.y,
-        this.nodeXDecisive = this.startNode.nodeXDecisive,
-        this.isLineDone = false,
-        this.width = 8,
-        this.color = 0
+            this.endNode = endNode,
+            this.isLineActive = true,
+            this.x = this.startNode.x,
+            this.y = this.startNode.y,
+            this.nodeXDecisive = this.startNode.nodeXDecisive,
+            this.isLineDone = false,
+            this.width = 8,
+            this.color = 0
     }
 
-    setEndNode(node){
+    setEndNode(node) {
         this.endNode = node;
         this.isLineActive = false;
         this.isLineDone = true
     }
 
-    commited(){
+    commited() {
         this.endNode.value = this.startNode.value
     }
 
-    cancelled(){
-        let d = dist(this.startNode.x,this.startNode.y,mouseX,mouseY)
+    cancelled() {
+        let d = dist(this.startNode.x, this.startNode.y, mouseX, mouseY)
 
-        if(d < 25 && this.isLineActive){
+        if (d < 25 && this.isLineActive) {
 
             const index = currentWires.indexOf(this);
             if (index > -1) {
@@ -33,36 +33,38 @@ class Wire{
             }
             this.startNode.isLineActive = false
             this.startNode.hasWire = false
-            if(this.endNode){
+            if (this.endNode) {
                 this.endNode.isLineActive = false
-                this.endNode.hasWire= false
+                this.endNode.hasWire = false
             }
             this.isLineActive = false
         }
     }
 
-    isMouseOver(){
+    isMouseOver() {
+        //https://github.com/drendog/Logic-Circuit-Simulator
+
         let distance = [];
-        if(!this.startNode || !this.endNode) return
+        if (!this.startNode || !this.endNode) return
 
-        distance.push(dist(this.startNode.x, this.startNode.y,mouseX, mouseY));
-        distance.push(dist(this.endNode.x, this.endNode.y,mouseX, mouseY));
+        distance.push(dist(this.startNode.x, this.startNode.y, mouseX, mouseY));
+        distance.push(dist(this.endNode.x, this.endNode.y, mouseX, mouseY));
 
-        const wireLength = dist(this.startNode.x, this.startNode.y,this.endNode.x, this.endNode.y);
-           
-        if (distance[0] + distance[1] >= wireLength - (this.width / (10 * 2)) && distance[0] + distance[1] <= wireLength + (this.width / (10 * 2))){
+        const wireLength = dist(this.startNode.x, this.startNode.y, this.endNode.x, this.endNode.y);
+
+        if (distance[0] + distance[1] >= wireLength - (this.width / (10 * 2)) && distance[0] + distance[1] <= wireLength + (this.width / (10 * 2))) {
             this.color = color(100, 100, 255)
 
             return true
 
-        } else{
+        } else {
             this.color = 0
         }
     }
 
-    destroy(type = "natural"){
-        if((this.isMouseOver() && deleteMode) || type === "force"){
-            
+    destroy(type = "natural") {
+        if ((this.isMouseOver() && deleteMode) || type === "force") {
+
             const index = currentWires.indexOf(this);
             if (index > -1) {
                 currentWires.splice(index, 1);
@@ -74,8 +76,8 @@ class Wire{
             this.endNode.isLineActive = false
             this.endNode.hasWire = false
             this.endNode.value = false
-            this.isLineActive = false   
-            
+            this.isLineActive = false
+
         }
         this.cancelled()
 
@@ -85,24 +87,24 @@ class Wire{
         if (this.isLineActive || this.isLineDone) {
             let startX = this.startNode.x;
             let startY = this.startNode.y;
-            let targetX = this.isLineDone? this.endNode.x : mouseX;
-            let targetY = this.isLineDone? this.endNode.y : mouseY;
+            let targetX = this.isLineDone ? this.endNode.x : mouseX;
+            let targetY = this.isLineDone ? this.endNode.y : mouseY;
             fill(255, 255, 255, 1)
-            stroke(this.color,this.color,this.color)
+            stroke(this.color, this.color, this.color)
             bezier(startX, startY, startX + this.nodeXDecisive, startY, targetX - this.nodeXDecisive, targetY, targetX, targetY)
             stroke(0)
         }
         this.isLineDone && this.commited()
         this.update()
         this.isMouseOver()
-   
+
     }
 
     update() {
 
         if (this.startNode.parent.dragging) {
-            this.x = (this.endNode? this.endNode.x : mouseX ) + this.nodeXDecisive + this.startNode.parent.offsetX;
-            this.y = (this.endNode? this.endNode.y : mouseY ) + this.startNode.parent.offsetY;
+            this.x = (this.endNode ? this.endNode.x : mouseX) + this.nodeXDecisive + this.startNode.parent.offsetX;
+            this.y = (this.endNode ? this.endNode.y : mouseY) + this.startNode.parent.offsetY;
         }
     }
 }

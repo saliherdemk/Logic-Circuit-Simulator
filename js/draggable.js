@@ -24,12 +24,11 @@ class Draggable {
             this.y = mouseY + this.offsetY;
         }
 
-        let united = [...currentGates,...currentIOs]
+        let united = [...currentGates, ...currentIOs]
 
         const oversea = united.find(e => e.x > width || e.y < 0 || e.y > height || e.x < 0)
-        console.log(oversea)
-        
-        if(oversea){
+
+        if (oversea) {
             this.delete("force")
         }
     }
@@ -49,8 +48,8 @@ class Draggable {
         this.dragging = false;
     }
 
-    delete(type = "natural"){
-        if((this.rollover && deleteMode) || type == "force"){
+    delete(type = "natural") {
+        if ((this.rollover && deleteMode) || type == "force") {
             const index = currentIOs.indexOf(this);
             if (index > -1) {
                 currentIOs.splice(index, 1);
@@ -67,8 +66,8 @@ class Draggable {
                 if (index > -1) {
                     wires[i].destroy("force")
                 }
-                
-                
+
+
             }
 
 
@@ -80,8 +79,8 @@ class Draggable {
                 if (index > -1) {
                     currentNodes.splice(index, 1);
                 }
-                
-                
+
+
             }
         }
     }

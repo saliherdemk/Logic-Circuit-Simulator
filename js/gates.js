@@ -5,9 +5,12 @@ class InputOutput extends Draggable {
         this.x = x;
         this.y = y;
         this.type = type;
-        this.hitboxWidth = type? 50 : 40;
+        this.width = type? 50 : 40;
         this.lineX1 = type? 10 : -10;
-        this.lineX2 = type? 50 : -50
+        this.lineX2 = type? 50 : -50;
+        this.height = 20;
+        this.isSelected = false
+
     }
 
     show() {
@@ -19,8 +22,11 @@ class InputOutput extends Draggable {
         let hitboxX = this.type? this.x + 10 : this.x - 50;
         fill(255)
         strokeWeight(2)
-        this.rollover ? stroke(173, 216, 230) :  noStroke()
-        rect(hitboxX, this.y - 10, this.hitboxWidth, 20);
+
+        this.rollover || this.selected ? stroke(173, 216, 230) :  noStroke()
+        
+        fill(255,255,255,0)
+        rect(hitboxX, this.y - 10, this.width, 20);
         stroke(0)
         strokeWeight(1)
         fill(0)
@@ -32,14 +38,17 @@ class InputOutput extends Draggable {
 
     }
 
+    selectedControl(){
+        this.selected =  selected.includes(this)
+    }
+
     draw() {
         this.show();
         this.over();
         this.update();
+        this.selectedControl()
 
     }
-
-    
 
 }
 
@@ -50,6 +59,10 @@ class NotGate extends Draggable{
         this.y = y;
         this.input1 = null;
         this.output = null;
+        this.width = 110,
+        this.height = 50,
+        this.isSelected = false
+
     }
 
     show() {
@@ -59,10 +72,13 @@ class NotGate extends Draggable{
         }
 
         strokeWeight(2)
-        this.rollover ? stroke(173, 216, 230) :  noStroke()
-        rect(this.x - 55,this.y - 35,110,50)
+        this.rollover || this.selected ? stroke(173, 216, 230) :  noStroke()
+        
+        fill(255,255,255,0)
+        rect(this.x - 55,this.y - 35,this.width,this.height)
         strokeWeight(4)
         stroke(0)
+        
         notGate.resize(110,50)
         image(notGate,this.x - 55,this.y - 35)
 
@@ -77,11 +93,16 @@ class NotGate extends Draggable{
         
     }
 
+    selectedControl(){
+        this.selected =  selected.includes(this)
+    }
+
     draw() {
         this.show();
         this.over();
         this.update();
         this.updateOutput()
+        this.selectedControl()
 
     }
 }
@@ -99,7 +120,8 @@ class Gates extends Draggable {
         this.height = 50,
         this.imgX = this.x - 55,
         this.imgY = this.y - 35 ,
-        this.IsOverlapping = false
+        this.IsOverlapping = false,
+        this.isSelected = false
     }
 
     show() {
@@ -109,11 +131,16 @@ class Gates extends Draggable {
         }
         this.imgX = this.x - 55
         this.imgY = this.y - 35
+
         strokeWeight(2)
-        this.rollover ? stroke(173, 216, 230) :  noStroke()
+        
+        this.rollover || this.selected ? stroke(173, 216, 230) :  noStroke()
+        
+        fill(255,255,255,0)
         rect(this.imgX,this.imgY,this.width,this.height)
         strokeWeight(4)
         stroke(0)
+        
         switch (this.type) {
             case "andGate":
                 
@@ -149,6 +176,10 @@ class Gates extends Draggable {
       
         
 
+    }
+
+    selectedControl(){
+        this.selected =  selected.includes(this)
     }
 
     updateOutput(){
@@ -189,6 +220,7 @@ class Gates extends Draggable {
         this.over();
         this.update();
         this.updateOutput()
+        this.selectedControl()
 
     }
 }

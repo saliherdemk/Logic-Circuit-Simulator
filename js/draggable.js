@@ -20,6 +20,15 @@ class Draggable {
     update() {
 
         if (this.dragging) {
+            for (let i = 0; i < selected.length; i++) {
+                const element = selected[i];
+                if(element == this){continue}
+                let a = element.x - this.x
+                let b = element.y - this.y
+                element.x = mouseX + a + this.offsetX
+                element.y = mouseY + b + this.offsetY
+                
+            }
             this.x = mouseX + this.offsetX;
             this.y = mouseY + this.offsetY;
         }
@@ -40,6 +49,8 @@ class Draggable {
             this.dragging = true;
             this.offsetX = this.x - mouseX;
             this.offsetY = this.y - mouseY;
+            selectMode = false
+
         }
 
     }

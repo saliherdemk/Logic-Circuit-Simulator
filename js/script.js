@@ -2,8 +2,11 @@ var currentIOs = []
 var currentGates = []
 var currentWires = []
 var currentNodes = []
+var selects = []
+var selected = []
 
 var deleteMode = false
+var selectMode = false
 
 function generateInput() {
     let input = new InputOutput(0, (width / 10) / 5, height - 20,true);

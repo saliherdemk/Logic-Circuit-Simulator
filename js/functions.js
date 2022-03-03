@@ -1,4 +1,5 @@
 const deleteButton = document.querySelector(".delete-btn")
+document.addEventListener('contextmenu', event => event.preventDefault());
 
 function drawForElements(arr){
     for (let i = 0; i < arr.length; i++) {

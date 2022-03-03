@@ -1,4 +1,3 @@
-
 function preload(){
     andGate = loadImage('./img/andGate.png')
     nandGate = loadImage('./img/nandGate.png')
@@ -17,7 +16,8 @@ function setup() {
 
 function draw() {
     background(255);
-    
+    drawForElements(selects)
+
     drawForElements(currentGates)
     drawForElements(currentIOs)
     drawForElements(currentWires)
@@ -26,6 +26,10 @@ function draw() {
 }
 
 function mousePressed() {
+    selectMode = true
+
+    selected.find(el => el.rollover) ? null : selected = []
+    
     pressedActionForElements(currentIOs)
     pressedActionForElements(currentGates)
 
@@ -38,11 +42,20 @@ function mousePressed() {
         currentWires[i].destroy()
 
     }
+    let sel = new Select(mouseX,mouseY,0,0,true)
+    selects.push(sel)
+
+    if(mouseButton === RIGHT){
+        //console.log("asd")
+    }
+
+
 }
 
 function mouseReleased() {
     releasedActionForElements(currentIOs)
     releasedActionForElements(currentGates)
+    releasedActionForElements(selects)
 
 }
 

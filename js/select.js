@@ -12,8 +12,11 @@ class Select{
             let w = mouseX - this.x
             let h = mouseY - this.y
             
-            fill(173,216,239);
+            fill(173,216,239,50);
+            stroke(173,216,230)
+            strokeWeight(1)
             rect(this.x,this.y,w,h)
+            stroke(0)
             fill(255,255,255,0);
             this.addSelectedGates(w,h)
 
@@ -36,13 +39,18 @@ class Select{
 
         for (let i = 0; i < all.length; i++) {
             const element = all[i];
-            if (element.x < absX + w &&
-                element.x + element.width > absX &&
-                element.y < absY + h &&
-                element.height + element.y > absY) {
-                    selected.includes(element) ? null : selected.push(element)  
-                    element.rollover = true
+
+            //https://editor.p5js.org/eric/sketches/HkW2DRKnl
+            if (element.x < absX + w && element.x + element.width > absX && element.y < absY + h && element.height + element.y > absY) {
+                selected.includes(element) ? null : selected.push(element)  
+                element.rollover = true
                 
+            } else{
+                const index = selected.indexOf(element);
+                if(index > -1){
+                    selected.splice(index,1)
+                }
+
             }
 
             

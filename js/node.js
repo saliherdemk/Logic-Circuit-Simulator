@@ -14,21 +14,11 @@ class Node{
         this.isrollover = false
     }
 
-    rollover(){
-        let d = dist(mouseX, mouseY, this.x, this.y);
-        if (d < 6) {
-            this.isrollover = true
-        } else{
-            this.isrollover = false
-        }
-    }
-
     draw() {
         fill(this.color)
         ellipse(this.x,this.y, this.isrollover? 18 : 14);
         this.drawLine()
         this.update()
-        this.rollover()
         fill(255)
         this.updateOutputValue()
     }

@@ -56,5 +56,6 @@ function mouseReleased() {
 
 function doubleClicked() {
     changeValueActionForElements(currentNodes)
+    changeNameActionForElements()
     
 }

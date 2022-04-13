@@ -36,6 +36,57 @@
         <button class="delete-btn" onclick="toggleDeleteMode()"></button>
 
     </div>
+
+    <div class="popup-container">
+        <div class="popup-input">
+            <div class="img-container" onclick="closePopup()">
+                <img src="./img/closeIcon.png" alt="" width="25" height="25">
+            </div>
+            <div class="input-container">
+                <label for="inp" class="inp">
+                    <input type="text" id="inp" placeholder="&nbsp;" autocomplete="off">
+                    <span class="label">Gate Name</span>
+                    
+                </label>
+                <div class="done-container" onclick="handlePopupInput()">
+                    <img src="./img/doneIcon.png" alt="" width="25" height="25">
+                </div>
+            </div>
+            
+            
+
+        </div>
+        
+
+    </div>
+
+    <div class="info-container" onclick="closeInformation()">
+        <div class="popup-info">
+            <h3>Logic Circuit Simulator</h3>
+            <img src="./img/fullAdder.PNG" alt="">
+            
+            <div class="tips">
+                <ul>
+                    Double click to gate for naming gates
+                </ul>
+                <ul>
+                    Double click to node for changing input value
+    
+                </ul>
+                <ul>
+                    If you want to delete something faster, you can drag out of the screen
+    
+                </ul>
+
+            </div>
+            
+            
+
+        </div>
+        
+
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"
         integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

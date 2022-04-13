@@ -1,5 +1,7 @@
 const deleteButton = document.querySelector(".delete-btn")
 
+const inp = document.getElementById("inp")
+
 document.addEventListener('contextmenu', event => event.preventDefault());
 
 function drawForElements(arr){
@@ -31,10 +33,40 @@ function changeValueActionForElements(arr){
     }
 }
 
+function changeNameActionForElements(){
+    let all = [...currentGates,...currentIOs]
+    for (let i = 0; i < all.length; i++) {
+        all[i].specifyElement()
+
+    }
+
+}
+
 function toggleDeleteMode(){
     deleteMode = !deleteMode
     deleteMode ? deleteButton.classList.add("delete-on") : deleteButton.classList.remove("delete-on")
 
+}
+
+function openPopup(){
+    document.querySelector(".popup-container").style.display = "flex"
+
+}
+
+function closePopup(){
+    inp.value = ''
+    document.querySelector(".popup-container").style.display = "none"
+}
+
+function closeInformation(){
+    document.querySelector(".info-container").style.display = "none"
+
+}
+
+function handlePopupInput(){
+    var name = inp.value
+    elForNameChange.changeName(name)
+    closePopup()
 }
 
 function dist(x1, y1, x2, y2) {

@@ -7,6 +7,7 @@ class Draggable {
         this.rollover = false;
         this.offsetX = 0;
         this.offsetY = 0;
+        this.name = '';
     }
 
     over() {
@@ -60,6 +61,19 @@ class Draggable {
         this.dragging = false;
     }
 
+    specifyElement(){
+        if(this.rollover){
+            elForNameChange = this
+            openPopup()
+
+
+        }
+    }
+
+    changeName(name){
+        this.name = name
+    }
+
     delete(type = "natural") {
         if ((this.rollover && deleteMode) || type == "force") {
             const index = currentIOs.indexOf(this);
@@ -81,9 +95,6 @@ class Draggable {
 
 
             }
-
-
-
 
             const nodes = currentNodes.filter(e => e.parent == this)
             for (let i = 0; i < nodes.length; i++) {

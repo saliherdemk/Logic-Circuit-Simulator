@@ -1,3 +1,4 @@
+// https://editor.p5js.org/codingtrain/sketches/U0R5B6Z88
 class Draggable {
     constructor(x, y) {
         this.x = x;
@@ -90,7 +91,6 @@ class Draggable {
                 if (index > -1) {
                     currentNodes.splice(index, 1);
                 }
-
 
             }
         }

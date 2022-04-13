@@ -45,11 +45,6 @@ function mousePressed() {
     let sel = new Select(mouseX,mouseY,0,0,true)
     selects.push(sel)
 
-    if(mouseButton === RIGHT){
-        //console.log("asd")
-    }
-
-
 }
 
 function mouseReleased() {

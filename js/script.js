@@ -5,6 +5,8 @@ var currentNodes = []
 var selects = []
 var selected = []
 
+var customGates = []
+
 var deleteMode = false
 var selectMode = false
 

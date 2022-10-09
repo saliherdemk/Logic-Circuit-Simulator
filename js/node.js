@@ -17,18 +17,27 @@ class Node{
     rollover(){
         let d = dist(mouseX, mouseY, this.x, this.y);
         if (d < 6) {
+        console.log(this)
+
             this.isrollover = true
         } else{
             this.isrollover = false
         }
     }
 
+    setPosition(x,y){
+        this.x = x
+        this.y = y
+
+    }
+
     draw() {
         fill(this.color)
         ellipse(this.x,this.y, this.isrollover? 18 : 14);
         this.drawLine()
-        this.update()
         this.rollover()
+        this.update()
+
         fill(255)
         this.updateOutputValue()
     }
@@ -108,12 +117,11 @@ class Node{
     }
 
     receive(){
-        const element = currentWires.find(el => el.isLineActive == true)       
+        const element = currentWires.find(el => el.isLineActive == true)
 
         if(this.isInput && element && this.isrollover){
             if(!this.hasWire){
                 element.setEndNode(this)
-                this.hasWire = true
             } else{
                 this.isLineActive = false
             }

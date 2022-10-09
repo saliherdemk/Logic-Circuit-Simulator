@@ -1,6 +1,6 @@
 // https://editor.p5js.org/codingtrain/sketches/U0R5B6Z88
 class Draggable {
-    constructor(x, y) {
+    constructor(x, y,custom = false) {
         this.x = x;
         this.y = y;
         this.dragging = false;
@@ -8,11 +8,12 @@ class Draggable {
         this.offsetX = 0;
         this.offsetY = 0;
         this.name = '';
+        this.maxD = custom? 120 : 40
     }
 
     over() {
         let d = dist(mouseX, mouseY, this.x, this.y);
-        if (d < 40) {
+        if (d < this.maxD && d > 0) {
             this.rollover = true;
         } else {
             this.rollover = false;
@@ -47,7 +48,7 @@ class Draggable {
 
     pressed() {
         let d = dist(mouseX, mouseY, this.x, this.y);
-        if (d < 40) {
+        if (d < this.maxD && d > 0) {
             this.dragging = true;
             this.offsetX = this.x - mouseX;
             this.offsetY = this.y - mouseY;

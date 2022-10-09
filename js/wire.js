@@ -19,6 +19,9 @@ class Wire {
 
     commited() {
         this.endNode.value = this.startNode.value
+        this.endNode.hasWire = true
+        this.startNode.hasWire = true
+
     }
 
     cancelled() {

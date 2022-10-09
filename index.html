@@ -1,96 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.5" />
+    <link rel="stylesheet" href="style.css" />
     <title>Logic Circuit Simulator</title>
-</head>
+  </head>
 
-<body>
-    <a href="https://github.com/saliherdemk/Logic-Circuit-Simulator" target="_blank">
-        <img class="github-logo" src="./img/githubLogo.png" alt="">
-
+  <body>
+    <a
+      href="https://github.com/saliherdemk/Logic-Circuit-Simulator"
+      target="_blank"
+    >
+      <img class="github-logo" src="./img/githubLogo.png" alt="" />
     </a>
     <div class="tools">
-        <button class="input" onclick="generateInput()"></button>
+      <button class="input" onclick="generateInput()"></button>
 
-        <button class="output" onclick="generateOutput()"></button>
+      <button class="output" onclick="generateOutput()"></button>
 
-        <button class="andGate" onclick="generateANDGate()"></button>
+      <button class="andGate" onclick="generateANDGate()"></button>
 
-        <button class="orGate" onclick="generateORGate()"></button>
+      <button class="orGate" onclick="generateORGate()"></button>
 
-        <button class="notGate" onclick="generateNOTGate()"></button>
+      <button class="notGate" onclick="generateNOTGate()"></button>
 
-        <button class="nandGate" onclick="generateNANDGate()"></button>
+      <button class="nandGate" onclick="generateNANDGate()"></button>
 
-        <button class="norGate" onclick="generateNORGate()"></button>
+      <button class="norGate" onclick="generateNORGate()"></button>
 
-        <button class="xorGate" onclick="generateXORGate()"></button>
+      <button class="xorGate" onclick="generateXORGate()"></button>
 
-        <button class="xnorGate" onclick="generateXNORGate()"></button>
+      <button class="xnorGate" onclick="generateXNORGate()"></button>
 
-        <button class="delete-btn" onclick="toggleDeleteMode()"></button>
-
+      <button class="delete-btn" onclick="toggleDeleteMode()"></button>
     </div>
 
     <div class="popup-container">
-        <div class="popup-input">
-            <div class="img-container" onclick="closePopup()">
-                <img src="./img/closeIcon.png" alt="" width="25" height="25">
-            </div>
-            <div class="input-container">
-                <label for="inp" class="inp">
-                    <input type="text" id="inp" placeholder="&nbsp;" autocomplete="off">
-                    <span class="label">Gate Name</span>
-                    
-                </label>
-                <div class="done-container" onclick="handlePopupInput()">
-                    <img src="./img/doneIcon.png" alt="" width="25" height="25">
-                </div>
-            </div>
-            
-            
-
+      <div class="popup-input">
+        <div class="img-container" onclick="closePopup()">
+          <img src="./img/closeIcon.png" alt="" width="25" height="25" />
         </div>
-        
-
+        <div class="input-container">
+          <label for="inp" class="inp">
+            <input
+              type="text"
+              id="inp"
+              placeholder="&nbsp;"
+              autocomplete="off"
+            />
+            <span class="label">Gate Name</span>
+          </label>
+          <div class="done-container" onclick="handlePopupInput()">
+            <img src="./img/doneIcon.png" alt="" width="25" height="25" />
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="info-container" onclick="closeInformation()">
-        <div class="popup-info">
-            <h3>Logic Circuit Simulator</h3>
-            <img src="./img/fullAdder.PNG" alt="">
-            
-            <div class="tips">
-                <ul>
-                    Double click to gate for naming gates
-                </ul>
-                <ul>
-                    Double click to node for changing input value
-    
-                </ul>
-                <ul>
-                    If you want to delete something faster, you can drag out of the screen
-    
-                </ul>
+      <div class="popup-info">
+        <h3>Logic Circuit Simulator</h3>
+        <img src="./img/fullAdder.PNG" alt="" />
 
-            </div>
-            
-            
-
+        <div class="tips">
+          <ul>
+            Double click to gate for naming gates
+          </ul>
+          <ul>
+            Double click to node for changing input value
+          </ul>
+          <ul>
+            If you want to delete something faster, you can drag out of the
+            screen
+          </ul>
         </div>
-        
-
+      </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"
-        integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="js/functions.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"
+      integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <script src="js/functions.js"></script>
     <script src="js/canvas.js"></script>
     <script src="js/script.js"></script>
     <script src="js/draggable.js"></script>
@@ -98,7 +93,6 @@
     <script src="js/select.js"></script>
     <script src="js/wire.js"></script>
     <script src="js/gates.js"></script>
-
-</body>
-
+    <script src="js/customGate.js"></script>
+  </body>
 </html>

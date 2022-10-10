@@ -1,132 +1,116 @@
-class Node{
-    constructor(value,parent,isInput){
-        this.value = value,
-        this.parent = parent,
-        this.nodeXDecisive = isInput? -50 : 50,
-        this.hasWire = false,
-        this.x = this.parent.x + this.nodeXDecisive,
-        this.y = this.parent.y,
-        this.isInput = isInput,
-        this.isLineActive = false,
-        this.inputY = 0,
-        this.color = this.value? color(0,255,0) : color(255,0,0)
-        this.isGateOutput = false,
-        this.isrollover = false
+class Node {
+  constructor(value, parent, isInput) {
+    (this.value = value),
+      (this.parent = parent),
+      (this.nodeXDecisive = isInput ? -50 : 50),
+      (this.hasWire = false),
+      (this.x = this.parent.x + this.nodeXDecisive),
+      (this.y = this.parent.y),
+      (this.isInput = isInput),
+      (this.isLineActive = false),
+      (this.inputY = 0),
+      (this.color = this.value ? color(0, 255, 0) : color(255, 0, 0));
+    (this.isGateOutput = false), (this.isrollover = false);
+  }
+
+  rollover() {
+    let d = dist(mouseX, mouseY, this.x, this.y);
+    if (d < 6) {
+      console.log(this);
+
+      this.isrollover = true;
+    } else {
+      this.isrollover = false;
     }
+  }
 
-    rollover(){
-        let d = dist(mouseX, mouseY, this.x, this.y);
-        if (d < 6) {
-        console.log(this)
+  setPosition(x, y) {
+    this.x = x;
+    this.y = y;
+  }
 
-            this.isrollover = true
-        } else{
-            this.isrollover = false
+  draw() {
+    fill(this.color);
+    ellipse(this.x, this.y, this.isrollover ? 18 : 14);
+    this.rollover();
+    this.drawLine();
+    this.update();
+
+    fill(255);
+    this.updateOutputValue();
+  }
+
+  updateOutputValue() {
+    if (this.isInput) {
+      this.parent.value = this.value;
+    }
+  }
+
+  changeValue() {
+    if (this.isrollover && !this.isInput && !this.isGateOutput) {
+      (this.value = !this.value), (this.parent.value = this.value);
+    }
+  }
+
+  active() {
+    const control = currentWires.find((el) => el.isLineActive == true);
+
+    if (this.isrollover && !control) {
+      this.isLineActive = !this.isLineActive;
+    }
+    this.receive();
+  }
+
+  update() {
+    this.color = this.value ? color(0, 255, 0) : color(255, 0, 0);
+
+    if (currentGates.includes(this.parent)) {
+      if (!this.parent.input1) {
+        this.parent.input1 = this;
+        if (!(this.parent instanceof NotGate)) {
+          this.y = this.y - 23;
+          this.inputY = -23;
+        } else {
+          this.y = this.y - 10;
+          this.inputY = -10;
         }
-    }
-
-    setPosition(x,y){
-        this.x = x
-        this.y = y
-
-    }
-
-    draw() {
-        fill(this.color)
-        ellipse(this.x,this.y, this.isrollover? 18 : 14);
-        this.drawLine()
-        this.rollover()
-        this.update()
-
-        fill(255)
-        this.updateOutputValue()
-    }
-
-    updateOutputValue(){
-        if(this.isInput){
-            this.parent.value = this.value 
+      } else if (!this.parent.input2) {
+        this.parent.input2 = this;
+        if (!(this.parent instanceof NotGate)) {
+          this.y = this.y + 3;
+          this.inputY = 3;
         }
+      }
 
+      if (!this.parent.output && !this.isInput) {
+        this.parent.output = this;
+        this.y = this.y - 9;
+        this.inputY = -9;
+      }
+      this.isGateOutput = true;
     }
 
-    changeValue() {
+    this.x = this.parent.x + this.nodeXDecisive;
+    this.y = this.parent.y + this.inputY;
+  }
 
-        if (this.isrollover && !this.isInput && !this.isGateOutput) {
-            this.value = !this.value,
-            this.parent.value = this.value
-
-        }
+  drawLine() {
+    if (this.isLineActive && !this.isInput) {
+      let wire = new Wire(this, null);
+      currentWires.push(wire);
+      this.isLineActive = false;
     }
+  }
 
-    active() {
-        const control = currentWires.find(el => el.isLineActive == true)
+  receive() {
+    const element = currentWires.find((el) => el.isLineActive == true);
 
-        if (this.isrollover && !control) {
-            
-            this.isLineActive = !this.isLineActive;
-
-        }
-        this.receive()
+    if (this.isInput && element && this.isrollover) {
+      if (!this.hasWire) {
+        element.setEndNode(this);
+      } else {
+        this.isLineActive = false;
+      }
     }
-
-    update() {
-        this.color = this.value? color(0,255,0) : color(255,0,0)
-
-
-        if(currentGates.includes(this.parent)){
-            if(!this.parent.input1){
-                this.parent.input1 = this
-                if(!(this.parent instanceof NotGate)){
-                    this.y = this.y -23
-                    this.inputY = - 23
-                } else{
-                    this.y = this.y -10
-                    this.inputY = -10
-                }
-                
-            } else if(!this.parent.input2){
-                this.parent.input2 = this
-                if(!(this.parent instanceof NotGate)){
-                    this.y = this.y + 3
-                    this.inputY = 3
-                }
-
-            }
-
-            if(!this.parent.output && !this.isInput){
-                this.parent.output = this
-                this.y = this.y - 9
-                this.inputY =  - 9
-
-            }
-            this.isGateOutput = true
-
-        }
-
-        this.x = this.parent.x + this.nodeXDecisive
-        this.y = this.parent.y + this.inputY
-
-    }
-
-    drawLine() {
-        if (this.isLineActive && !this.isInput) {
-            let wire = new Wire(this,null)
-            currentWires.push(wire)
-            this.isLineActive = false
-        }
-    }
-
-    receive(){
-        const element = currentWires.find(el => el.isLineActive == true)
-
-        if(this.isInput && element && this.isrollover){
-            if(!this.hasWire){
-                element.setEndNode(this)
-            } else{
-                this.isLineActive = false
-            }
-            
-        }
-    }
+  }
 }
-

@@ -16,28 +16,49 @@ class Node {
   rollover() {
     let d = dist(mouseX, mouseY, this.x, this.y);
     if (d < 6) {
-      console.log(this);
-
       this.isrollover = true;
     } else {
       this.isrollover = false;
     }
   }
 
-  setPosition(x, y) {
-    this.x = x;
-    this.y = y;
+  rePositionForCustomGate() {
+    var inputs = this.parent.inputs;
+    if (inputs) {
+      for (let i = 0; i < inputs.length; i++) {
+        const element = inputs[i];
+        if (element === this) {
+          this.y += i * 20;
+          this.x += 50;
+        }
+      }
+    }
+
+    var outputs = this.parent.outputs;
+    if (outputs) {
+      for (let i = 0; i < outputs.length; i++) {
+        const element = outputs[i];
+        if (element === this) {
+          this.y += i * 20;
+          this.x += 50;
+        }
+      }
+    }
   }
 
   draw() {
-    fill(this.color);
-    ellipse(this.x, this.y, this.isrollover ? 18 : 14);
-    this.rollover();
-    this.drawLine();
-    this.update();
+    if (this.parent.isShown) {
+      fill(this.color);
+      ellipse(this.x, this.y, this.isrollover ? 18 : 14);
+      this.rollover();
 
-    fill(255);
-    this.updateOutputValue();
+      this.drawLine();
+      this.update();
+
+      fill(255);
+      this.updateOutputValue();
+      this.rePositionForCustomGate();
+    }
   }
 
   updateOutputValue() {
@@ -63,26 +84,27 @@ class Node {
 
   update() {
     this.color = this.value ? color(0, 255, 0) : color(255, 0, 0);
+    var element = this.parent;
 
-    if (currentGates.includes(this.parent)) {
-      if (!this.parent.input1) {
+    if (currentGates.includes(element)) {
+      if (!element.input1) {
         this.parent.input1 = this;
-        if (!(this.parent instanceof NotGate)) {
+        if (!(element instanceof NotGate)) {
           this.y = this.y - 23;
           this.inputY = -23;
         } else {
           this.y = this.y - 10;
           this.inputY = -10;
         }
-      } else if (!this.parent.input2) {
-        this.parent.input2 = this;
-        if (!(this.parent instanceof NotGate)) {
+      } else if (!element.input2) {
+        element.input2 = this;
+        if (!(element instanceof NotGate)) {
           this.y = this.y + 3;
           this.inputY = 3;
         }
       }
 
-      if (!this.parent.output && !this.isInput) {
+      if (!element.output && !this.isInput) {
         this.parent.output = this;
         this.y = this.y - 9;
         this.inputY = -9;
@@ -104,7 +126,7 @@ class Node {
 
   receive() {
     const element = currentWires.find((el) => el.isLineActive == true);
-
+    this.rollover();
     if (this.isInput && element && this.isrollover) {
       if (!this.hasWire) {
         element.setEndNode(this);

@@ -19,8 +19,9 @@ function draw() {
   drawForElements(currentGates);
   drawForElements(currentIOs);
   drawForElements(currentWires);
-  drawForElements(currentNodes);
   drawForElements(customGates);
+
+  drawForElements(currentNodes);
 }
 
 function mousePressed() {
@@ -31,7 +32,6 @@ function mousePressed() {
   pressedActionForElements(currentIOs);
   pressedActionForElements(currentGates);
   pressedActionForElements(customGates);
-
 
   for (let i = 0; i < currentNodes.length; i++) {
     currentNodes[i].active();
@@ -49,7 +49,6 @@ function mouseReleased() {
   releasedActionForElements(currentGates);
   releasedActionForElements(selects);
   releasedActionForElements(customGates);
-
 }
 
 function doubleClicked() {
@@ -64,8 +63,12 @@ function keyPressed() {
     clones.push(clone);
   }
   let cg = new CustomGate(clones, 10, 10);
-  
 
   cg.setIO();
   customGates.push(cg);
+
+  for (let i = 0; i < currentGates.length; i++) {
+    const element = currentGates[i];
+    element.isShown = false;
+  }
 }

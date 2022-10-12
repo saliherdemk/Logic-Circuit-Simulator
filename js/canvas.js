@@ -25,6 +25,15 @@ function draw() {
 }
 
 function mousePressed() {
+  if (mouseButton === RIGHT) {
+    // createCustomGate();
+    selectDiv.style.display = "flex";
+    selectDiv.style.left = mouseX + "px";
+    selectDiv.style.top = mouseY + "px";
+
+    return;
+  }
+
   selectMode = true;
 
   selected.find((el) => el.rollover) ? null : (selected = []);
@@ -54,21 +63,4 @@ function mouseReleased() {
 function doubleClicked() {
   changeValueActionForElements(currentNodes);
   changeNameActionForElements();
-}
-
-function keyPressed() {
-  var clones = [];
-  for (let i = 0; i < selected.length; i++) {
-    var clone = _.clone(selected[i]);
-    clones.push(clone);
-  }
-  let cg = new CustomGate(clones, 10, 10);
-
-  cg.setIO();
-  customGates.push(cg);
-
-  for (let i = 0; i < currentGates.length; i++) {
-    const element = currentGates[i];
-    element.isShown = false;
-  }
 }

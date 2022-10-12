@@ -162,6 +162,23 @@ ul{
     margin-right: 50px;
 }
 
+.popup-click{
+    position: absolute;
+    display: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    flex-direction: column;
+}
+
+#ccg-btn{
+    padding: 10px
+}
+
+#ccg-btn:hover{
+    background-color: rgba(0, 0, 0,0.04);
+}
+
 
 
 /* https://codepen.io/avstorm/pen/gKGbxo */

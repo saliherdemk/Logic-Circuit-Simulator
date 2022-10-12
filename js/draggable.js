@@ -10,9 +10,18 @@ class Draggable {
     this.name = "";
     this.maxD = custom ? 120 : 40;
     this.isShown = true;
+    this.selected = false;
+  }
+
+  selectedControl() {
+    this.selected = selected.includes(this);
   }
 
   over() {
+    if (!this.isShown) {
+      this.rollover = false;
+      return;
+    }
     let d = dist(mouseX, mouseY, this.x, this.y);
     if (d < this.maxD && d > 0) {
       this.rollover = true;
@@ -22,6 +31,9 @@ class Draggable {
   }
 
   update() {
+    if (!this.isShown) {
+      return;
+    }
     if (this.dragging) {
       for (let i = 0; i < selected.length; i++) {
         const element = selected[i];
@@ -37,7 +49,7 @@ class Draggable {
       this.y = mouseY + this.offsetY;
     }
 
-    let united = [...currentGates, ...currentIOs];
+    let united = [...currentGates, ...currentIOs, ...customGates];
 
     const oversea = united.find(
       (e) => e.x > width || e.y < 0 || e.y > height || e.x < 0
@@ -49,6 +61,9 @@ class Draggable {
   }
 
   pressed() {
+    if (!this.isShown) {
+      return;
+    }
     let d = dist(mouseX, mouseY, this.x, this.y);
     if (d < this.maxD && d > 0) {
       this.dragging = true;
@@ -63,7 +78,7 @@ class Draggable {
   }
 
   specifyElement() {
-    if (this.rollover) {
+    if (this.rollover && this.isShown) {
       elForNameChange = this;
       openPopup();
     }
@@ -83,6 +98,11 @@ class Draggable {
       const index1 = currentGates.indexOf(this);
       if (index1 > -1) {
         currentGates.splice(index1, 1);
+      }
+
+      const index2 = customGates.indexOf(this);
+      if (index2 > -1) {
+        customGates.splice(index2, 1);
       }
 
       const wires = currentWires.filter(

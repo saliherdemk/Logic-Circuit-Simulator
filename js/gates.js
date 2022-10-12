@@ -9,12 +9,11 @@ class InputOutput extends Draggable {
     this.lineX1 = type ? 10 : -10;
     this.lineX2 = type ? 50 : -50;
     this.height = 20;
-    this.isSelected = false;
   }
 
   show() {
     const isFilled = currentIOs.find(
-      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this
+      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
     );
     if (isFilled) {
       this.y = this.y - 50;
@@ -48,15 +47,13 @@ class InputOutput extends Draggable {
     stroke(0);
   }
 
-  selectedControl() {
-    this.selected = selected.includes(this);
-  }
-
   draw() {
-    this.show();
-    this.over();
-    this.update();
-    this.selectedControl();
+    if (this.isShown) {
+      this.show();
+      this.over();
+      this.update();
+      this.selectedControl();
+    }
   }
 }
 
@@ -67,12 +64,13 @@ class NotGate extends Draggable {
     this.y = y;
     this.input1 = null;
     this.output = null;
-    (this.width = 110), (this.height = 50), (this.isSelected = false);
+    this.width = 110;
+    this.height = 50;
   }
 
   show() {
     const isFilled = currentGates.find(
-      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this
+      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
     );
     if (isFilled) {
       this.y = this.y - 50;
@@ -103,10 +101,6 @@ class NotGate extends Draggable {
     }
   }
 
-  selectedControl() {
-    this.selected = selected.includes(this);
-  }
-
   draw() {
     if (this.isShown) {
       this.show();
@@ -126,18 +120,17 @@ class Gates extends Draggable {
     this.input1 = null;
     this.input2 = null;
     this.output = null;
-    (this.type = type),
-      (this.width = 110),
-      (this.height = 50),
-      (this.imgX = this.x - 55),
-      (this.imgY = this.y - 35),
-      (this.IsOverlapping = false),
-      (this.isSelected = false);
+    this.type = type;
+    this.width = 110;
+    this.height = 50;
+    this.imgX = this.x - 55;
+    this.imgY = this.y - 35;
+    this.IsOverlapping = false;
   }
 
   show() {
     const isFilled = currentGates.find(
-      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this
+      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
     );
     if (isFilled) {
       this.y = this.y - 50;
@@ -194,10 +187,6 @@ class Gates extends Draggable {
     stroke(0);
   }
 
-  selectedControl() {
-    this.selected = selected.includes(this);
-  }
-
   updateOutput() {
     if (this.input1 && this.input2) {
       var result = 0;
@@ -229,10 +218,12 @@ class Gates extends Draggable {
   }
 
   draw() {
-    this.show();
-    this.over();
-    this.update();
+    if (this.isShown) {
+      this.show();
+      this.over();
+      this.update();
+      this.selectedControl();
+    }
     this.updateOutput();
-    this.selectedControl();
   }
 }

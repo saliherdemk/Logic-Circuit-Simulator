@@ -1,132 +1,125 @@
-var currentIOs = []
-var currentGates = []
-var currentWires = []
-var currentNodes = []
-var selects = []
-var selected = []
+const selectDiv = document.querySelector(".popup-click");
+var currentIOs = [];
+var currentGates = [];
+var currentWires = [];
+var currentNodes = [];
+var selects = [];
+var selected = [];
 
-var customGates = []
+var customGates = [];
 
-var deleteMode = false
-var selectMode = false
+var deleteMode = false;
+var selectMode = false;
 
-var elForNameChange = null
+var elForNameChange = null;
 
 function generateInput() {
-    let input = new InputOutput(0, (width / 10) / 5, height - 20,true);
-    currentIOs.push(input);
+  let input = new InputOutput(0, width / 10 / 5, height - 20, true);
+  currentIOs.push(input);
 
-    let node = new Node(0,input,false)
-    currentNodes.push(node)
+  let node = new Node(0, input, false);
+  currentNodes.push(node);
 }
 
 function generateOutput() {
-    let output = new InputOutput(0, (width / 10) * 1.3, height - 20,false);
-    currentIOs.push(output)
+  let output = new InputOutput(0, (width / 10) * 1.3, height - 20, false);
+  currentIOs.push(output);
 
-    let node = new Node(0,output,true)
-    currentNodes.push(node)
-
+  let node = new Node(0, output, true);
+  currentNodes.push(node);
 }
 
 function generateANDGate() {
-    let andGate = new Gates((width / 10) * 2, height - 20,"andGate");
-    currentGates.push(andGate)
+  let andGate = new Gates((width / 10) * 2, height - 20, "andGate");
+  currentGates.push(andGate);
 
-    let input1 = new Node(0,andGate,true)
-    currentNodes.push(input1)
+  let input1 = new Node(0, andGate, true);
+  currentNodes.push(input1);
 
-    let input2 = new Node(0,andGate,true)
-    currentNodes.push(input2)
+  let input2 = new Node(0, andGate, true);
+  currentNodes.push(input2);
 
-    let output = new Node(0,andGate,false)
-    currentNodes.push(output)
-    
+  let output = new Node(0, andGate, false);
+  currentNodes.push(output);
 }
 
 function generateNOTGate() {
-    let notGate = new NotGate((width / 10) * 4.1,height - 20);
-    currentGates.push(notGate)
+  let notGate = new NotGate((width / 10) * 4.1, height - 20);
+  currentGates.push(notGate);
 
-    let input = new Node(0,notGate,true)
-    currentNodes.push(input)
+  let input = new Node(0, notGate, true);
+  currentNodes.push(input);
 
-    let output = new Node(0,notGate,false)
-    currentNodes.push(output)
-    
+  let output = new Node(0, notGate, false);
+  currentNodes.push(output);
 }
 
 function generateORGate() {
-    let orGate = new Gates((width / 10) * 3, height - 20,"orGate");
-    currentGates.push(orGate)
+  let orGate = new Gates((width / 10) * 3, height - 20, "orGate");
+  currentGates.push(orGate);
 
-    let input1 = new Node(0,orGate,true)
-    currentNodes.push(input1)
+  let input1 = new Node(0, orGate, true);
+  currentNodes.push(input1);
 
-    let input2 = new Node(0,orGate,true)
-    currentNodes.push(input2)
+  let input2 = new Node(0, orGate, true);
+  currentNodes.push(input2);
 
-    let output = new Node(0,orGate,false)
-    currentNodes.push(output)
-    
+  let output = new Node(0, orGate, false);
+  currentNodes.push(output);
 }
 
-function generateNANDGate(){
-    let nandGate = new Gates((width / 10) * 5.2, height - 20,"nandGate");
-    currentGates.push(nandGate)
+function generateNANDGate() {
+  let nandGate = new Gates((width / 10) * 5.2, height - 20, "nandGate");
+  currentGates.push(nandGate);
 
-    let input1 = new Node(0,nandGate,true)
-    currentNodes.push(input1)
+  let input1 = new Node(0, nandGate, true);
+  currentNodes.push(input1);
 
-    let input2 = new Node(0,nandGate,true)
-    currentNodes.push(input2)
+  let input2 = new Node(0, nandGate, true);
+  currentNodes.push(input2);
 
-    let output = new Node(0,nandGate,false)
-    currentNodes.push(output)
-
+  let output = new Node(0, nandGate, false);
+  currentNodes.push(output);
 }
 
-function generateNORGate(){
-    let norGate = new Gates((width / 10) * 6.3, height - 20,"norGate");
-    currentGates.push(norGate)
+function generateNORGate() {
+  let norGate = new Gates((width / 10) * 6.3, height - 20, "norGate");
+  currentGates.push(norGate);
 
-    let input1 = new Node(0,norGate,true)
-    currentNodes.push(input1)
+  let input1 = new Node(0, norGate, true);
+  currentNodes.push(input1);
 
-    let input2 = new Node(0,norGate,true)
-    currentNodes.push(input2)
+  let input2 = new Node(0, norGate, true);
+  currentNodes.push(input2);
 
-    let output = new Node(0,norGate,false)
-    currentNodes.push(output)
-
+  let output = new Node(0, norGate, false);
+  currentNodes.push(output);
 }
 
-function generateXORGate(){
-    let xorGate = new Gates((width / 10) * 7.3, height - 20,"xorGate");
-    currentGates.push(xorGate)
+function generateXORGate() {
+  let xorGate = new Gates((width / 10) * 7.3, height - 20, "xorGate");
+  currentGates.push(xorGate);
 
-    let input1 = new Node(0,xorGate,true)
-    currentNodes.push(input1)
+  let input1 = new Node(0, xorGate, true);
+  currentNodes.push(input1);
 
-    let input2 = new Node(0,xorGate,true)
-    currentNodes.push(input2)
+  let input2 = new Node(0, xorGate, true);
+  currentNodes.push(input2);
 
-    let output = new Node(0,xorGate,false)
-    currentNodes.push(output)
-
+  let output = new Node(0, xorGate, false);
+  currentNodes.push(output);
 }
 
-function generateXNORGate(){
-    let xnorGate = new Gates((width / 10) * 8.4, height - 20,"xnorGate");
-    currentGates.push(xnorGate)
+function generateXNORGate() {
+  let xnorGate = new Gates((width / 10) * 8.4, height - 20, "xnorGate");
+  currentGates.push(xnorGate);
 
-    let input1 = new Node(0,xnorGate,true)
-    currentNodes.push(input1)
+  let input1 = new Node(0, xnorGate, true);
+  currentNodes.push(input1);
 
-    let input2 = new Node(0,xnorGate,true)
-    currentNodes.push(input2)
-    
-    let output = new Node(0,xnorGate,false)
-    currentNodes.push(output)
+  let input2 = new Node(0, xnorGate, true);
+  currentNodes.push(input2);
 
+  let output = new Node(0, xnorGate, false);
+  currentNodes.push(output);
 }

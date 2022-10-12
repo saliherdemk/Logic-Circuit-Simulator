@@ -7,6 +7,8 @@ class CustomGate extends Draggable {
     this.inputs = [];
     this.outputs = [];
     this.wires = [];
+    this.width = 100;
+    this.height = 50;
   }
 
   setIO() {
@@ -40,6 +42,7 @@ class CustomGate extends Draggable {
     }
     this.inputs = inputs;
     this.outputs = outputs;
+    this.height = this.inputs.length * 20;
   }
 
   renderWires() {
@@ -48,12 +51,30 @@ class CustomGate extends Draggable {
     }
   }
 
+  show() {
+    this.rollover || this.selected ? stroke(173, 216, 230) : noStroke();
+
+    fill(255, 255, 255, 0);
+    rect(this.x, this.y, this.width, this.height);
+    strokeWeight(4);
+    stroke(0);
+
+    fill(111, 143, 175);
+    noStroke();
+    textSize(15);
+    text(this.name, this.x + 35, this.y + this.height / 2);
+    fill(255);
+    stroke(0);
+  }
+
   draw() {
     var inputs = this.inputs;
     var outputs = this.outputs;
-    rect(this.x, this.y, 100, inputs.length * 20);
+    rect(this.x, this.y, 100, this.height);
+    this.show();
     this.over();
     this.update();
+    this.selectedControl();
     this.renderWires();
   }
 }

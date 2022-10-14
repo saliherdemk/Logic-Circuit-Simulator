@@ -1,5 +1,7 @@
 const deleteButton = document.querySelector(".delete-btn");
 const ccgNameInput = document.querySelector("#ccg-inp");
+const ccgSection = document.querySelector(".custom-gates");
+const error = document.querySelector("#error");
 
 const inp = document.getElementById("inp");
 
@@ -69,34 +71,41 @@ function dist(x1, y1, x2, y2) {
 
 function createCustomButton(props) {
   button = createButton(ccgNameInput.value);
-  button.size(100, 10);
-  button.position(100, 100);
-  button.style("background", "black");
+  button.style("border", "2px solid black");
+  button.style("position", "relative");
+  button.style("height", "50px");
+  button.style("width", "100%");
+  button.style("margin-bottom", "30px");
   button.mousePressed(() => {
     generateCustomGate(props);
   });
+  button.parent(ccgSection);
+  ccgNameInput.value = "";
 }
 
 function createCustomGate() {
+  if (!selected.length) {
+    error.style.display = "block";
+    ccgNameInput.value = "";
+    setTimeout(() => {
+      error.style.display = "none";
+    }, 2000);
+    return;
+  }
+
   var clones = [];
   for (let i = 0; i < selected.length; i++) {
     var clone = _.clone(selected[i]);
     clones.push(clone);
+    selected[i].isShown = false;
   }
-  let cg = new CustomGate(clones, 10, 10);
+  let cgX = selected[Math.floor(selected.length / 2)].x;
+  let cgY = selected[Math.floor(selected.length / 2)].y;
+
+  let cg = new CustomGate(clones, cgX, cgY);
   cg.setIO();
   customGates.push(cg);
 
-  for (let i = 0; i < currentGates.length; i++) {
-    const element = currentGates[i];
-    element.isShown = false;
-  }
-
-  for (let i = 0; i < currentIOs.length; i++) {
-    const element = currentIOs[i];
-    element.isShown = false;
-  }
-  console.log(cg);
   cg.changeName(ccgNameInput.value);
   closeCcg();
   createCustomButton(clones);

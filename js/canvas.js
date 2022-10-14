@@ -9,12 +9,14 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight - 100);
+  let cnv = createCanvas(windowWidth - 200, windowHeight - 80);
+  cnv.style("margin-left", "220px");
   strokeWeight(4);
 }
 
 function draw() {
   background(255);
+
   drawForElements(selects);
   drawForElements(currentGates);
   drawForElements(currentIOs);
@@ -27,7 +29,7 @@ function draw() {
 function mousePressed() {
   if (mouseButton === RIGHT) {
     selectDiv.style.display = "flex";
-    selectDiv.style.left = mouseX + "px";
+    selectDiv.style.left = mouseX + 200 + "px";
     selectDiv.style.top = mouseY + "px";
     isMenuOpen = true;
 
@@ -36,7 +38,7 @@ function mousePressed() {
 
   selectMode = true;
 
-  selected.find((el) => el.rollover) ? null : (selected = []);
+  selected.find((el) => el.rollover) || isMenuOpen ? null : (selected = []);
 
   pressedActionForElements(currentIOs);
   pressedActionForElements(currentGates);

@@ -8,7 +8,7 @@ class Select {
   }
 
   draw() {
-    if (selectMode) {
+    if (selectMode && !isMenuOpen) {
       let w = mouseX - this.x;
       let h = mouseY - this.y;
 
@@ -43,6 +43,9 @@ class Select {
 
     for (let i = 0; i < all.length; i++) {
       const element = all[i];
+      if (!element.isShown) {
+        continue;
+      }
 
       //https://editor.p5js.org/eric/sketches/HkW2DRKnl
       if (

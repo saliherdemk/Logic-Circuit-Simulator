@@ -127,7 +127,6 @@ function generateXNORGate() {
 }
 
 function generateCustomGate(props) {
-  console.log(props);
   let cg = new CustomGate(props, 10, 10);
 
   cg.setIO();

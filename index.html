@@ -15,7 +15,7 @@
     >
       <img class="github-logo" src="./img/githubLogo.png" alt="" />
     </a>
-    <div class="tools">
+    <div class="gates">
       <button class="input" onclick="generateInput()"></button>
 
       <button class="output" onclick="generateOutput()"></button>
@@ -37,7 +37,10 @@
       <button class="delete-btn" onclick="toggleDeleteMode()"></button>
     </div>
 
+    <div class="custom-gates"></div>
+
     <div class="popup-click">
+      <span id="error">There is no any selected gates</span>
       <form class="ccg-div" onsubmit="createCustomGate(); return false;">
         <div class="input-container">
           <label for="inp" class="inp">
@@ -46,19 +49,27 @@
               id="ccg-inp"
               placeholder="&nbsp;"
               autocomplete="off"
+              required
             />
-            <span class="label">Gate Name</span>
+            <div class="label">Gate Name</div>
           </label>
           <div class="done-container">
             <!-- <img src="./img/doneIcon.png" alt="" width="25" height="25" /> -->
-          <input type="image" src="./img/doneIcon.png" alt="" width="25" height="25" alt="Submit Form" />
-
+            <input
+              type="image"
+              src="./img/doneIcon.png"
+              alt=""
+              width="25"
+              height="25"
+              alt="Submit Form"
+            />
           </div>
         </div>
         <!-- <input  type="submit" value="Create Custom Gate" class="ccg-btn" id="submit-ccg-btn"/> -->
-          
       </form>
-      <button class="ccg-btn" id="close-ccg-btn" onclick="closeCcg()">Cancel</button>
+      <button class="ccg-btn" id="close-ccg-btn" onclick="closeCcg()">
+        Cancel
+      </button>
     </div>
 
     <div class="popup-container">
@@ -98,6 +109,9 @@
           <ul>
             If you want to delete something faster, you can drag out of the
             screen
+          </ul>
+          <ul>
+            You can create components. Select all integrated gates & inputs and right click. Then name your integrated circuit.
           </ul>
         </div>
       </div>

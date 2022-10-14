@@ -14,8 +14,32 @@ class CustomGate extends Draggable {
   setIO() {
     var inputs = [];
     var outputs = [];
+
     for (let i = 0; i < this.components.length; i++) {
       const element = this.components[i];
+      if (element instanceof CustomGate) {
+        for (let i = 0; i < element.inputs.length; i++) {
+          const input = element.inputs[i];
+          if (input.hasWire === false) {
+            let node = new Node(0, this, true);
+            currentNodes.push(node);
+            inputs.push(node);
+            let hdWire = new HiddenWire(input, node);
+            this.wires.push(hdWire);
+          }
+        }
+
+        for (let i = 0; i < element.outputs.length; i++) {
+          const output = element.outputs[i];
+          if (output.hasWire === false) {
+            let node = new Node(0, this, true);
+            currentNodes.push(node);
+            outputs.push(node);
+            let hdWire = new HiddenWire(output, node);
+            this.wires.push(hdWire);
+          }
+        }
+      }
       if (element?.input1?.hasWire === false) {
         let node = new Node(0, this, true);
         currentNodes.push(node);
@@ -70,11 +94,14 @@ class CustomGate extends Draggable {
   draw() {
     var inputs = this.inputs;
     var outputs = this.outputs;
-    rect(this.x, this.y, 100, this.height);
-    this.show();
-    this.over();
-    this.update();
-    this.selectedControl();
+    if (this.isShown) {
+      rect(this.x, this.y, 100, this.height);
+      this.show();
+      this.over();
+      this.update();
+      this.selectedControl();
+    }
+
     this.renderWires();
   }
 }

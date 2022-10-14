@@ -3,7 +3,7 @@ var currentIOs = [];
 var currentGates = [];
 var currentWires = [];
 var currentNodes = [];
-var customGates = [];
+var currentComponents = [];
 var selects = [];
 var selected = [];
 
@@ -126,9 +126,10 @@ function generateXNORGate() {
   currentNodes.push(output);
 }
 
-function generateCustomGate(props) {
+function generateCustomGate(props, name) {
   let cg = new CustomGate(props, 10, 10);
+  cg.changeName(name);
 
   cg.setIO();
-  customGates.push(cg);
+  currentComponents.push(cg);
 }

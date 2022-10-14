@@ -30,7 +30,7 @@ class Draggable {
         diffX >= 0 &&
         diffX <= 100 &&
         diffY >= 0 &&
-        diffY <= this.inputs.length * 20;
+        diffY <= this.inputs.length * 20 + 20;
       return;
     }
 
@@ -41,6 +41,23 @@ class Draggable {
     if (!this.isShown) {
       return;
     }
+
+    if (this.isCustom) {
+      const isFilled = currentComponents.find(
+        (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
+      );
+      if (isFilled) {
+        this.x = this.x + 120;
+      }
+    } else {
+      const isFilled = currentGates.find(
+        (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
+      );
+      if (isFilled) {
+        this.y = this.y - 50;
+      }
+    }
+
     if (this.dragging) {
       for (let i = 0; i < selected.length; i++) {
         const element = selected[i];
@@ -56,7 +73,7 @@ class Draggable {
       this.y = mouseY + this.offsetY;
     }
 
-    let united = [...currentGates, ...currentIOs, ...customGates];
+    let united = [...currentGates, ...currentIOs, ...currentComponents];
 
     const oversea = united.find(
       (e) => e.x > width || e.y < 0 || e.y > height || e.x < 0
@@ -106,9 +123,9 @@ class Draggable {
         currentGates.splice(index1, 1);
       }
 
-      const index2 = customGates.indexOf(this);
+      const index2 = currentComponents.indexOf(this);
       if (index2 > -1) {
-        customGates.splice(index2, 1);
+        currentComponents.splice(index2, 1);
       }
 
       const wires = currentWires.filter(

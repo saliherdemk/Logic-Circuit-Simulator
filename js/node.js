@@ -28,7 +28,7 @@ class Node {
       for (let i = 0; i < inputs.length; i++) {
         const element = inputs[i];
         if (element === this) {
-          this.y += i * 20;
+          this.y += i * 20 + 10;
           this.x += 50;
         }
       }
@@ -39,7 +39,7 @@ class Node {
       for (let i = 0; i < outputs.length; i++) {
         const element = outputs[i];
         if (element === this) {
-          this.y += i * 20;
+          this.y += i * 20 + 10;
           this.x += 50;
         }
       }

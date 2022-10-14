@@ -21,7 +21,7 @@ function draw() {
   drawForElements(currentGates);
   drawForElements(currentIOs);
   drawForElements(currentWires);
-  drawForElements(customGates);
+  drawForElements(currentComponents);
 
   drawForElements(currentNodes);
 }
@@ -42,7 +42,7 @@ function mousePressed() {
 
   pressedActionForElements(currentIOs);
   pressedActionForElements(currentGates);
-  pressedActionForElements(customGates);
+  pressedActionForElements(currentComponents);
 
   for (let i = 0; i < currentNodes.length; i++) {
     currentNodes[i].active();
@@ -59,7 +59,7 @@ function mouseReleased() {
   releasedActionForElements(currentIOs);
   releasedActionForElements(currentGates);
   releasedActionForElements(selects);
-  releasedActionForElements(customGates);
+  releasedActionForElements(currentComponents);
 }
 
 function doubleClicked() {

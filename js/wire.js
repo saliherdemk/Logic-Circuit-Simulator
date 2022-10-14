@@ -87,28 +87,28 @@ class Wire {
   }
 
   draw() {
-    if (!this.startNode.parent.isShown) {
-      return;
+    if (this.startNode.parent.isShown) {
+      if (this.isLineActive || this.isLineDone) {
+        let startX = this.startNode.x;
+        let startY = this.startNode.y;
+        let targetX = this.isLineDone ? this.endNode.x : mouseX;
+        let targetY = this.isLineDone ? this.endNode.y : mouseY;
+        fill(255, 255, 255, 1);
+        stroke(this.color, this.color, this.color);
+        bezier(
+          startX,
+          startY,
+          startX + this.nodeXDecisive,
+          startY,
+          targetX - this.nodeXDecisive,
+          targetY,
+          targetX,
+          targetY
+        );
+        stroke(0);
+      }
     }
-    if (this.isLineActive || this.isLineDone) {
-      let startX = this.startNode.x;
-      let startY = this.startNode.y;
-      let targetX = this.isLineDone ? this.endNode.x : mouseX;
-      let targetY = this.isLineDone ? this.endNode.y : mouseY;
-      fill(255, 255, 255, 1);
-      stroke(this.color, this.color, this.color);
-      bezier(
-        startX,
-        startY,
-        startX + this.nodeXDecisive,
-        startY,
-        targetX - this.nodeXDecisive,
-        targetY,
-        targetX,
-        targetY
-      );
-      stroke(0);
-    }
+
     this.isLineDone && this.commited();
     this.update();
     this.isMouseOver();

@@ -32,7 +32,7 @@ class CustomGate extends Draggable {
         for (let i = 0; i < element.outputs.length; i++) {
           const output = element.outputs[i];
           if (output.hasWire === false) {
-            let node = new Node(0, this, true);
+            let node = new Node(0, this, false);
             currentNodes.push(node);
             outputs.push(node);
             let hdWire = new HiddenWire(output, node);
@@ -66,7 +66,8 @@ class CustomGate extends Draggable {
     }
     this.inputs = inputs;
     this.outputs = outputs;
-    this.height = this.inputs.length * 20;
+    this.height = Math.max(this.inputs.length, this.outputs.length) * 20 + 20;
+    this.height = this.height < 10 ? 10 : this.height;
   }
 
   renderWires() {
@@ -92,8 +93,6 @@ class CustomGate extends Draggable {
   }
 
   draw() {
-    var inputs = this.inputs;
-    var outputs = this.outputs;
     if (this.isShown) {
       rect(this.x, this.y, 100, this.height);
       this.show();

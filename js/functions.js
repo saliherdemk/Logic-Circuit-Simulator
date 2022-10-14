@@ -33,7 +33,7 @@ function changeValueActionForElements(arr) {
 }
 
 function changeNameActionForElements() {
-  let all = [...currentGates, ...currentIOs, ...customGates];
+  let all = [...currentGates, ...currentIOs, ...currentComponents];
   for (let i = 0; i < all.length; i++) {
     all[i].specifyElement();
   }
@@ -70,14 +70,15 @@ function dist(x1, y1, x2, y2) {
 }
 
 function createCustomButton(props) {
-  button = createButton(ccgNameInput.value);
+  var name = ccgNameInput.value;
+  button = createButton(name);
   button.style("border", "2px solid black");
   button.style("position", "relative");
   button.style("height", "50px");
   button.style("width", "100%");
   button.style("margin-bottom", "30px");
   button.mousePressed(() => {
-    generateCustomGate(props);
+    generateCustomGate(props, name);
   });
   button.parent(ccgSection);
   ccgNameInput.value = "";
@@ -89,10 +90,9 @@ function createCustomGate() {
     ccgNameInput.value = "";
     setTimeout(() => {
       error.style.display = "none";
-    }, 2000);
+    }, 3000);
     return;
   }
-
   var clones = [];
   for (let i = 0; i < selected.length; i++) {
     var clone = _.clone(selected[i]);
@@ -104,7 +104,7 @@ function createCustomGate() {
 
   let cg = new CustomGate(clones, cgX, cgY);
   cg.setIO();
-  customGates.push(cg);
+  currentComponents.push(cg);
 
   cg.changeName(ccgNameInput.value);
   closeCcg();

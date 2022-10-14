@@ -33,7 +33,7 @@ class Select {
       ...currentIOs,
       ...currentNodes,
       ...currentWires,
-      ...customGates,
+      ...currentComponents,
     ];
     let absX = mouseX > this.x ? this.x : mouseX;
     let absY = mouseY > this.y ? this.y : mouseY;

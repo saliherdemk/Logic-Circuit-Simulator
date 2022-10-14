@@ -69,13 +69,6 @@ class NotGate extends Draggable {
   }
 
   show() {
-    const isFilled = currentGates.find(
-      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
-    );
-    if (isFilled) {
-      this.y = this.y - 50;
-    }
-
     strokeWeight(2);
     this.rollover || this.selected ? stroke(173, 216, 230) : noStroke();
 
@@ -129,12 +122,6 @@ class Gates extends Draggable {
   }
 
   show() {
-    const isFilled = currentGates.find(
-      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
-    );
-    if (isFilled) {
-      this.y = this.y - 50;
-    }
     this.imgX = this.x - 55;
     this.imgY = this.y - 35;
 

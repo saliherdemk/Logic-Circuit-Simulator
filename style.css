@@ -4,6 +4,10 @@ body {
   margin: 0 0;
   font-family: "Poppins";
   overflow: hidden;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .gates {

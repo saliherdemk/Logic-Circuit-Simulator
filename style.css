@@ -1,260 +1,258 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600&display=swap");
 
-body{
-    margin: 0 0;
-    font-family: 'Poppins';
+body {
+  margin: 0 0;
+  font-family: "Poppins";
 }
 
-.tools{
-    position: absolute;
-    width: 100%;
-    height: 80px;
-    bottom: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    box-shadow: 0px 1px 10px #999;
-
+.tools {
+  position: absolute;
+  width: 100%;
+  height: 80px;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0px 1px 10px #999;
 }
 
-button{
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 100px;
-    height: 100%;
-    background-size:contain;
-    background-position: center;
-    background-repeat: no-repeat;
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.github-logo{
-    position: absolute;
-    right: 0;
-    width: 70px;
+.github-logo {
+  position: absolute;
+  right: 0;
+  width: 70px;
 }
 
-.input{
-    width: 70px !important;
-    background-image: url('./img/input.png');
-
+.input {
+  width: 70px !important;
+  background-image: url("./img/input.png");
 }
 
-.output{
-    width: 70px !important;
-    background-image: url('./img/output.png');
-
+.output {
+  width: 70px !important;
+  background-image: url("./img/output.png");
 }
 
-.andGate{
-    background-image: url('./img/andGate.png');
-
+.andGate {
+  background-image: url("./img/andGate.png");
 }
 
-.orGate{
-    background-image: url('./img/orGate.png');
-
+.orGate {
+  background-image: url("./img/orGate.png");
 }
 
-.notGate{
-    background-image: url('./img/notGate.png');
-
+.notGate {
+  background-image: url("./img/notGate.png");
 }
 
-.nandGate{
-    background-image: url('./img/nandGate.png');
-
+.nandGate {
+  background-image: url("./img/nandGate.png");
 }
 
-.norGate{
-    background-image: url('./img/norGate.png');
-
+.norGate {
+  background-image: url("./img/norGate.png");
 }
 
-.xorGate{
-    background-image: url('./img/xorGate.png');
-
+.xorGate {
+  background-image: url("./img/xorGate.png");
 }
 
-.xnorGate{
-    background-image: url('./img/xnorGate.png');
-
+.xnorGate {
+  background-image: url("./img/xnorGate.png");
 }
 
-.bin{
-    width: 40px;
+.bin {
+  width: 40px;
 }
 
-.delete-btn{
-    width: 40px !important;
-    background-image: url('./img/bin.png');
-
+.delete-btn {
+  width: 40px !important;
+  background-image: url("./img/bin.png");
 }
 
-.delete-on{
-    background-image: url('./img/recycle-bin.png');
-
+.delete-on {
+  background-image: url("./img/recycle-bin.png");
 }
 
-.popup-container{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.2);
-    display: none;
+.popup-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  display: none;
 }
 
-.popup-input, .popup-info{
-    position: relative;
-    max-width: 500px;
-    border-radius: 10px;
-    background-color: white;
-    padding-bottom: 10px;
-
+.popup-input,
+.popup-info {
+  position: relative;
+  max-width: 500px;
+  border-radius: 10px;
+  background-color: white;
+  padding-bottom: 10px;
 }
 
-.popup-info{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.popup-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.img-container{
-    float: right;
-    margin: 10px;
-    cursor: pointer;
+.img-container {
+  float: right;
+  margin: 10px;
+  cursor: pointer;
 }
 
-.done-container{
-    cursor: pointer;
-    display: flex;
-    align-items: flex-end;
-    margin-right: 20px;
-    margin-bottom: 10px;
+.done-container {
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
 }
 
-.input-container{
-    display: flex;
+.input-container {
+  display: flex;
 }
 
-.info-container{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.2);
-
+#input-container-popup {
+  margin: 10px;
 }
 
-.popup-info img{
-    width: 100%;
-    height: 100%;
+.info-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
 }
 
-ul{
-    text-align: center;
-    margin-right: 50px;
+.popup-info img {
+  width: 100%;
+  height: 100%;
 }
 
-.popup-click{
-    position: absolute;
-    display: none;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: white;
-    flex-direction: column;
+ul {
+  text-align: center;
+  margin-right: 50px;
 }
 
-#ccg-btn{
-    padding: 10px
+.popup-click {
+  position: absolute;
+  display: none;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  flex-direction: column;
+  width: 200px;
 }
 
-#ccg-btn:hover{
-    background-color: rgba(0, 0, 0,0.04);
+.ccg-div {
+  padding-right: 5px;
+  display: flex;
 }
 
+#ccg-name-input {
+  width: 75%;
+}
 
+#submit-ccg-btn {
+  background-color: white;
+  border: none;
+  width: 25%;
+}
+
+#close-ccg-btn {
+  padding: 10px;
+  width: 100%;
+}
+
+.ccg-btn:hover {
+  background-color: #32bea6;
+  color: white;
+}
 
 /* https://codepen.io/avstorm/pen/gKGbxo */
 .inp {
-    position: relative;
-    max-width: 280px;
-    border-radius: 3px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    border-radius: 10px;
-    margin: 10px;
-    cursor: pointer;
-
+  position: relative;
+  max-width: 280px;
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  margin: 10px;
+  cursor: pointer;
 }
 
 .inp .label {
-    position: absolute;
-    top: 20px;
-    left: 12px;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.5);
-    font-weight: 500;
-    transform-origin: 0 0;
-    transform: translate3d(0, 0, 0);
-    transition: all 0.2s ease;
-    pointer-events: none;
+  position: absolute;
+  top: 20px;
+  left: 12px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+  transform-origin: 0 0;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.2s ease;
+  pointer-events: none;
 }
-
-
-
-
 
 .inp input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 100%;
-    border: 0;
-    font-family: inherit;
-    height: 56px;
-    font-size: 16px;
-    font-weight: 400;
-    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
-    color: #000;
-    transition: all 0.15s ease;
-    padding-top: 10px;
-    padding-left: 14px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  border: 0;
+  font-family: inherit;
+  height: 45px;
+  font-size: 16px;
+  font-weight: 400;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  color: #000;
+  transition: all 0.15s ease;
+  padding-top: 10px;
+  padding-left: 14px;
 }
 
-
-
 .inp input:not(:-moz-placeholder-shown) + .label {
-    transform: translate3d(0, -12px, 0) scale(0.75);
+  transform: translate3d(0, -12px, 0) scale(0.75);
 }
 
 .inp input:not(:-ms-input-placeholder) + .label {
-    transform: translate3d(0, -12px, 0) scale(0.75);
+  transform: translate3d(0, -12px, 0) scale(0.75);
 }
 
 .inp input:not(:placeholder-shown) + .label {
-    transform: translate3d(0, -12px, 0) scale(0.75);
+  transform: translate3d(0, -12px, 0) scale(0.75);
 }
 
 .inp input:focus {
-    outline: none;
-    box-shadow: inset 0 -2px 0 #32bea6;
+  outline: none;
+  box-shadow: inset 0 -2px 0 #32bea6;
 }
 
 .inp input:focus + .label {
-    color: #32bea6;
-    transform: translate3d(0, -12px, 0) scale(0.75);
+  color: #32bea6;
+  transform: translate3d(0, -15px, 0) scale(0.75);
 }
 
 .inp input:focus + .label + .focus-bg {
-    transform: scaleX(1);
-    transition: all 0.1s ease;
+  transform: scaleX(1);
+  transition: all 0.1s ease;
 }
-

@@ -3,15 +3,17 @@ var currentIOs = [];
 var currentGates = [];
 var currentWires = [];
 var currentNodes = [];
+var customGates = [];
 var selects = [];
 var selected = [];
 
-var customGates = [];
-
 var deleteMode = false;
 var selectMode = false;
+var isMenuOpen = false;
 
 var elForNameChange = null;
+
+var components = [];
 
 function generateInput() {
   let input = new InputOutput(0, width / 10 / 5, height - 20, true);
@@ -122,4 +124,12 @@ function generateXNORGate() {
 
   let output = new Node(0, xnorGate, false);
   currentNodes.push(output);
+}
+
+function generateCustomGate(props) {
+  console.log(props);
+  let cg = new CustomGate(props, 10, 10);
+
+  cg.setIO();
+  customGates.push(cg);
 }

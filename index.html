@@ -38,9 +38,27 @@
     </div>
 
     <div class="popup-click">
-      <button id="ccg-btn" onclick="createCustomGate()">Create Custom Gate</button>
-      <button id="ccg-btn" onclick="closeCcg()">Cancel</button>
-    
+      <form class="ccg-div" onsubmit="createCustomGate(); return false;">
+        <div class="input-container">
+          <label for="inp" class="inp">
+            <input
+              type="text"
+              id="ccg-inp"
+              placeholder="&nbsp;"
+              autocomplete="off"
+            />
+            <span class="label">Gate Name</span>
+          </label>
+          <div class="done-container">
+            <!-- <img src="./img/doneIcon.png" alt="" width="25" height="25" /> -->
+          <input type="image" src="./img/doneIcon.png" alt="" width="25" height="25" alt="Submit Form" />
+
+          </div>
+        </div>
+        <!-- <input  type="submit" value="Create Custom Gate" class="ccg-btn" id="submit-ccg-btn"/> -->
+          
+      </form>
+      <button class="ccg-btn" id="close-ccg-btn" onclick="closeCcg()">Cancel</button>
     </div>
 
     <div class="popup-container">
@@ -48,7 +66,7 @@
         <div class="img-container" onclick="closePopup()">
           <img src="./img/closeIcon.png" alt="" width="25" height="25" />
         </div>
-        <div class="input-container">
+        <div class="input-container" id="input-container-popup">
           <label for="inp" class="inp">
             <input
               type="text"
@@ -91,7 +109,13 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <script src="js/functions.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+      integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="js/functions.js"></script>
     <script src="js/canvas.js"></script>
     <script src="js/script.js"></script>
     <script src="js/draggable.js"></script>

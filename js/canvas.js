@@ -26,10 +26,10 @@ function draw() {
 
 function mousePressed() {
   if (mouseButton === RIGHT) {
-    // createCustomGate();
     selectDiv.style.display = "flex";
     selectDiv.style.left = mouseX + "px";
     selectDiv.style.top = mouseY + "px";
+    isMenuOpen = true;
 
     return;
   }

@@ -5,10 +5,10 @@ class Draggable {
     this.y = y;
     this.dragging = false;
     this.rollover = false;
+    this.isCustom = custom;
     this.offsetX = 0;
     this.offsetY = 0;
     this.name = "";
-    this.maxD = custom ? 120 : 40;
     this.isShown = true;
     this.selected = false;
   }
@@ -23,11 +23,18 @@ class Draggable {
       return;
     }
     let d = dist(mouseX, mouseY, this.x, this.y);
-    if (d < this.maxD && d > 0) {
-      this.rollover = true;
-    } else {
-      this.rollover = false;
+    let diffX = mouseX - this.x;
+    let diffY = mouseY - this.y;
+    if (this.isCustom) {
+      this.rollover =
+        diffX >= 0 &&
+        diffX <= 100 &&
+        diffY >= 0 &&
+        diffY <= this.inputs.length * 20;
+      return;
     }
+
+    this.rollover = d < 40 && d > 0;
   }
 
   update() {
@@ -64,8 +71,7 @@ class Draggable {
     if (!this.isShown) {
       return;
     }
-    let d = dist(mouseX, mouseY, this.x, this.y);
-    if (d < this.maxD && d > 0) {
+    if (this.rollover) {
       this.dragging = true;
       this.offsetX = this.x - mouseX;
       this.offsetY = this.y - mouseY;

@@ -1,4 +1,5 @@
 const deleteButton = document.querySelector(".delete-btn");
+const ccgNameInput = document.querySelector("#ccg-inp");
 
 const inp = document.getElementById("inp");
 
@@ -66,6 +67,16 @@ function dist(x1, y1, x2, y2) {
   return (x2 - x1) ** 2 + (y2 - y1) ** 2;
 }
 
+function createCustomButton(props) {
+  button = createButton(ccgNameInput.value);
+  button.size(100, 10);
+  button.position(100, 100);
+  button.style("background", "black");
+  button.mousePressed(() => {
+    generateCustomGate(props);
+  });
+}
+
 function createCustomGate() {
   var clones = [];
   for (let i = 0; i < selected.length; i++) {
@@ -73,7 +84,6 @@ function createCustomGate() {
     clones.push(clone);
   }
   let cg = new CustomGate(clones, 10, 10);
-
   cg.setIO();
   customGates.push(cg);
 
@@ -86,11 +96,13 @@ function createCustomGate() {
     const element = currentIOs[i];
     element.isShown = false;
   }
+  console.log(cg);
+  cg.changeName(ccgNameInput.value);
   closeCcg();
-  elForNameChange = cg;
-  openPopup();
+  createCustomButton(clones);
 }
 
 function closeCcg() {
   selectDiv.style.display = "none";
+  isMenuOpen = false;
 }

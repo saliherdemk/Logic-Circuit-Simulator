@@ -48,7 +48,8 @@ class CustomGate extends Draggable {
         let hdWire = new HiddenWire(element.input1, node);
         this.wires.push(hdWire);
       }
-      if (element?.input2?.wire === null && !(element instanceof NotGate)) {
+
+      if (element?.input2?.wire === null) {
         let node = new Node(0, this, true);
         currentNodes.push(node);
         inputs.push(node);

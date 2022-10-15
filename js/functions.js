@@ -78,20 +78,26 @@ function createCustomButton(props) {
 }
 
 function checkCanBeComponent() {
+  var inputs = 0;
+  var outputs = 0;
+  var errMsg = "Select all connected gates"
+
   for (let i = 0; i < selected.length; i++) {
     const element = selected[i];
-    console.log(element);
+    if (element.node) {
+      continue;
+    }
 
     if (element instanceof CustomGate) {
       for (let i = 0; i < element.inputs.length; i++) {
         const input = element.inputs[i];
         if (
           input.wire === null
-            ? false
+            ? !++inputs
             : !selected.includes(input.wire?.startNode.parent) ||
               !selected.includes(input.wire?.endNode.parent)
         ) {
-          return false;
+          return errMsg;
         }
       }
 
@@ -99,47 +105,55 @@ function checkCanBeComponent() {
         const output = element.outputs[i];
         if (
           output.wire === null
-            ? false
+            ? !++outputs
             : !selected.includes(output.wire?.startNode.parent) ||
               !selected.includes(output.wire?.endNode.parent)
         ) {
-          return false;
+          return errMsg;
         }
       }
     } else {
       if (
-        (element.input1 || element.input1?.wire === null
-          ? false
+        (element.input1?.wire === null
+          ? !++inputs
           : !selected.includes(element?.input1?.wire?.startNode?.parent) ||
             !selected.includes(element?.input1?.wire?.endNode?.parent)) ||
-        (element.input2 || element.input2?.wire === null
-          ? false
+        (element.input2? element.input2?.wire === null
+          ? !++inputs
           : !selected.includes(element?.input2?.wire?.startNode?.parent) ||
-            !selected.includes(element?.input2?.wire?.endNode?.parent)) ||
-        (element.output || element.output?.wire === null
-          ? false
+            !selected.includes(element?.input2?.wire?.endNode?.parent) : false) ||
+        (element.output?.wire === null
+          ? !++outputs
           : !selected.includes(element?.output?.wire?.startNode?.parent) ||
             !selected.includes(element?.output?.wire?.endNode?.parent))
       ) {
-        return false;
+        return errMsg;
       }
     }
   }
-  return true;
+  return inputs && outputs ? true : "Be sure component has at least one input & output";
 }
 
 function createCustomGate() {
+  let response = checkCanBeComponent() 
+  if ( response !== true) {
+    error.innerText = response;
+  }
+
   if (!selected.length) {
-    error.style.display = "block";
+    error.innerText = "There is no any selected gates";
+  }
+
+  if (!ccgNameInput.value) {
+    error.innerText = "Name your gate";
+  }
+
+  if (error.innerText) {
+    error.style.display = "flex";
     ccgNameInput.value = "";
-    setTimeout(() => {
-      error.style.display = "none";
-    }, 3000);
     return;
   }
-  if (!checkCanBeComponent()) {
-    return;
-  }
+
   var clones = [];
   for (let i = 0; i < selected.length; i++) {
     var clone = _.clone(selected[i]);
@@ -160,5 +174,8 @@ function createCustomGate() {
 
 function closeCcg() {
   selectDiv.style.display = "none";
+  error.innerText = "";
+  ccgNameInput.value = "";
+  error.style.display = "none";
   isMenuOpen = false;
 }

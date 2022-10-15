@@ -40,7 +40,7 @@
     <div class="custom-gates"></div>
 
     <div class="popup-click">
-      <span id="error">There is no any selected gates</span>
+      <span id="error"></span>
       <form class="ccg-div" onsubmit="createCustomGate(); return false;">
         <div class="input-container">
           <label for="inp" class="inp">
@@ -49,12 +49,10 @@
               id="ccg-inp"
               placeholder="&nbsp;"
               autocomplete="off"
-              required
             />
             <div class="label">Gate Name</div>
           </label>
           <div class="done-container">
-            <!-- <img src="./img/doneIcon.png" alt="" width="25" height="25" /> -->
             <input
               type="image"
               src="./img/doneIcon.png"
@@ -65,7 +63,6 @@
             />
           </div>
         </div>
-        <!-- <input  type="submit" value="Create Custom Gate" class="ccg-btn" id="submit-ccg-btn"/> -->
       </form>
       <button class="ccg-btn" id="close-ccg-btn" onclick="closeCcg()">
         Cancel

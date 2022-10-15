@@ -96,12 +96,10 @@ class Node {
           this.y = this.y - 10;
           this.inputY = -10;
         }
-      } else if (!element.input2) {
+      } else if (!element.input2 && !(element instanceof NotGate)) {
         element.input2 = this;
-        if (!(element instanceof NotGate)) {
-          this.y = this.y + 3;
-          this.inputY = 3;
-        }
+        this.y = this.y + 3;
+        this.inputY = 3;
       }
 
       if (!element.output && !this.isInput) {

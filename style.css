@@ -37,11 +37,14 @@ body {
 }
 
 #error{
-  position: absolute;
+  position: relative;
+  top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   z-index: 1;
   font-size: small;
-  text-align: center;
-  text-align: center;
   width: 100%;
   color: #dc3545;
   display: none;
@@ -223,12 +226,12 @@ ul {
 .inp {
   position: relative;
   max-width: 280px;
-  border-radius: 3px;
   overflow: hidden;
   display: flex;
   flex-direction: row;
   border-radius: 10px;
   margin: 10px;
+  margin-top: 0;
   cursor: pointer;
 }
 

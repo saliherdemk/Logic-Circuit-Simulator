@@ -1,15 +1,15 @@
 class Node {
   constructor(value, parent, isInput) {
-    (this.value = value),
-      (this.parent = parent),
-      (this.nodeXDecisive = isInput ? -50 : 50),
-      (this.wire = null),
-      (this.x = this.parent.x + this.nodeXDecisive),
-      (this.y = this.parent.y),
-      (this.isInput = isInput),
-      (this.isLineActive = false),
-      (this.inputY = 0),
-      (this.color = this.value ? color(0, 255, 0) : color(255, 0, 0));
+    this.value = value;
+    this.parent = parent;
+    this.nodeXDecisive = isInput ? -50 : 50;
+    this.wire = null;
+    this.x = this.parent.x + this.nodeXDecisive;
+    this.y = this.parent.y;
+    this.isInput = isInput;
+    this.isLineActive = false;
+    this.inputY = 0;
+    this.color = this.value ? color(0, 255, 0) : color(255, 0, 0);
     (this.isGateOutput = false), (this.isrollover = false);
   }
 

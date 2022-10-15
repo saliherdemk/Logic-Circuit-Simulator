@@ -5,10 +5,15 @@ class InputOutput extends Draggable {
     this.x = x;
     this.y = y;
     this.type = type;
+    this.node = null;
     this.width = type ? 50 : 40;
     this.lineX1 = type ? 10 : -10;
     this.lineX2 = type ? 50 : -50;
     this.height = 20;
+  }
+
+  setNode(node) {
+    this.node = node;
   }
 
   show() {

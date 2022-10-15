@@ -1,10 +1,10 @@
 class Select {
   constructor(x, y, w, h, isActive) {
-    (this.x = x),
-      (this.y = y),
-      (this.w = w),
-      (this.h = h),
-      (this.isActive = isActive);
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.isActive = isActive;
   }
 
   draw() {

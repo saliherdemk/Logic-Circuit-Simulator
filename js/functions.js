@@ -1,10 +1,3 @@
-const deleteButton = document.querySelector(".delete-btn");
-const ccgNameInput = document.querySelector("#ccg-inp");
-const ccgSection = document.querySelector(".custom-gates");
-const error = document.querySelector("#error");
-
-const inp = document.getElementById("inp");
-
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
 function drawForElements(arr) {

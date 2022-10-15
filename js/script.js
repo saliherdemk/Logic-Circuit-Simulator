@@ -1,26 +1,11 @@
-const selectDiv = document.querySelector(".popup-click");
-var currentIOs = [];
-var currentGates = [];
-var currentWires = [];
-var currentNodes = [];
-var currentComponents = [];
-var selects = [];
-var selected = [];
-
-var deleteMode = false;
-var selectMode = false;
-var isMenuOpen = false;
-
-var elForNameChange = null;
-
-var components = [];
-
 function generateInput() {
   let input = new InputOutput(0, width / 10 / 5, height - 20, true);
   currentIOs.push(input);
 
   let node = new Node(0, input, false);
   currentNodes.push(node);
+
+  input.setNode(node);
 }
 
 function generateOutput() {
@@ -29,6 +14,8 @@ function generateOutput() {
 
   let node = new Node(0, output, true);
   currentNodes.push(node);
+
+  output.setNode(node);
 }
 
 function generateANDGate() {

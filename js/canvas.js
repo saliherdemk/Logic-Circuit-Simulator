@@ -1,4 +1,3 @@
-// replace haswire with wire itself
 function preload() {
   andGate = loadImage("./img/andGate.png");
   nandGate = loadImage("./img/nandGate.png");

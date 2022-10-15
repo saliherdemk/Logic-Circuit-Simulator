@@ -3,7 +3,7 @@ class Node {
     (this.value = value),
       (this.parent = parent),
       (this.nodeXDecisive = isInput ? -50 : 50),
-      (this.hasWire = false),
+      (this.wire = null),
       (this.x = this.parent.x + this.nodeXDecisive),
       (this.y = this.parent.y),
       (this.isInput = isInput),
@@ -128,7 +128,7 @@ class Node {
     const element = currentWires.find((el) => el.isLineActive == true);
     this.rollover();
     if (this.isInput && element && this.isrollover) {
-      if (!this.hasWire) {
+      if (!this.wire) {
         element.setEndNode(this);
       } else {
         this.isLineActive = false;

@@ -19,8 +19,8 @@ class Wire {
 
   commited() {
     this.endNode.value = this.startNode.value;
-    this.endNode.hasWire = true;
-    this.startNode.hasWire = true;
+    this.endNode.wire = this;
+    this.startNode.wire = this;
   }
 
   cancelled() {
@@ -32,10 +32,10 @@ class Wire {
         currentWires.splice(index, 1);
       }
       this.startNode.isLineActive = false;
-      this.startNode.hasWire = false;
+      this.startNode.wire = this;
       if (this.endNode) {
         this.endNode.isLineActive = false;
-        this.endNode.hasWire = false;
+        this.endNode.wire = this;
       }
       this.isLineActive = false;
     }
@@ -77,9 +77,9 @@ class Wire {
       }
 
       this.startNode.isLineActive = false;
-      this.startNode.hasWire = false;
+      this.startNode.wire = null;
       this.endNode.isLineActive = false;
-      this.endNode.hasWire = false;
+      this.endNode.wire = null;
       this.endNode.value = false;
       this.isLineActive = false;
     }

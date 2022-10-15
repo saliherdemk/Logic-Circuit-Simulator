@@ -84,6 +84,57 @@ function createCustomButton(props) {
   ccgNameInput.value = "";
 }
 
+function checkCanBeComponent() {
+  for (let i = 0; i < selected.length; i++) {
+    const element = selected[i];
+    console.log(element);
+
+    if (element instanceof CustomGate) {
+      for (let i = 0; i < element.inputs.length; i++) {
+        const input = element.inputs[i];
+        if (
+          input.wire === null
+            ? false
+            : !selected.includes(input.wire?.startNode.parent) ||
+              !selected.includes(input.wire?.endNode.parent)
+        ) {
+          return false;
+        }
+      }
+
+      for (let i = 0; i < element.outputs.length; i++) {
+        const output = element.outputs[i];
+        if (
+          output.wire === null
+            ? false
+            : !selected.includes(output.wire?.startNode.parent) ||
+              !selected.includes(output.wire?.endNode.parent)
+        ) {
+          return false;
+        }
+      }
+    } else {
+      if (
+        (element.input1 || element.input1?.wire === null
+          ? false
+          : !selected.includes(element?.input1?.wire?.startNode?.parent) ||
+            !selected.includes(element?.input1?.wire?.endNode?.parent)) ||
+        (element.input2 || element.input2?.wire === null
+          ? false
+          : !selected.includes(element?.input2?.wire?.startNode?.parent) ||
+            !selected.includes(element?.input2?.wire?.endNode?.parent)) ||
+        (element.output || element.output?.wire === null
+          ? false
+          : !selected.includes(element?.output?.wire?.startNode?.parent) ||
+            !selected.includes(element?.output?.wire?.endNode?.parent))
+      ) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 function createCustomGate() {
   if (!selected.length) {
     error.style.display = "block";
@@ -91,6 +142,9 @@ function createCustomGate() {
     setTimeout(() => {
       error.style.display = "none";
     }, 3000);
+    return;
+  }
+  if (!checkCanBeComponent()) {
     return;
   }
   var clones = [];

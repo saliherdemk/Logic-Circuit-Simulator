@@ -20,7 +20,7 @@ class CustomGate extends Draggable {
       if (element instanceof CustomGate) {
         for (let i = 0; i < element.inputs.length; i++) {
           const input = element.inputs[i];
-          if (input.hasWire === false) {
+          if (input.wire === null) {
             let node = new Node(0, this, true);
             currentNodes.push(node);
             inputs.push(node);
@@ -31,7 +31,7 @@ class CustomGate extends Draggable {
 
         for (let i = 0; i < element.outputs.length; i++) {
           const output = element.outputs[i];
-          if (output.hasWire === false) {
+          if (output.wire === null) {
             let node = new Node(0, this, false);
             currentNodes.push(node);
             outputs.push(node);
@@ -40,14 +40,15 @@ class CustomGate extends Draggable {
           }
         }
       }
-      if (element?.input1?.hasWire === false) {
+
+      if (element?.input1?.wire === null) {
         let node = new Node(0, this, true);
         currentNodes.push(node);
         inputs.push(node);
         let hdWire = new HiddenWire(element.input1, node);
         this.wires.push(hdWire);
       }
-      if (element?.input2?.hasWire === false && !(element instanceof NotGate)) {
+      if (element?.input2?.wire === null && !(element instanceof NotGate)) {
         let node = new Node(0, this, true);
         currentNodes.push(node);
         inputs.push(node);
@@ -55,7 +56,7 @@ class CustomGate extends Draggable {
         let hdWire = new HiddenWire(element.input2, node);
         this.wires.push(hdWire);
       }
-      if (element?.output?.hasWire === false) {
+      if (element?.output?.wire === null) {
         let node = new Node(0, this, false);
         currentNodes.push(node);
         outputs.push(node);

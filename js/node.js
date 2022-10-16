@@ -23,10 +23,11 @@ class Node {
   }
 
   rePositionForCustomGate() {
-    var inputs = this.parent.inputs;
+    var inputs = this.parent.clonedInputs;
     if (inputs) {
       for (let i = 0; i < inputs.length; i++) {
         const element = inputs[i];
+
         if (element === this) {
           this.y += i * 20 + 10;
           this.x += 50;
@@ -34,7 +35,7 @@ class Node {
       }
     }
 
-    var outputs = this.parent.outputs;
+    var outputs = this.parent.clonedOutputs;
     if (outputs) {
       for (let i = 0; i < outputs.length; i++) {
         const element = outputs[i];

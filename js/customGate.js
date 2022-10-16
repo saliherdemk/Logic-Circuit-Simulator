@@ -1,73 +1,63 @@
 class CustomGate extends Draggable {
-  constructor(components, x, y) {
+  constructor(clones, x, y) {
     super(x, y, true);
     this.x = x;
     this.y = y;
-    this.components = components;
     this.inputs = [];
     this.outputs = [];
+    this.clonedInputs = [];
+    this.clonedOutputs = [];
     this.wires = [];
     this.width = 100;
     this.height = 50;
+    this.clones = clones;
+  }
+
+  getInputs() {
+    console.log(this.clones);
+    return;
+    var clones = this.clones;
+    for (let i = 0; i < clones.length; i++) {
+      const element = clones[i];
+      if (element instanceof InputOutput) {
+        var el = element.node;
+        el.isInput ? this.outputs.push(el) : this.inputs.push(el);
+      }
+    }
   }
 
   setIO() {
     var inputs = [];
     var outputs = [];
 
-    for (let i = 0; i < this.components.length; i++) {
-      const element = this.components[i];
-      if (element instanceof CustomGate) {
-        for (let i = 0; i < element.inputs.length; i++) {
-          const input = element.inputs[i];
-          if (input.wire === null) {
-            let node = new Node(0, this, true);
-            currentNodes.push(node);
-            inputs.push(node);
-            let hdWire = new HiddenWire(input, node);
-            this.wires.push(hdWire);
-          }
-        }
-
-        for (let i = 0; i < element.outputs.length; i++) {
-          const output = element.outputs[i];
-          if (output.wire === null) {
-            let node = new Node(0, this, false);
-            currentNodes.push(node);
-            outputs.push(node);
-            let hdWire = new HiddenWire(output, node);
-            this.wires.push(hdWire);
-          }
-        }
-      }
-
-      if (element?.input1?.wire === null) {
-        let node = new Node(0, this, true);
-        currentNodes.push(node);
-        inputs.push(node);
-        let hdWire = new HiddenWire(element.input1, node);
-        this.wires.push(hdWire);
-      }
-
-      if (element?.input2?.wire === null) {
-        let node = new Node(0, this, true);
-        currentNodes.push(node);
-        inputs.push(node);
-
-        let hdWire = new HiddenWire(element.input2, node);
-        this.wires.push(hdWire);
-      }
-      if (element?.output?.wire === null) {
-        let node = new Node(0, this, false);
-        currentNodes.push(node);
-        outputs.push(node);
-
-        let hdWire = new HiddenWire(node, element.output);
-        this.wires.push(hdWire);
+    for (let i = 0; i < this.clones.length; i++) {
+      const element = this.clones[i];
+      if (element instanceof InputOutput) {
+        var el = element.node;
+        el.isInput ? outputs.push(el) : inputs.push(el);
       }
     }
-    this.inputs = inputs;
-    this.outputs = outputs;
+
+    for (let i = 0; i < inputs.length; i++) {
+      const input = inputs[i];
+      let node = new Node(0, this, true);
+      currentNodes.push(node);
+      this.clonedInputs.push(node);
+
+      let hdWire = new HiddenWire(input, node);
+      this.wires.push(hdWire);
+    }
+
+    for (let i = 0; i < outputs.length; i++) {
+      const output = outputs[i];
+      let node = new Node(0, this, false);
+      currentNodes.push(node);
+      this.clonedOutputs.push(node);
+
+      let hdWire = new HiddenWire(node, output);
+      this.wires.push(hdWire);
+    }
+
     this.height = Math.max(this.inputs.length, this.outputs.length) * 20 + 20;
     this.height = this.height < 10 ? 10 : this.height;
   }

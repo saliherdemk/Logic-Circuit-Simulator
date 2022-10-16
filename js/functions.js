@@ -62,7 +62,7 @@ function dist(x1, y1, x2, y2) {
   return (x2 - x1) ** 2 + (y2 - y1) ** 2;
 }
 
-function createCustomButton(props) {
+function createCustomButton(clones) {
   var name = ccgNameInput.value;
   button = createButton(name);
   button.style("border", "2px solid black");
@@ -71,7 +71,7 @@ function createCustomButton(props) {
   button.style("width", "100%");
   button.style("margin-bottom", "30px");
   button.mousePressed(() => {
-    generateCustomGate(props, name);
+    generateCustomGate(clones, name);
   });
   button.parent(ccgSection);
   ccgNameInput.value = "";
@@ -80,7 +80,7 @@ function createCustomButton(props) {
 function checkCanBeComponent() {
   var inputs = 0;
   var outputs = 0;
-  var errMsg = "Select all connected gates"
+  var errMsg = "Select all connected gates";
 
   for (let i = 0; i < selected.length; i++) {
     const element = selected[i];
@@ -118,10 +118,12 @@ function checkCanBeComponent() {
           ? !++inputs
           : !selected.includes(element?.input1?.wire?.startNode?.parent) ||
             !selected.includes(element?.input1?.wire?.endNode?.parent)) ||
-        (element.input2? element.input2?.wire === null
-          ? !++inputs
-          : !selected.includes(element?.input2?.wire?.startNode?.parent) ||
-            !selected.includes(element?.input2?.wire?.endNode?.parent) : false) ||
+        (element.input2
+          ? element.input2?.wire === null
+            ? !++inputs
+            : !selected.includes(element?.input2?.wire?.startNode?.parent) ||
+              !selected.includes(element?.input2?.wire?.endNode?.parent)
+          : false) ||
         (element.output?.wire === null
           ? !++outputs
           : !selected.includes(element?.output?.wire?.startNode?.parent) ||
@@ -131,29 +133,12 @@ function checkCanBeComponent() {
       }
     }
   }
-  return inputs && outputs ? true : "Be sure component has at least one input & output";
+  return inputs && outputs
+    ? true
+    : "Be sure component has at least one input & output";
 }
 
 function createCustomGate() {
-  let response = checkCanBeComponent() 
-  if ( response !== true) {
-    error.innerText = response;
-  }
-
-  if (!selected.length) {
-    error.innerText = "There is no any selected gates";
-  }
-
-  if (!ccgNameInput.value) {
-    error.innerText = "Name your gate";
-  }
-
-  if (error.innerText) {
-    error.style.display = "flex";
-    ccgNameInput.value = "";
-    return;
-  }
-
   var clones = [];
   for (let i = 0; i < selected.length; i++) {
     var clone = _.clone(selected[i]);
@@ -168,8 +153,8 @@ function createCustomGate() {
   currentComponents.push(cg);
 
   cg.changeName(ccgNameInput.value);
-  closeCcg();
   createCustomButton(clones);
+  closeCcg();
 }
 
 function closeCcg() {

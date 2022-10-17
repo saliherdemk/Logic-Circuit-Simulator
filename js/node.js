@@ -123,10 +123,10 @@ class Node {
     }
   }
 
-  receive() {
+  receive(force = false) {
     const element = currentWires.find((el) => el.isLineActive == true);
     this.rollover();
-    if (this.isInput && element && this.isrollover) {
+    if ((this.isInput && element && this.isrollover) || force) {
       if (!this.wire) {
         element.setEndNode(this);
       } else {

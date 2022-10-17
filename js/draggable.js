@@ -75,13 +75,13 @@ class Draggable {
 
     let united = [...currentGates, ...currentIOs, ...currentComponents];
 
-    const oversea = united.find(
-      (e) => e.x > width || e.y < 0 || e.y > height || e.x < 0
-    );
+    // const oversea = united.find(
+    //   (e) => e.x > width || e.y < 0 || e.y > height || e.x < 0
+    // );
 
-    if (oversea) {
-      this.delete("force");
-    }
+    // if (oversea) {
+    //   this.delete("force");
+    // }
   }
 
   pressed() {

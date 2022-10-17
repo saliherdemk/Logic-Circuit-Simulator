@@ -14,8 +14,6 @@ class CustomGate extends Draggable {
   }
 
   getInputs() {
-    console.log(this.clones);
-    return;
     var clones = this.clones;
     for (let i = 0; i < clones.length; i++) {
       const element = clones[i];
@@ -27,19 +25,9 @@ class CustomGate extends Draggable {
   }
 
   setIO() {
-    var inputs = [];
-    var outputs = [];
-
-    for (let i = 0; i < this.clones.length; i++) {
-      const element = this.clones[i];
-      if (element instanceof InputOutput) {
-        var el = element.node;
-        el.isInput ? outputs.push(el) : inputs.push(el);
-      }
-    }
-
-    for (let i = 0; i < inputs.length; i++) {
-      const input = inputs[i];
+    this.getInputs();
+    for (let i = 0; i < this.inputs.length; i++) {
+      const input = this.inputs[i];
       let node = new Node(0, this, true);
       currentNodes.push(node);
       this.clonedInputs.push(node);
@@ -48,8 +36,8 @@ class CustomGate extends Draggable {
       this.wires.push(hdWire);
     }
 
-    for (let i = 0; i < outputs.length; i++) {
-      const output = outputs[i];
+    for (let i = 0; i < this.outputs.length; i++) {
+      const output = this.outputs[i];
       let node = new Node(0, this, false);
       currentNodes.push(node);
       this.clonedOutputs.push(node);

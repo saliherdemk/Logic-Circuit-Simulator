@@ -114,7 +114,10 @@ function generateXNORGate() {
 }
 
 function generateCustomGate(props, name) {
-  let cg = new CustomGate(props, 10, 10);
+  let clonedAll = _.cloneDeep(props);
+  console.log(clonedAll);
+
+  let cg = new CustomGate(clonedAll, 10, 10);
   cg.changeName(name);
   // cg.getInputs();
   cg.setIO();

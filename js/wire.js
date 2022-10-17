@@ -1,14 +1,16 @@
 class Wire {
-  constructor(startNode, endNode) {
+  constructor(startNode, endNode, isLineDone = false) {
     this.startNode = startNode;
     this.endNode = endNode;
     this.isLineActive = true;
     this.x = this.startNode.x;
     this.y = this.startNode.y;
     this.nodeXDecisive = this.startNode.nodeXDecisive;
-    this.isLineDone = false;
+    this.isLineDone = isLineDone;
     this.width = 8;
+    this.height = 10;
     this.color = 0;
+    this.isShown = true;
   }
 
   setEndNode(node) {

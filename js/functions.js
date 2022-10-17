@@ -1,5 +1,23 @@
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
+function HashTable() {
+  (this.hashes = {}), (this.id = 0);
+}
+
+HashTable.prototype = {
+  constructor: HashTable,
+
+  put: function (obj, value) {
+    obj.id = this.id;
+    this.hashes[this.id] = value;
+    this.id++;
+  },
+
+  get: function (obj) {
+    return this.hashes[obj.id];
+  },
+};
+
 function drawForElements(arr) {
   for (let i = 0; i < arr.length; i++) {
     arr[i].draw();
@@ -138,7 +156,46 @@ function checkCanBeComponent() {
     : "Be sure component has at least one input & output";
 }
 
+function clone() {
+  var myHash = new WeakMap();
+  var wires = [];
+
+  for (let i = 0; i < selected.length; i++) {
+    const element = selected[i];
+    if (element instanceof InputOutput) cloneIO(element, myHash);
+    if (element instanceof Gates || element instanceof NotGate)
+      cloneGates(element, myHash);
+    if (element instanceof Wire) wires.push(element);
+  }
+
+  for (let i = 0; i < wires.length; i++) {
+    const element = wires[i];
+    cloneWire(element, myHash);
+  }
+
+  closeCcg();
+}
+
 function createCustomGate() {
+  let response = checkCanBeComponent();
+  if (response !== true) {
+    error.innerText = response;
+  }
+
+  if (!selected.length) {
+    error.innerText = "There is no any selected gates";
+  }
+
+  if (!ccgNameInput.value) {
+    error.innerText = "Name your gate";
+  }
+
+  if (error.innerText) {
+    error.style.display = "flex";
+    ccgNameInput.value = "";
+    return;
+  }
+
   var clones = [];
   for (let i = 0; i < selected.length; i++) {
     var clone = _.clone(selected[i]);

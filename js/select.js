@@ -40,13 +40,11 @@ class Select {
 
     w = Math.abs(w);
     h = Math.abs(h);
-
     for (let i = 0; i < all.length; i++) {
       const element = all[i];
       if (!element.isShown) {
         continue;
       }
-
       //https://editor.p5js.org/eric/sketches/HkW2DRKnl
       if (
         element.x < absX + w &&

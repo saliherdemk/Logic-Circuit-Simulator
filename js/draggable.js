@@ -66,7 +66,7 @@ class Draggable {
         }
         let a = element.x - this.x;
         let b = element.y - this.y;
-        if (mouseX > 70 && mouseX < windowWidth - 300) {
+        if (mouseX > 20 && mouseX < windowWidth - 300) {
           element.x = mouseX + a + this.offsetX;
         }
         if (mouseY < windowHeight - 100 && mouseY > 70) {
@@ -80,8 +80,8 @@ class Draggable {
     this.x =
       this.x > windowWidth - 300
         ? windowWidth - 300
-        : this.x < 70
-        ? 70
+        : this.x < 20
+        ? 20
         : this.x;
     this.y =
       this.y > windowHeight - 100

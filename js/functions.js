@@ -102,7 +102,13 @@ function checkCanBeComponent() {
 
   for (let i = 0; i < selected.length; i++) {
     const element = selected[i];
-    if (element.node) {
+
+    if (element instanceof InputOutput) {
+      element.type ? inputs++ : outputs++;
+      continue;
+    }
+
+    if (element instanceof Wire) {
       continue;
     }
 
@@ -110,10 +116,9 @@ function checkCanBeComponent() {
       for (let i = 0; i < element.inputs.length; i++) {
         const input = element.inputs[i];
         if (
-          input.wire === null
-            ? !++inputs
-            : !selected.includes(input.wire?.startNode.parent) ||
-              !selected.includes(input.wire?.endNode.parent)
+          input.wire !== null &&
+          (!selected.includes(input.wire?.startNode.parent) ||
+            !selected.includes(input.wire?.endNode.parent))
         ) {
           return errMsg;
         }
@@ -122,30 +127,26 @@ function checkCanBeComponent() {
       for (let i = 0; i < element.outputs.length; i++) {
         const output = element.outputs[i];
         if (
-          output.wire === null
-            ? !++outputs
-            : !selected.includes(output.wire?.startNode.parent) ||
-              !selected.includes(output.wire?.endNode.parent)
+          output.wire !== null &&
+          (!selected.includes(output.wire?.startNode.parent) ||
+            !selected.includes(output.wire?.endNode.parent))
         ) {
           return errMsg;
         }
       }
     } else {
       if (
-        (element.input1?.wire === null
-          ? !++inputs
-          : !selected.includes(element?.input1?.wire?.startNode?.parent) ||
-            !selected.includes(element?.input1?.wire?.endNode?.parent)) ||
+        (element.input1?.wire !== null &&
+          (!selected.includes(element?.input1?.wire?.startNode?.parent) ||
+            !selected.includes(element?.input1?.wire?.endNode?.parent))) ||
         (element.input2
-          ? element.input2?.wire === null
-            ? !++inputs
-            : !selected.includes(element?.input2?.wire?.startNode?.parent) ||
-              !selected.includes(element?.input2?.wire?.endNode?.parent)
+          ? element.input2?.wire !== null &&
+            (!selected.includes(element?.input2?.wire?.startNode?.parent) ||
+              !selected.includes(element?.input2?.wire?.endNode?.parent))
           : false) ||
-        (element.output?.wire === null
-          ? !++outputs
-          : !selected.includes(element?.output?.wire?.startNode?.parent) ||
-            !selected.includes(element?.output?.wire?.endNode?.parent))
+        (element.output?.wire !== null &&
+          (!selected.includes(element?.output?.wire?.startNode?.parent) ||
+            !selected.includes(element?.output?.wire?.endNode?.parent)))
       ) {
         return errMsg;
       }
@@ -176,7 +177,6 @@ function clone() {
     const element = wires[i];
     cloneWire(element, myHash);
   }
-
   selected = newSelected;
 
   closeCcg();

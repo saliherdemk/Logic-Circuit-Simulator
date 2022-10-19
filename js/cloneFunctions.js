@@ -18,7 +18,7 @@ function cloneIO(element, nodeMap) {
 function cloneGates(element, nodeMap) {
   var clonedEl;
   if (element instanceof NotGate) {
-    let clonedEl = new NotGate(element.x + 100, element.y - 100);
+    clonedEl = new NotGate(element.x + 100, element.y - 100);
     currentGates.push(clonedEl);
 
     let input = new Node(element.input1, clonedEl, true);

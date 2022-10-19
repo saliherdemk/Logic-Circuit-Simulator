@@ -159,12 +159,16 @@ function checkCanBeComponent() {
 function clone() {
   var myHash = new WeakMap();
   var wires = [];
+  var newSelected = [];
 
   for (let i = 0; i < selected.length; i++) {
     const element = selected[i];
-    if (element instanceof InputOutput) cloneIO(element, myHash);
-    if (element instanceof Gates || element instanceof NotGate)
-      cloneGates(element, myHash);
+    if (element instanceof InputOutput) {
+      newSelected.push(cloneIO(element, myHash));
+    }
+    if (element instanceof Gates || element instanceof NotGate) {
+      newSelected.push(cloneGates(element, myHash));
+    }
     if (element instanceof Wire) wires.push(element);
   }
 
@@ -172,6 +176,8 @@ function clone() {
     const element = wires[i];
     cloneWire(element, myHash);
   }
+
+  selected = newSelected;
 
   closeCcg();
 }

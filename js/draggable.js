@@ -66,22 +66,29 @@ class Draggable {
         }
         let a = element.x - this.x;
         let b = element.y - this.y;
-        element.x = mouseX + a + this.offsetX;
-        element.y = mouseY + b + this.offsetY;
+        if (mouseX > 70 && mouseX < windowWidth - 300) {
+          element.x = mouseX + a + this.offsetX;
+        }
+        if (mouseY < windowHeight - 100 && mouseY > 70) {
+          element.y = mouseY + b + this.offsetY;
+        }
       }
       this.x = mouseX + this.offsetX;
       this.y = mouseY + this.offsetY;
     }
 
-    let united = [...currentGates, ...currentIOs, ...currentComponents];
-
-    // const oversea = united.find(
-    //   (e) => e.x > width || e.y < 0 || e.y > height || e.x < 0
-    // );
-
-    // if (oversea) {
-    //   this.delete("force");
-    // }
+    this.x =
+      this.x > windowWidth - 300
+        ? windowWidth - 300
+        : this.x < 70
+        ? 70
+        : this.x;
+    this.y =
+      this.y > windowHeight - 100
+        ? windowHeight - 100
+        : this.y < 70
+        ? 70
+        : this.y;
   }
 
   pressed() {

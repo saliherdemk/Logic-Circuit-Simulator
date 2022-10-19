@@ -54,12 +54,12 @@ class Node {
       this.rollover();
 
       this.drawLine();
-      this.update();
-
-      fill(255);
-      this.updateOutputValue();
-      this.rePositionForCustomGate();
     }
+    this.update();
+
+    fill(255);
+    this.updateOutputValue();
+    this.rePositionForCustomGate();
   }
 
   updateOutputValue() {

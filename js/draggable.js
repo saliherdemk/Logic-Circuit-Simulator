@@ -18,10 +18,10 @@ class Draggable {
   }
 
   over() {
-    if (!this.isShown) {
-      this.rollover = false;
-      return;
-    }
+    // if (!this.isShown) {
+    //   this.rollover = false;
+    //   return;
+    // }
     let d = dist(mouseX, mouseY, this.x, this.y);
     let diffX = mouseX - this.x;
     let diffY = mouseY - this.y;
@@ -38,9 +38,9 @@ class Draggable {
   }
 
   update() {
-    if (!this.isShown) {
-      return;
-    }
+    // if (!this.isShown) {
+    //   return;
+    // }
 
     if (this.isCustom) {
       const isFilled = currentComponents.find(

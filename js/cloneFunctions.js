@@ -3,9 +3,9 @@ function cloneIO(element, nodeMap) {
     element.value,
     element.x + 100,
     element.y - 100,
-    true
+    element.type
   );
-  var clonedNode = new Node(element.node.value, clonedEl, false);
+  var clonedNode = new Node(element.node.value, clonedEl, element.node.isInput);
 
   clonedEl.setNode(clonedNode);
   currentIOs.push(clonedEl);
@@ -49,15 +49,18 @@ function cloneGates(element, nodeMap) {
   return clonedEl;
 }
 
-function cloneWire(element, nodeMap) {
+function cloneWire(element, nodeMap, force = false) {
   if (
-    selected.includes(element.startNode.parent) &&
-    selected.includes(element.endNode.parent)
+    (selected.includes(element.startNode.parent) &&
+      selected.includes(element.endNode.parent)) ||
+    force
   ) {
     var startNode = nodeMap.get(element.startNode);
     var endNode = nodeMap.get(element.endNode);
     var wire = new Wire(startNode, endNode, true);
     wire.isLineActive = false;
     currentWires.push(wire);
+    return wire;
   }
+  return false;
 }

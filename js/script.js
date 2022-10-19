@@ -113,13 +113,15 @@ function generateXNORGate() {
   currentNodes.push(output);
 }
 
-function generateCustomGate(props, name) {
-  let clonedAll = _.cloneDeep(props);
-  console.log(clonedAll);
-
-  let cg = new CustomGate(clonedAll, 10, 10);
+function generateCustomGate(components, name) {
+  var clones = clone(components);
+  for (let i = 0; i < clones.length; i++) {
+    var e = clones[i];
+    if (!(e instanceof Node)) e.isShown = false;
+  }
+  let cg = new CustomGate(clones, 10, 10);
   cg.changeName(name);
-  // cg.getInputs();
+
   cg.setIO();
   currentComponents.push(cg);
 }

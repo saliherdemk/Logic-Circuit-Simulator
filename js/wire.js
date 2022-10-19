@@ -89,7 +89,7 @@ class Wire {
   }
 
   draw() {
-    if (this.startNode.parent.isShown) {
+    if (this.isShown) {
       if (this.isLineActive || this.isLineDone) {
         let startX = this.startNode.x;
         let startY = this.startNode.y;

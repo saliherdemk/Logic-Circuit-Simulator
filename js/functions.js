@@ -136,17 +136,17 @@ function checkCanBeComponent() {
       }
     } else {
       if (
-        (element.input1?.wire !== null &&
-          (!selected.includes(element?.input1?.wire?.startNode?.parent) ||
-            !selected.includes(element?.input1?.wire?.endNode?.parent))) ||
+        element.input1?.wire === null ||
+        !selected.includes(element?.input1?.wire?.startNode?.parent) ||
+        !selected.includes(element?.input1?.wire?.endNode?.parent) ||
         (element.input2
-          ? element.input2?.wire !== null &&
-            (!selected.includes(element?.input2?.wire?.startNode?.parent) ||
-              !selected.includes(element?.input2?.wire?.endNode?.parent))
+          ? element.input2?.wire === null ||
+            !selected.includes(element?.input2?.wire?.startNode?.parent) ||
+            !selected.includes(element?.input2?.wire?.endNode?.parent)
           : false) ||
-        (element.output?.wire !== null &&
-          (!selected.includes(element?.output?.wire?.startNode?.parent) ||
-            !selected.includes(element?.output?.wire?.endNode?.parent)))
+        element.output?.wire === null ||
+        !selected.includes(element?.output?.wire?.startNode?.parent) ||
+        !selected.includes(element?.output?.wire?.endNode?.parent)
       ) {
         return errMsg;
       }
@@ -157,13 +157,13 @@ function checkCanBeComponent() {
     : "Be sure component has at least one input & output";
 }
 
-function clone() {
+function clone(original = selected) {
   var myHash = new WeakMap();
   var wires = [];
   var newSelected = [];
 
-  for (let i = 0; i < selected.length; i++) {
-    const element = selected[i];
+  for (let i = 0; i < original.length; i++) {
+    const element = original[i];
     if (element instanceof InputOutput) {
       newSelected.push(cloneIO(element, myHash));
     }
@@ -175,11 +175,13 @@ function clone() {
 
   for (let i = 0; i < wires.length; i++) {
     const element = wires[i];
-    cloneWire(element, myHash);
+    var cloned = cloneWire(element, myHash, original !== selected);
+    cloned && newSelected.push(cloned);
   }
   selected = newSelected;
 
   closeCcg();
+  return newSelected;
 }
 
 function createCustomGate() {

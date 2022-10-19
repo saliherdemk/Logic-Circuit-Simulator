@@ -18,7 +18,7 @@ class InputOutput extends Draggable {
 
   show() {
     const isFilled = currentIOs.find(
-      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
+      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this
     );
     if (isFilled) {
       this.y = this.y - 50;

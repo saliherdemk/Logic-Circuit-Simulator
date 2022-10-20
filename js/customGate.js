@@ -24,6 +24,12 @@ class CustomGate extends Draggable {
     }
   }
 
+  hide() {
+    for (let i = 0; i < this.clones.length; i++) {
+      this.clones[i].isShown = false;
+    }
+  }
+
   setIO() {
     this.getInputs();
     for (let i = 0; i < this.inputs.length; i++) {

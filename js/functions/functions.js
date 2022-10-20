@@ -1,5 +1,3 @@
-document.addEventListener("contextmenu", (event) => event.preventDefault());
-
 function HashTable() {
   (this.hashes = {}), (this.id = 0);
 }
@@ -98,7 +96,9 @@ function createCustomButton(clones) {
 function checkCanBeComponent() {
   var inputs = 0;
   var outputs = 0;
-  var errMsg = "Select all connected gates";
+  var connectErr = "Select all connected gates";
+  var ioError = "Be sure component has at least one input & output";
+  var wireError = "Select all wires which connecting your gates";
 
   for (let i = 0; i < selected.length; i++) {
     const element = selected[i];
@@ -113,48 +113,59 @@ function checkCanBeComponent() {
     }
 
     if (element instanceof CustomGate) {
-      for (let i = 0; i < element.inputs.length; i++) {
-        const input = element.inputs[i];
+      for (let i = 0; i < element.clonedInputs.length; i++) {
+        const input = element.clonedInputs[i];
+        if (!input.wire) return ioError;
+        else if (!selected.includes(input.wire)) return wireError;
         if (
-          input.wire !== null &&
-          (!selected.includes(input.wire?.startNode.parent) ||
-            !selected.includes(input.wire?.endNode.parent))
+          !selected.includes(input.wire?.startNode.parent) ||
+          !selected.includes(input.wire?.endNode.parent)
         ) {
-          return errMsg;
+          return connectErr;
         }
       }
 
-      for (let i = 0; i < element.outputs.length; i++) {
-        const output = element.outputs[i];
+      for (let i = 0; i < element.clonedOutputs.length; i++) {
+        const output = element.clonedOutputs[i];
+        if (!output.wire) return ioError;
+        else if (!selected.includes(output.wire)) return wireError;
+
         if (
-          output.wire !== null &&
-          (!selected.includes(output.wire?.startNode.parent) ||
-            !selected.includes(output.wire?.endNode.parent))
+          !selected.includes(output.wire?.startNode.parent) ||
+          !selected.includes(output.wire?.endNode.parent)
         ) {
-          return errMsg;
+          return connectErr;
         }
       }
     } else {
+      var inp1W = element.input1?.wire;
+      var inp2W = element.input2 ? element.input2.wire : true;
+      var outW = element.output?.wire;
+
+      var q = element instanceof NotGate ? false : !selected.includes(inp2W);
+
+      if (!inp1W || !inp2W || !outW) return ioError;
+      else if (!selected.includes(inp1W) || q || !selected.includes(outW))
+        return wireError;
+
+      var p =
+        element instanceof NotGate
+          ? false
+          : !selected.includes(inp2W?.startNode?.parent) ||
+            !selected.includes(inp2W?.endNode?.parent);
+
       if (
-        element.input1?.wire === null ||
-        !selected.includes(element?.input1?.wire?.startNode?.parent) ||
-        !selected.includes(element?.input1?.wire?.endNode?.parent) ||
-        (element.input2
-          ? element.input2?.wire === null ||
-            !selected.includes(element?.input2?.wire?.startNode?.parent) ||
-            !selected.includes(element?.input2?.wire?.endNode?.parent)
-          : false) ||
-        element.output?.wire === null ||
-        !selected.includes(element?.output?.wire?.startNode?.parent) ||
-        !selected.includes(element?.output?.wire?.endNode?.parent)
+        !selected.includes(inp1W?.startNode?.parent) ||
+        !selected.includes(inp1W?.endNode?.parent) ||
+        p ||
+        !selected.includes(outW?.startNode?.parent) ||
+        !selected.includes(outW?.endNode?.parent)
       ) {
-        return errMsg;
+        return connectErr;
       }
     }
   }
-  return inputs && outputs
-    ? true
-    : "Be sure component has at least one input & output";
+  return true;
 }
 
 function clone(original = selected) {
@@ -170,6 +181,9 @@ function clone(original = selected) {
     if (element instanceof Gates || element instanceof NotGate) {
       newSelected.push(cloneGates(element, myHash));
     }
+    if (element instanceof CustomGate)
+      newSelected.push(cloneCustomGate(element, myHash));
+
     if (element instanceof Wire) wires.push(element);
   }
 
@@ -179,17 +193,11 @@ function clone(original = selected) {
     cloned && newSelected.push(cloned);
   }
   selected = newSelected;
-
   closeCcg();
   return newSelected;
 }
 
 function createCustomGate() {
-  let response = checkCanBeComponent();
-  if (response !== true) {
-    error.innerText = response;
-  }
-
   if (!selected.length) {
     error.innerText = "There is no any selected gates";
   }
@@ -199,6 +207,14 @@ function createCustomGate() {
   }
 
   if (error.innerText) {
+    error.style.display = "flex";
+    ccgNameInput.value = "";
+    return;
+  }
+
+  let response = checkCanBeComponent();
+  if (response !== true) {
+    error.innerText = response;
     error.style.display = "flex";
     ccgNameInput.value = "";
     return;
@@ -220,6 +236,7 @@ function createCustomGate() {
   cg.changeName(ccgNameInput.value);
   createCustomButton(clones);
   closeCcg();
+  selected = [];
 }
 
 function closeCcg() {

@@ -1,3 +1,5 @@
+document.addEventListener("contextmenu", (event) => event.preventDefault());
+
 function generateInput() {
   let input = new InputOutput(0, width / 10 / 5, height - 20, true);
   currentIOs.push(input);

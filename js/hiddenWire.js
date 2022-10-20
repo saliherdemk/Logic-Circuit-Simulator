@@ -6,7 +6,5 @@ class HiddenWire {
 
   connected() {
     this.startedNode.value = this.endNode.value;
-    // this.endNode.parent.value = this.endNode.value;
-    // this.startedNode.parent.value = this.endNode.parent.value;
   }
 }

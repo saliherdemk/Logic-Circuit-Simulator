@@ -51,8 +51,8 @@ function cloneGates(element, nodeMap) {
 
 function cloneWire(element, nodeMap, force = false) {
   if (
-    (selected.includes(element.startNode.parent) &&
-      selected.includes(element.endNode.parent)) ||
+    (selected.includes(element.startNode?.parent) &&
+      selected.includes(element.endNode?.parent)) ||
     force
   ) {
     var startNode = nodeMap.get(element.startNode);
@@ -63,4 +63,22 @@ function cloneWire(element, nodeMap, force = false) {
     return wire;
   }
   return false;
+}
+
+function cloneCustomGate(element, nodeMap) {
+  var newElClones = clone(element.clones);
+  var clonedEl = new CustomGate(newElClones, element.x + 100, element.y - 100);
+  clonedEl.setIO();
+  clonedEl.hide();
+  clonedEl.changeName(element.name);
+  currentComponents.push(clonedEl);
+
+  for (let i = 0; i < element.clonedInputs.length; i++) {
+    nodeMap.set(element.clonedInputs[i], clonedEl.clonedInputs[i]);
+  }
+
+  for (let i = 0; i < element.clonedOutputs.length; i++) {
+    nodeMap.set(element.clonedOutputs[i], clonedEl.clonedOutputs[i]);
+  }
+  return clonedEl;
 }

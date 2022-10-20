@@ -11,6 +11,7 @@ class Wire {
     this.height = 10;
     this.color = 0;
     this.isShown = true;
+    this.isSelected = false;
   }
 
   setEndNode(node) {
@@ -23,6 +24,11 @@ class Wire {
     this.endNode.value = this.startNode.value;
     this.endNode.wire = this;
     this.startNode.wire = this;
+  }
+
+  selectedControl() {
+    this.isSelected = selected.includes(this);
+    this.color = this.isSelected ? color(173, 216, 230) : this.color;
   }
 
   cancelled() {
@@ -90,13 +96,15 @@ class Wire {
 
   draw() {
     if (this.isShown) {
+      this.selectedControl();
+
       if (this.isLineActive || this.isLineDone) {
         let startX = this.startNode.x;
         let startY = this.startNode.y;
         let targetX = this.isLineDone ? this.endNode.x : mouseX;
         let targetY = this.isLineDone ? this.endNode.y : mouseY;
         fill(255, 255, 255, 1);
-        stroke(this.color, this.color, this.color);
+        stroke(this.color);
         bezier(
           startX,
           startY,

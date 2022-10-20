@@ -1,61 +1,68 @@
-function preload(){
-    andGate = loadImage('./img/andGate.png')
-    nandGate = loadImage('./img/nandGate.png')
-    norGate = loadImage('./img/norGate.png')
-    notGate = loadImage('./img/notGate.png')
-    orGate = loadImage('./img/orGate.png')
-    xnorGate = loadImage('./img/xnorGate.png')
-    xorGate = loadImage('./img/xorGate.png')
-
+function preload() {
+  andGate = loadImage("./img/andGate.png");
+  nandGate = loadImage("./img/nandGate.png");
+  norGate = loadImage("./img/norGate.png");
+  notGate = loadImage("./img/notGate.png");
+  orGate = loadImage("./img/orGate.png");
+  xnorGate = loadImage("./img/xnorGate.png");
+  xorGate = loadImage("./img/xorGate.png");
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight - 100);
-    strokeWeight(4)
+  let cnv = createCanvas(windowWidth - 200, windowHeight - 80);
+  cnv.style("margin-left", "220px");
+  strokeWeight(4);
 }
 
 function draw() {
-    background(255);
-    drawForElements(selects)
+  background(255);
 
-    drawForElements(currentGates)
-    drawForElements(currentIOs)
-    drawForElements(currentWires)
-    drawForElements(currentNodes)
+  drawForElements(selects);
+  drawForElements(currentGates);
+  drawForElements(currentIOs);
+  drawForElements(currentWires);
+  drawForElements(currentComponents);
 
+  drawForElements(currentNodes);
 }
 
 function mousePressed() {
-    selectMode = true
+  if (mouseButton === RIGHT) {
+    selectDiv.style.display = "flex";
+    selectDiv.style.left = mouseX + 200 + "px";
+    selectDiv.style.top = mouseY + "px";
+    isMenuOpen = true;
 
-    selected.find(el => el.rollover) ? null : selected = []
-    
-    pressedActionForElements(currentIOs)
-    pressedActionForElements(currentGates)
+    return;
+  }
 
-    for (let i = 0; i < currentNodes.length; i++) {
-        currentNodes[i].active()
+  selectMode = true;
 
-    }
+  selected.find((el) => el.rollover) || isMenuOpen ? null : (selected = []);
 
-    for (let i = 0; i < currentWires.length; i++) {
-        currentWires[i].destroy()
+  pressedActionForElements(currentIOs);
+  pressedActionForElements(currentGates);
+  pressedActionForElements(currentComponents);
 
-    }
-    let sel = new Select(mouseX,mouseY,0,0,true)
-    selects.push(sel)
+  for (let i = 0; i < currentNodes.length; i++) {
+    currentNodes[i].active();
+  }
 
+  for (let i = 0; i < currentWires.length; i++) {
+    currentWires[i].destroy();
+  }
+  let sel = new Select(mouseX, mouseY, 0, 0, true);
+  selects.push(sel);
 }
 
 function mouseReleased() {
-    releasedActionForElements(currentIOs)
-    releasedActionForElements(currentGates)
-    releasedActionForElements(selects)
-
+  releasedActionForElements(currentIOs);
+  releasedActionForElements(currentGates);
+  releasedActionForElements(selects);
+  releasedActionForElements(currentComponents);
 }
 
 function doubleClicked() {
-    changeValueActionForElements(currentNodes)
-    changeNameActionForElements()
-    
+  changeValueActionForElements(currentNodes);
+  changeNameActionForElements();
 }

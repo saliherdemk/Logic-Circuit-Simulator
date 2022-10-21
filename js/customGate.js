@@ -19,12 +19,12 @@ class CustomGate extends Draggable {
       const element = clones[i];
       if (element instanceof InputOutput) {
         var el = element.node;
-        el.isInput ? this.outputs.push(el) : this.inputs.push(el);
+        el.isInput ? this.outputs.unshift(el) : this.inputs.unshift(el);
       }
     }
   }
 
-  hide() {
+  hideComponents() {
     for (let i = 0; i < this.clones.length; i++) {
       this.clones[i].isShown = false;
     }
@@ -52,7 +52,7 @@ class CustomGate extends Draggable {
       this.wires.push(hdWire);
     }
 
-    this.height = Math.max(this.inputs.length, this.outputs.length) * 20 + 20;
+    this.height = Math.max(this.inputs.length, this.outputs.length) * 30 + 20;
     this.height = this.height < 10 ? 10 : this.height;
   }
 

@@ -9,8 +9,12 @@ function preload() {
 }
 
 function setup() {
-  let cnv = createCanvas(windowWidth - 200, windowHeight - 80);
-  cnv.style("margin-left", "220px");
+  let cnv = createCanvas(windowWidth - 230, windowHeight - 80);
+  cnv.style("position", "absolute");
+  cnv.style("right", "0");
+  cnv.style("z-index", "3");
+  cnv.style("box-shadow", "0px 1px 10px #999");
+
   strokeWeight(4);
 }
 
@@ -27,7 +31,7 @@ function draw() {
 }
 
 function mousePressed() {
-  if (mouseButton === RIGHT) {
+  if (mouseButton === RIGHT && !isComponentOpen) {
     selectDiv.style.display = "flex";
     selectDiv.style.left = mouseX + 200 + "px";
     selectDiv.style.top = mouseY + "px";

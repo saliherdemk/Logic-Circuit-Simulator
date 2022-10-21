@@ -27,10 +27,9 @@ class Node {
     if (inputs) {
       for (let i = 0; i < inputs.length; i++) {
         const element = inputs[i];
-
         if (element === this) {
-          this.y += i * 20 + 10;
-          this.x += 50;
+          this.y += i * 30 + 10;
+          this.x += 20;
         }
       }
     }
@@ -40,8 +39,8 @@ class Node {
       for (let i = 0; i < outputs.length; i++) {
         const element = outputs[i];
         if (element === this) {
-          this.y += i * 20 + 10;
-          this.x += 50;
+          this.y += i * 30 + 10;
+          this.x += 80;
         }
       }
     }
@@ -49,6 +48,23 @@ class Node {
 
   draw() {
     if (this.parent.isShown) {
+      if (this.name) {
+        fill(111, 143, 175);
+        noStroke();
+        textSize(15);
+        text(this.name, this.isInput ? this.x + 12 : this.x - 20, this.y - 6);
+
+        fill(255);
+        stroke(0);
+        // textSize(15);
+        // text(this.name, this.x, this.y);
+      }
+
+      if (this.parent instanceof CustomGate) {
+        (this.parent.selected || this.parent.rollover) && stroke(173, 216, 230);
+        line(this.x, this.y, this.isInput ? this.x + 30 : this.x - 30, this.y);
+        stroke(0);
+      }
       fill(this.color);
       ellipse(this.x, this.y, this.isrollover ? 18 : 14);
       this.rollover();

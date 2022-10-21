@@ -101,8 +101,13 @@ class Draggable {
 
   specifyElement() {
     if (this.rollover && this.isShown) {
-      elForNameChange = this;
-      openPopup();
+      if (this instanceof CustomGate) {
+        gateForNameChange = this;
+        openCompShownMode(this.clones, this.name);
+      } else {
+        elForNameChange = this;
+        openPopup();
+      }
     }
   }
 

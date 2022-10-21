@@ -61,11 +61,47 @@ button {
   background-repeat: no-repeat;
 }
 
-.github-logo {
+.top-bar {
+  position: absolute;
+  width: calc(100% - 230px);
+  right: 0;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  z-index: 4;
+}
+
+.top-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex: 1;
+  display: none;
+}
+
+.top-close {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin: 10px;
+  align-items: flex-end;
+}
+
+.disabled-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+/* .github-logo {
   position: absolute;
   right: 0;
   width: 70px;
-}
+} */
 
 .input {
   width: 70px !important;
@@ -127,6 +163,7 @@ button {
   align-items: center;
   background: rgba(0, 0, 0, 0.2);
   display: none;
+  z-index: 99;
 }
 
 .popup-input,
@@ -162,6 +199,15 @@ button {
   display: flex;
 }
 
+#inp-comp {
+  max-width: none !important;
+  width: 100%;
+}
+
+#input-container-top {
+  flex: 1;
+}
+
 #input-container-popup {
   margin: 10px;
 }
@@ -195,6 +241,7 @@ ul {
   background-color: white;
   flex-direction: column;
   width: 210px;
+  z-index: 99;
 }
 
 .ccg-div {

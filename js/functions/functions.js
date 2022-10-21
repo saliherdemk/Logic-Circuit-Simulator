@@ -220,21 +220,16 @@ function createCustomGate() {
     return;
   }
 
-  var clones = [];
-  for (let i = 0; i < selected.length; i++) {
-    var clone = _.clone(selected[i]);
-    clones.push(clone);
-    selected[i].isShown = false;
-  }
   let cgX = selected[Math.floor(selected.length / 2)].x;
   let cgY = selected[Math.floor(selected.length / 2)].y;
 
-  let cg = new CustomGate(clones, cgX, cgY);
+  let cg = new CustomGate(selected, cgX, cgY);
   cg.setIO();
+  cg.hideComponents();
   currentComponents.push(cg);
 
   cg.changeName(ccgNameInput.value);
-  createCustomButton(clones);
+  createCustomButton(selected);
   closeCcg();
   selected = [];
 }
@@ -245,4 +240,48 @@ function closeCcg() {
   ccgNameInput.value = "";
   error.style.display = "none";
   isMenuOpen = false;
+}
+
+function openCompShownMode(willShown, name) {
+  isComponentOpen = true;
+  compInp.value = name;
+  topSection.style.display = "flex";
+  disabledBg.style.display = "block";
+  let all = [
+    ...currentGates,
+    ...currentIOs,
+    ...currentWires,
+    ...currentComponents,
+  ];
+
+  for (let i = 0; i < all.length; i++) {
+    const element = all[i];
+    element.isShown && prevStateShown.push(element);
+
+    element.isShown = willShown.includes(element);
+  }
+}
+
+function closeCompShownMode() {
+  let all = [
+    ...currentGates,
+    ...currentIOs,
+    ...currentWires,
+    ...currentComponents,
+  ];
+
+  for (let i = 0; i < all.length; i++) {
+    const element = all[i];
+    element.isShown = prevStateShown.includes(element);
+  }
+  prevStateShown = [];
+  topSection.style.display = "none";
+  disabledBg.style.display = "none";
+  isComponentOpen = false;
+}
+
+function changeCompName() {
+  gateForNameChange.changeName(compInp.value);
+  compInp.value = "";
+  closeCompShownMode();
 }

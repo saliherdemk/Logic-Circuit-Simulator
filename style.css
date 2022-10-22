@@ -67,7 +67,7 @@ button {
   right: 0;
   display: flex;
   justify-content: end;
-  align-items: center;
+  align-items: flex-start;
   z-index: 4;
 }
 
@@ -96,12 +96,6 @@ button {
   background: rgba(0, 0, 0, 0.2);
   display: none;
 }
-
-/* .github-logo {
-  position: absolute;
-  right: 0;
-  width: 70px;
-} */
 
 .input {
   width: 70px !important;

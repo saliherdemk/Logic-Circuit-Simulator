@@ -23,10 +23,10 @@ class Draggable {
     let diffY = mouseY - this.y;
     if (this.isCustom) {
       this.rollover =
-        diffX >= 0 &&
-        diffX <= 100 &&
-        diffY >= 0 &&
-        diffY <= this.inputs.length * 20 + 20;
+        diffX >= -40 &&
+        diffX <= 140 &&
+        diffY >= -10 &&
+        diffY <= this.inputs.length * 30 + 30;
       return;
     }
 
@@ -34,6 +34,9 @@ class Draggable {
   }
 
   update() {
+    var yLimit = isComponentOpen ? 100 : 30;
+    this.x = this.x > width ? width : this.x < 20 ? 20 : this.x;
+    this.y = this.y > height ? height - 40 : this.y < yLimit ? yLimit : this.y;
     if (this.isCustom) {
       const isFilled = currentComponents.find(
         (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
@@ -58,29 +61,12 @@ class Draggable {
         }
         let a = element.x - this.x;
         let b = element.y - this.y;
-        if (mouseX > 20 && mouseX < windowWidth - 300) {
-          element.x = mouseX + a + this.offsetX;
-        }
-        if (mouseY < windowHeight - 100 && mouseY > 70) {
-          element.y = mouseY + b + this.offsetY;
-        }
+        element.x = mouseX + a + this.offsetX;
+        element.y = mouseY + b + this.offsetY;
       }
       this.x = mouseX + this.offsetX;
       this.y = mouseY + this.offsetY;
     }
-
-    this.x =
-      this.x > windowWidth - 300
-        ? windowWidth - 300
-        : this.x < 20
-        ? 20
-        : this.x;
-    this.y =
-      this.y > windowHeight - 100
-        ? windowHeight - 100
-        : this.y < 70
-        ? 70
-        : this.y;
   }
 
   pressed() {
@@ -102,7 +88,7 @@ class Draggable {
   specifyElement() {
     if (this.rollover && this.isShown) {
       if (this instanceof CustomGate) {
-        gateForNameChange = this;
+        compForNameChange = this;
         openCompShownMode(this.clones, this.name);
       } else {
         elForNameChange = this;

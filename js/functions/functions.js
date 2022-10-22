@@ -242,9 +242,9 @@ function closeCcg() {
   isMenuOpen = false;
 }
 
-function openCompShownMode(willShown, name) {
+function openCompShownMode(willShown) {
   isComponentOpen = true;
-  compInp.value = name;
+  compInp.value = compForNameChange.name;
   topSection.style.display = "flex";
   disabledBg.style.display = "block";
   let all = [
@@ -254,12 +254,16 @@ function openCompShownMode(willShown, name) {
     ...currentComponents,
   ];
 
+  var prevShown = [];
+  var prevHidden = [];
+
   for (let i = 0; i < all.length; i++) {
     const element = all[i];
-    element.isShown && prevStateShown.push(element);
+    element.isShown ? prevShown.push(element) : prevHidden.push(element);
 
     element.isShown = willShown.includes(element);
   }
+  prevStateStack.push([prevShown, prevHidden, compForNameChange]);
 }
 
 function closeCompShownMode() {
@@ -270,18 +274,38 @@ function closeCompShownMode() {
     ...currentComponents,
   ];
 
+  var state = prevStateStack.pop();
+  var willShown = state[0];
+  var willHide = state[1];
+  var gate = prevStateStack.length
+    ? prevStateStack[prevStateStack.length - 1][2]
+    : null;
+
   for (let i = 0; i < all.length; i++) {
     const element = all[i];
-    element.isShown = prevStateShown.includes(element);
+    if (willShown.includes(element)) element.isShown = true;
+    if (willHide.includes(element)) element.isShown = false;
   }
-  prevStateShown = [];
-  topSection.style.display = "none";
-  disabledBg.style.display = "none";
-  isComponentOpen = false;
+  compForNameChange = gate;
+  compInp.value = compForNameChange?.name;
+  if (!prevStateStack.length) {
+    topSection.style.display = "none";
+    disabledBg.style.display = "none";
+    isComponentOpen = false;
+  }
 }
 
 function changeCompName() {
-  gateForNameChange.changeName(compInp.value);
+  compForNameChange.changeName(compInp.value);
   compInp.value = "";
   closeCompShownMode();
+}
+
+function drawText(name, x, y) {
+  fill(111, 143, 175);
+  noStroke();
+  textSize(15);
+  text(name, x, y);
+  fill(255);
+  stroke(0);
 }

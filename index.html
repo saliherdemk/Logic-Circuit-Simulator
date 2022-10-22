@@ -11,20 +11,32 @@
   <body>
     <div class="top-bar">
       <div class="top-section">
-        <div class="input-container" id="input-container-top">
-          <label for="inp" class="inp" id="inp-comp">
-            <input
-              type="text"
-              id="comp-inp"
-              placeholder="&nbsp;"
-              autocomplete="off"
-            />
-            <span class="label" id="comp-label">Component Name</span>
-          </label>
-          <div class="done-container" onclick="changeCompName()">
-            <img src="./img/doneIcon.png" alt="" width="25" height="25" />
+        <form
+          id="input-container-top"
+          onsubmit="changeCompName(); return false;"
+        >
+          <div class="input-container" id="input-container-top">
+            <label for="inp" class="inp" id="inp-comp">
+              <input
+                type="text"
+                id="comp-inp"
+                placeholder="&nbsp;"
+                autocomplete="off"
+              />
+              <span class="label" id="comp-label">Component Name</span>
+            </label>
+            <div class="done-container">
+              <input
+                type="image"
+                src="./img/doneIcon.png"
+                alt=""
+                width="25"
+                height="25"
+                alt="Submit Form"
+              />
+            </div>
           </div>
-        </div>
+        </form>
         <div class="top-close" onclick="closeCompShownMode()">
           <img src="./img/closeIcon.png" alt="" width="30" height="30" />
         </div>
@@ -98,20 +110,29 @@
         <div class="img-container" onclick="closePopup()">
           <img src="./img/closeIcon.png" alt="" width="25" height="25" />
         </div>
-        <div class="input-container" id="input-container-popup">
-          <label for="inp" class="inp">
-            <input
-              type="text"
-              id="inp"
-              placeholder="&nbsp;"
-              autocomplete="off"
-            />
-            <span class="label">Gate Name</span>
-          </label>
-          <div class="done-container" onclick="handlePopupInput()">
-            <img src="./img/doneIcon.png" alt="" width="25" height="25" />
+        <form class="ccg-div" onsubmit="handlePopupInput(); return false;">
+          <div class="input-container" id="input-container-popup">
+            <label for="inp" class="inp">
+              <input
+                type="text"
+                id="inp"
+                placeholder="&nbsp;"
+                autocomplete="off"
+              />
+              <span class="label">Gate Name</span>
+            </label>
+            <div class="done-container">
+              <input
+                type="image"
+                src="./img/doneIcon.png"
+                alt=""
+                width="25"
+                height="25"
+                alt="Submit Form"
+              />
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
 

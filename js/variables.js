@@ -7,7 +7,7 @@ var currentComponents = [];
 var selects = [];
 var selected = [];
 
-var prevStateShown = [];
+var prevStateStack = [];
 
 var deleteMode = false;
 var selectMode = false;
@@ -15,7 +15,7 @@ var isMenuOpen = false;
 var isComponentOpen = false;
 
 var elForNameChange = null;
-var gateForNameChange = null;
+var compForNameChange = null;
 
 var components = [];
 

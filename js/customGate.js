@@ -63,19 +63,21 @@ class CustomGate extends Draggable {
   }
 
   show() {
-    this.rollover || this.selected ? stroke(173, 216, 230) : noStroke();
+    if (this.rollover || this.selected) {
+      stroke(173, 216, 230);
+      fill(255, 255, 255, 0);
+      strokeWeight(1);
+      rect(this.x - 40, this.y - 10, this.width + 80, this.height + 20);
+      strokeWeight(4);
+      stroke(0);
+    }
 
     fill(255, 255, 255, 0);
     rect(this.x, this.y, this.width, this.height);
     strokeWeight(4);
     stroke(0);
 
-    fill(111, 143, 175);
-    noStroke();
-    textSize(15);
-    text(this.name, this.x + 35, this.y + this.height / 2);
-    fill(255);
-    stroke(0);
+    drawText(this.name, this.x + 35, this.y + this.height / 2);
   }
 
   draw() {

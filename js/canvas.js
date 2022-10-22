@@ -70,3 +70,7 @@ function doubleClicked() {
   changeValueActionForElements(currentNodes);
   changeNameActionForElements();
 }
+
+function windowResized() {
+  resizeCanvas(windowWidth - 230, windowHeight - 80);
+}

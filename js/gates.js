@@ -18,7 +18,7 @@ class InputOutput extends Draggable {
 
   show() {
     const isFilled = currentIOs.find(
-      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this
+      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
     );
     if (isFilled) {
       this.y = this.y - 50;
@@ -44,12 +44,7 @@ class InputOutput extends Draggable {
     strokeWeight(4);
     line(this.x + this.lineX1, this.y, this.x + this.lineX2, this.y);
 
-    fill(111, 143, 175);
-    noStroke();
-    textSize(15);
-    text(this.name, textX + this.width / 2, this.y - this.height / 2);
-    fill(255);
-    stroke(0);
+    drawText(this.name, textX + this.width / 2, this.y - this.height / 2);
   }
 
   draw() {
@@ -85,12 +80,7 @@ class NotGate extends Draggable {
     notGate.resize(110, 50);
     image(notGate, this.x - 55, this.y - 35);
 
-    fill(111, 143, 175);
-    noStroke();
-    textSize(15);
-    text(this.name, this.x - 18, this.y - 5);
-    fill(255);
-    stroke(0);
+    drawText(this.name, this.x - 18, this.y - 5);
   }
 
   updateOutput() {
@@ -171,12 +161,7 @@ class Gates extends Draggable {
         break;
     }
 
-    fill(111, 143, 175);
-    noStroke();
-    textSize(15);
-    text(this.name, this.x - 10, this.y - 5);
-    fill(255);
-    stroke(0);
+    drawText(this.name, this.x - 10, this.y - 5);
   }
 
   updateOutput() {

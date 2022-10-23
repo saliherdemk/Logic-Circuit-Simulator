@@ -1,7 +1,6 @@
 class InputOutput extends Draggable {
-  constructor(value, x, y, type) {
+  constructor(x, y, type) {
     super(x, y);
-    this.value = value;
     this.x = x;
     this.y = y;
     this.type = type;
@@ -38,7 +37,7 @@ class InputOutput extends Draggable {
     stroke(0);
     strokeWeight(1);
     fill(0);
-    text(this.value ? 1 : 0, this.x, this.y);
+    text(this.node.value ? 1 : 0, this.x, this.y);
     strokeWeight(2);
     fill(255);
     strokeWeight(4);

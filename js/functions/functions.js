@@ -169,6 +169,10 @@ function checkCanBeComponent() {
 }
 
 function clone(original = selected) {
+  if (!original.length) {
+    closeCcg();
+    return;
+  }
   var myHash = new WeakMap();
   var wires = [];
   var newSelected = [];

@@ -68,14 +68,7 @@ class Node {
     this.update();
 
     fill(255);
-    this.updateOutputValue();
     this.rePositionForCustomGate();
-  }
-
-  updateOutputValue() {
-    if (this.isInput) {
-      this.parent.value = this.value;
-    }
   }
 
   changeValue() {

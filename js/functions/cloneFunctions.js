@@ -1,6 +1,5 @@
 function cloneIO(element, nodeMap) {
   var clonedEl = new InputOutput(
-    element.value,
     element.x + 100,
     element.y - 100,
     element.type

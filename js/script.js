@@ -1,7 +1,7 @@
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
 function generateInput() {
-  let input = new InputOutput(0, width / 10 / 5, height - 20, true);
+  let input = new InputOutput(width / 10 / 5, height - 20, true);
   currentIOs.push(input);
 
   let node = new Node(0, input, false);
@@ -11,7 +11,7 @@ function generateInput() {
 }
 
 function generateOutput() {
-  let output = new InputOutput(0, (width / 10) * 1.3, height - 20, false);
+  let output = new InputOutput((width / 10) * 1.3, height - 20, false);
   currentIOs.push(output);
 
   let node = new Node(0, output, true);
@@ -126,4 +126,15 @@ function generateCustomGate(components, name) {
 
   cg.setIO();
   currentComponents.push(cg);
+}
+
+function deleteSelected() {
+  if (selected.length) {
+    for (let i = 0; i < selected.length; i++) {
+      const element = selected[i];
+      !(element instanceof Wire) && element.delete("force");
+    }
+  }
+  selected = [];
+  closeCcg();
 }

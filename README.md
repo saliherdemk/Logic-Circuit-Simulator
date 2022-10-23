@@ -8,7 +8,7 @@ Available [Here](https://saliherdemk.github.io/Logic-Circuit-Simulator/)
 
 # Demo
 
-<img src="https://github.com/saliherdemk/Logic-Circuit-Simulator/blob/master/img/demo.gif" width="480" height="270">
+<img src="https://github.com/saliherdemk/Logic-Circuit-Simulator/blob/master/img/demos/demo.gif" width="480" height="270">
 
 # Contributing
 

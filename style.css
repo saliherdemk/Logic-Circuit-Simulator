@@ -35,6 +35,7 @@ body {
   padding-top: 10px;
   overflow: auto;
   z-index: 1;
+  text-align: center;
 }
 
 #error {

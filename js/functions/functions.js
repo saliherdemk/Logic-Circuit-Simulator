@@ -169,6 +169,10 @@ function checkCanBeComponent() {
 }
 
 function clone(original = selected) {
+  if (!original.length) {
+    closeCcg();
+    return;
+  }
   var myHash = new WeakMap();
   var wires = [];
   var newSelected = [];
@@ -220,21 +224,16 @@ function createCustomGate() {
     return;
   }
 
-  var clones = [];
-  for (let i = 0; i < selected.length; i++) {
-    var clone = _.clone(selected[i]);
-    clones.push(clone);
-    selected[i].isShown = false;
-  }
   let cgX = selected[Math.floor(selected.length / 2)].x;
   let cgY = selected[Math.floor(selected.length / 2)].y;
 
-  let cg = new CustomGate(clones, cgX, cgY);
+  let cg = new CustomGate(selected, cgX, cgY);
   cg.setIO();
+  cg.hideComponents();
   currentComponents.push(cg);
 
   cg.changeName(ccgNameInput.value);
-  createCustomButton(clones);
+  createCustomButton(selected);
   closeCcg();
   selected = [];
 }
@@ -245,4 +244,72 @@ function closeCcg() {
   ccgNameInput.value = "";
   error.style.display = "none";
   isMenuOpen = false;
+}
+
+function openCompShownMode(willShown) {
+  isComponentOpen = true;
+  compInp.value = compForNameChange.name;
+  topSection.style.display = "flex";
+  disabledBg.style.display = "block";
+  let all = [
+    ...currentGates,
+    ...currentIOs,
+    ...currentWires,
+    ...currentComponents,
+  ];
+
+  var prevShown = [];
+  var prevHidden = [];
+
+  for (let i = 0; i < all.length; i++) {
+    const element = all[i];
+    element.isShown ? prevShown.push(element) : prevHidden.push(element);
+
+    element.isShown = willShown.includes(element);
+  }
+  prevStateStack.push([prevShown, prevHidden, compForNameChange]);
+}
+
+function closeCompShownMode() {
+  let all = [
+    ...currentGates,
+    ...currentIOs,
+    ...currentWires,
+    ...currentComponents,
+  ];
+
+  var state = prevStateStack.pop();
+  var willShown = state[0];
+  var willHide = state[1];
+  var gate = prevStateStack.length
+    ? prevStateStack[prevStateStack.length - 1][2]
+    : null;
+
+  for (let i = 0; i < all.length; i++) {
+    const element = all[i];
+    if (willShown.includes(element)) element.isShown = true;
+    if (willHide.includes(element)) element.isShown = false;
+  }
+  compForNameChange = gate;
+  compInp.value = compForNameChange?.name;
+  if (!prevStateStack.length) {
+    topSection.style.display = "none";
+    disabledBg.style.display = "none";
+    isComponentOpen = false;
+  }
+}
+
+function changeCompName() {
+  compForNameChange.changeName(compInp.value);
+  compInp.value = "";
+  closeCompShownMode();
+}
+
+function drawText(name, x, y) {
+  fill(111, 143, 175);
+  noStroke();
+  textSize(15);
+  text(name, x, y);
+  fill(255);
+  stroke(0);
 }

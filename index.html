@@ -9,12 +9,46 @@
   </head>
 
   <body>
-    <a
-      href="https://github.com/saliherdemk/Logic-Circuit-Simulator"
-      target="_blank"
-    >
-      <img class="github-logo" src="./img/githubLogo.png" alt="" />
-    </a>
+    <div class="top-bar">
+      <div class="top-section">
+        <form
+          id="input-container-top"
+          onsubmit="changeCompName(); return false;"
+        >
+          <div class="input-container" id="input-container-top">
+            <label for="inp" class="inp" id="inp-comp">
+              <input
+                type="text"
+                id="comp-inp"
+                placeholder="&nbsp;"
+                autocomplete="off"
+              />
+              <span class="label" id="comp-label">Component Name</span>
+            </label>
+            <div class="done-container">
+              <input
+                type="image"
+                src="./img/doneIcon.png"
+                alt=""
+                width="25"
+                height="25"
+                alt="Submit Form"
+              />
+            </div>
+          </div>
+        </form>
+        <div class="top-close" onclick="closeCompShownMode()">
+          <img src="./img/closeIcon.png" alt="" width="30" height="30" />
+        </div>
+      </div>
+      <a
+        href="https://github.com/saliherdemk/Logic-Circuit-Simulator"
+        target="_blank"
+      >
+        <img class="github-logo" src="./img/githubLogo.png" alt="" />
+      </a>
+    </div>
+    <div class="disabled-background"></div>
     <div class="gates">
       <button class="input" onclick="generateInput()"></button>
 
@@ -37,7 +71,9 @@
       <button class="delete-btn" onclick="toggleDeleteMode()"></button>
     </div>
 
-    <div class="custom-gates"></div>
+    <div class="custom-gates">
+      <h5>Integrated Circuits</h5>
+    </div>
 
     <div class="popup-click">
       <span id="error"></span>
@@ -66,6 +102,7 @@
       </form>
 
       <button class="ccg-btn" onclick="clone()">Duplicate</button>
+      <button class="ccg-btn" onclick="deleteSelected()">Delete</button>
       <button class="ccg-btn" onclick="closeCcg()">Cancel</button>
     </div>
 
@@ -74,20 +111,29 @@
         <div class="img-container" onclick="closePopup()">
           <img src="./img/closeIcon.png" alt="" width="25" height="25" />
         </div>
-        <div class="input-container" id="input-container-popup">
-          <label for="inp" class="inp">
-            <input
-              type="text"
-              id="inp"
-              placeholder="&nbsp;"
-              autocomplete="off"
-            />
-            <span class="label">Gate Name</span>
-          </label>
-          <div class="done-container" onclick="handlePopupInput()">
-            <img src="./img/doneIcon.png" alt="" width="25" height="25" />
+        <form class="ccg-div" onsubmit="handlePopupInput(); return false;">
+          <div class="input-container" id="input-container-popup">
+            <label for="inp" class="inp">
+              <input
+                type="text"
+                id="inp"
+                placeholder="&nbsp;"
+                autocomplete="off"
+              />
+              <span class="label">Gate Name</span>
+            </label>
+            <div class="done-container">
+              <input
+                type="image"
+                src="./img/doneIcon.png"
+                alt=""
+                width="25"
+                height="25"
+                alt="Submit Form"
+              />
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
 
@@ -131,8 +177,8 @@
     <script src="js/draggable.js"></script>
     <script src="js/node.js"></script>
     <script src="js/select.js"></script>
-    <script src="js/wire.js"></script>
-    <script src="js/hiddenWire.js"></script>
+    <script src="js/wires/wire.js"></script>
+    <script src="js/wires/hiddenWire.js"></script>
     <script src="js/gates.js"></script>
     <script src="js/customGate.js"></script>
   </body>

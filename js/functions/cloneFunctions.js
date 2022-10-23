@@ -1,6 +1,5 @@
 function cloneIO(element, nodeMap) {
   var clonedEl = new InputOutput(
-    element.value,
     element.x + 100,
     element.y - 100,
     element.type
@@ -69,7 +68,7 @@ function cloneCustomGate(element, nodeMap) {
   var newElClones = clone(element.clones);
   var clonedEl = new CustomGate(newElClones, element.x + 100, element.y - 100);
   clonedEl.setIO();
-  clonedEl.hide();
+  clonedEl.hideComponents();
   clonedEl.changeName(element.name);
   currentComponents.push(clonedEl);
 

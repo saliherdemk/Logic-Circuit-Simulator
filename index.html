@@ -153,9 +153,34 @@
             You can create components. Select all integrated gates, inputs &
             wires and right click. Then name your integrated circuit.
           </ul>
+          <ul>
+            Hold right click to erase drawings while paint mode open.
+          </ul>
+          <ul>
+            Press "R" to clear all drawings.
+          </ul>
         </div>
       </div>
     </div>
+    <button
+      class="toggle-paint-container"
+      onmouseover="openBrushMenu()"
+      onmouseout="closeBrushMenu()"
+    >
+      <div class="toggle-paint-menu">
+        <input type="color" onchange="setBrushColor(this.value)" />
+        <input
+          type="range"
+          min="1"
+          max="60"
+          value="5"
+          onchange="setBrushThickness(this.value)"
+        />
+      </div>
+      <div class="paint-icon" onclick="toggleBrush(this)">
+        <img src="./img/paintInActive.png" alt="" />
+      </div>
+    </button>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"
@@ -163,12 +188,9 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
-      integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+
+    <script src="js/paint/brush.js"></script>
+    <script src="js/paint/drew.js"></script>
     <script src="js/variables.js"></script>
     <script src="js/functions/cloneFunctions.js"></script>
     <script src="js/functions/functions.js"></script>

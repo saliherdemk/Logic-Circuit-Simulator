@@ -334,3 +334,26 @@ ul {
   transform: scaleX(1);
   transition: all 0.1s ease;
 }
+
+.toggle-paint-container {
+  position: absolute;
+  right: 20px;
+  bottom: 100px;
+  height: 66px;
+  width: auto;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.toggle-paint-container:hover > .paint-icon {
+  transition: all 0.2s ease;
+  transform: rotate(15deg);
+}
+
+.toggle-paint-menu {
+  margin-left: -190px;
+  transition: all 0.2s ease;
+  background-color: white;
+}

@@ -9,6 +9,7 @@ function preload() {
 }
 
 function setup() {
+  paint = new Brush();
   let cnv = createCanvas(windowWidth - 230, windowHeight - 80);
   cnv.style("position", "absolute");
   cnv.style("right", "0");
@@ -26,11 +27,21 @@ function draw() {
   drawForElements(currentIOs);
   drawForElements(currentWires);
   drawForElements(currentComponents);
-
   drawForElements(currentNodes);
+
+  drawLines();
+  if (paint.isDrawing) {
+    paint.update();
+    return;
+  }
 }
 
 function mousePressed() {
+  if (paint.active) {
+    mouseButton === RIGHT ? paint.openEraser() : paint.openIsDrawing();
+    return;
+  }
+
   if (mouseButton === RIGHT && !isComponentOpen) {
     selectDiv.style.display = "flex";
     selectDiv.style.left = mouseX + 200 + "px";
@@ -64,6 +75,8 @@ function mouseReleased() {
   releasedActionForElements(currentGates);
   releasedActionForElements(selects);
   releasedActionForElements(currentComponents);
+  paint.active && paint.closeIsDrawing();
+  paint.active && paint.closeEraser();
 }
 
 function doubleClicked() {
@@ -73,4 +86,10 @@ function doubleClicked() {
 
 function windowResized() {
   resizeCanvas(windowWidth - 230, windowHeight - 80);
+}
+
+function keyPressed() {
+  if (keyCode == 82) {
+    paint.clear();
+  }
 }

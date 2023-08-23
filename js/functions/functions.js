@@ -1,21 +1,3 @@
-function HashTable() {
-  (this.hashes = {}), (this.id = 0);
-}
-
-HashTable.prototype = {
-  constructor: HashTable,
-
-  put: function (obj, value) {
-    obj.id = this.id;
-    this.hashes[this.id] = value;
-    this.id++;
-  },
-
-  get: function (obj) {
-    return this.hashes[obj.id];
-  },
-};
-
 function drawForElements(arr) {
   for (let i = 0; i < arr.length; i++) {
     arr[i].draw();
@@ -312,4 +294,10 @@ function drawText(name, x, y) {
   text(name, x, y);
   fill(255);
   stroke(0);
+}
+
+function drawLines() {
+  paint.drawings.forEach((el) => {
+    el.draw();
+  });
 }

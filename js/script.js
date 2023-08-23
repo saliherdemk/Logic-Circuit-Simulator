@@ -138,3 +138,27 @@ function deleteSelected() {
   selected = [];
   closeCcg();
 }
+
+function toggleBrush(element) {
+  element.childNodes[1].src = paint.toggleActive()
+    ? "./img/paintActive.png"
+    : "./img/paintInActive.png";
+}
+
+function openBrushMenu() {
+  noLoop();
+  brushMenu.style.marginLeft = 0;
+}
+function closeBrushMenu() {
+  loop();
+  brushMenu.style.marginLeft = "-190px";
+}
+
+function setBrushColor(clr) {
+  paint.setColor(color(clr));
+}
+
+function setBrushThickness(size) {
+  console.log(size);
+  paint.setSize(size);
+}

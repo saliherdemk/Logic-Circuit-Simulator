@@ -1,12 +1,12 @@
 class Node {
-  constructor(value, parent, isOutput) {
+  constructor(value, parent, isInput) {
     this.value = value;
     this.parent = parent;
-    this.nodeXDecisive = isOutput ? -50 : 50;
+    this.nodeXDecisive = isInput ? -50 : 50;
     this.wire = null;
     this.x = this.parent.x + this.nodeXDecisive;
     this.y = this.parent.y;
-    this.isOutput = isOutput;
+    this.isInput = isInput;
     this.isLineActive = false;
     this.inputY = 0;
     this.color = this.value ? color(0, 255, 0) : color(255, 0, 0);
@@ -51,13 +51,13 @@ class Node {
       if (this.name) {
         drawText(
           this.name,
-          this.isOutput ? this.x + 12 : this.x - 20,
+          this.isInput ? this.x + 12 : this.x - 20,
           this.y - 10
         );
       }
 
       if (this.parent instanceof CustomGate) {
-        line(this.x, this.y, this.isOutput ? this.x + 30 : this.x - 30, this.y);
+        line(this.x, this.y, this.isInput ? this.x + 30 : this.x - 30, this.y);
       }
       fill(this.color);
       ellipse(this.x, this.y, this.isrollover ? 18 : 14);
@@ -72,7 +72,7 @@ class Node {
   }
 
   changeValue() {
-    if (this.isrollover && !this.isOutput && !this.isGateOutput) {
+    if (this.isrollover && !this.isInput && !this.isGateOutput) {
       (this.value = !this.value), (this.parent.value = this.value);
     }
   }
@@ -106,7 +106,7 @@ class Node {
         this.inputY = 3;
       }
 
-      if (!element.output && !this.isOutput) {
+      if (!element.output && !this.isInput) {
         this.parent.output = this;
         this.y = this.y - 9;
         this.inputY = -9;
@@ -119,7 +119,7 @@ class Node {
   }
 
   drawLine() {
-    if (this.isLineActive && !this.isOutput) {
+    if (this.isLineActive && !this.isInput) {
       let wire = new Wire(this, null);
       currentWires.push(wire);
       this.isLineActive = false;
@@ -129,7 +129,7 @@ class Node {
   receive(force = false) {
     const element = currentWires.find((el) => el.isLineActive == true);
     this.rollover();
-    if ((this.isOutput && element && this.isrollover) || force) {
+    if ((this.isInput && element && this.isrollover) || force) {
       if (!this.wire) {
         element.setEndNode(this);
       } else {

@@ -10,6 +10,8 @@ function preload() {
 
 function setup() {
   paint = new Brush();
+  select = new Select();
+  deleteMode = new DeleteMode();
   let cnv = createCanvas(windowWidth - 230, windowHeight - 80);
   cnv.style("position", "absolute");
   cnv.style("right", "0");
@@ -20,9 +22,9 @@ function setup() {
 }
 
 function draw() {
+  !(frameCount % 5) && updateDeleted();
   background(255);
-
-  drawForElements(selects);
+  select.draw();
   drawForElements(currentGates);
   drawForElements(currentIOs);
   drawForElements(currentWires);
@@ -37,6 +39,10 @@ function draw() {
 }
 
 function mousePressed() {
+  if (deleteMode.getDeleteMode()) {
+    deleteMode.activate();
+    return;
+  }
   if (paint.active) {
     mouseButton === RIGHT ? paint.openEraser() : paint.openIsDrawing();
     return;
@@ -51,9 +57,12 @@ function mousePressed() {
     return;
   }
 
-  selectMode = true;
+  select.selectMode = true;
+  select.setInitialCoordinates(mouseX, mouseY);
 
-  selected.find((el) => el.rollover) || isMenuOpen ? null : (selected = []);
+  select.selected.find((el) => el.rollover) || isMenuOpen
+    ? null
+    : select.clearSelected();
 
   pressedActionForElements(currentIOs);
   pressedActionForElements(currentGates);
@@ -66,17 +75,16 @@ function mousePressed() {
   for (let i = 0; i < currentWires.length; i++) {
     currentWires[i].destroy();
   }
-  let sel = new Select(mouseX, mouseY, 0, 0, true);
-  selects.push(sel);
 }
 
 function mouseReleased() {
   releasedActionForElements(currentIOs);
   releasedActionForElements(currentGates);
-  releasedActionForElements(selects);
+  select.released();
   releasedActionForElements(currentComponents);
   paint.active && paint.closeIsDrawing();
   paint.active && paint.closeEraser();
+  deleteMode.deactivate();
 }
 
 function doubleClicked() {

@@ -11,10 +11,11 @@ class Draggable {
     this.name = "";
     this.isShown = true;
     this.selected = false;
+    this.toBeDeleted = false;
   }
 
   selectedControl() {
-    this.selected = selected.includes(this);
+    this.selected = select.selected.includes(this);
   }
 
   over() {
@@ -54,8 +55,8 @@ class Draggable {
     }
 
     if (this.dragging) {
-      for (let i = 0; i < selected.length; i++) {
-        const element = selected[i];
+      for (let i = 0; i < select.selected.length; i++) {
+        const element = select.selected[i];
         if (element == this) {
           continue;
         }
@@ -67,6 +68,7 @@ class Draggable {
       this.x = mouseX + this.offsetX;
       this.y = mouseY + this.offsetY;
     }
+    deleteMode.getDeleteMode() && this.delete();
   }
 
   pressed() {
@@ -77,7 +79,7 @@ class Draggable {
       this.dragging = true;
       this.offsetX = this.x - mouseX;
       this.offsetY = this.y - mouseY;
-      selectMode = false;
+      select.selectMode = false;
     }
   }
 
@@ -102,38 +104,19 @@ class Draggable {
   }
 
   delete(type = "natural") {
-    if ((this.rollover && deleteMode) || type == "force") {
-      const index = currentIOs.indexOf(this);
-      if (index > -1) {
-        currentIOs.splice(index, 1);
-      }
-
-      const index1 = currentGates.indexOf(this);
-      if (index1 > -1) {
-        currentGates.splice(index1, 1);
-      }
-
-      const index2 = currentComponents.indexOf(this);
-      if (index2 > -1) {
-        currentComponents.splice(index2, 1);
-      }
+    if ((this.rollover && deleteMode.isActivated()) || type == "force") {
+      this.toBeDeleted = true;
 
       const wires = currentWires.filter(
         (e) => e.startNode.parent === this || e.endNode.parent === this
       );
       for (let i = 0; i < wires.length; i++) {
-        const index = currentWires.indexOf(wires[i]);
-        if (index > -1) {
-          wires[i].destroy("force");
-        }
+        wires[i].toBeDeleted = true;
       }
 
       const nodes = currentNodes.filter((e) => e.parent == this);
       for (let i = 0; i < nodes.length; i++) {
-        const index = currentNodes.indexOf(nodes[i]);
-        if (index > -1) {
-          currentNodes.splice(index, 1);
-        }
+        nodes[i].toBeDeleted = true;
       }
     }
   }

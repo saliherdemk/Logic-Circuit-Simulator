@@ -4,13 +4,11 @@ var currentGates = [];
 var currentWires = [];
 var currentNodes = [];
 var currentComponents = [];
-var selects = [];
-var selected = [];
+var select;
+var deleteMode;
 
 var prevStateStack = [];
 
-var deleteMode = false;
-var selectMode = false;
 var isMenuOpen = false;
 var isComponentOpen = false;
 

@@ -12,6 +12,7 @@ class Wire {
     this.color = 0;
     this.isShown = true;
     this.isSelected = false;
+    this.toBeDeleted = false;
   }
 
   setEndNode(node) {
@@ -27,7 +28,7 @@ class Wire {
   }
 
   selectedControl() {
-    this.isSelected = selected.includes(this);
+    this.isSelected = select.selected.includes(this);
     this.color = this.isSelected ? color(173, 216, 230) : this.color;
   }
 
@@ -78,7 +79,7 @@ class Wire {
   }
 
   destroy(type = "natural") {
-    if ((this.isMouseOver() && deleteMode) || type === "force") {
+    if ((this.isMouseOver() && deleteMode.isActivated()) || type === "force") {
       const index = currentWires.indexOf(this);
       if (index > -1) {
         currentWires.splice(index, 1);
@@ -134,5 +135,6 @@ class Wire {
         (this.endNode ? this.endNode.y : mouseY) +
         this.startNode.parent.offsetY;
     }
+    deleteMode.getDeleteMode() && this.destroy();
   }
 }

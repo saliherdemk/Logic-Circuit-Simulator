@@ -1,14 +1,24 @@
 class Select {
-  constructor(x, y, w, h, isActive) {
+  constructor(x, y, w, h) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
-    this.isActive = isActive;
+    this.selectMode = false;
+    this.selected = [];
+  }
+
+  setInitialCoordinates(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  clearSelected() {
+    this.selected = [];
   }
 
   draw() {
-    if (selectMode && !isMenuOpen) {
+    if (this.selectMode && !isMenuOpen) {
       let w = mouseX - this.x;
       let h = mouseY - this.y;
 
@@ -23,8 +33,8 @@ class Select {
     }
   }
   released() {
-    selects = [];
-    selectMode = false;
+    this.selects = [];
+    this.selectMode = false;
   }
 
   addSelectedGates(w, h) {
@@ -52,12 +62,12 @@ class Select {
         element.y < absY + h &&
         element.height + element.y > absY
       ) {
-        selected.includes(element) ? null : selected.push(element);
+        this.selected.includes(element) ? null : this.selected.push(element);
         element.rollover = true;
       } else {
-        const index = selected.indexOf(element);
+        const index = this.selected.indexOf(element);
         if (index > -1) {
-          selected.splice(index, 1);
+          this.selected.splice(index, 1);
         }
       }
     }

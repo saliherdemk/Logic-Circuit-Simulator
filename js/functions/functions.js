@@ -7,7 +7,6 @@ function drawForElements(arr) {
 function pressedActionForElements(arr) {
   for (let i = 0; i < arr.length; i++) {
     arr[i].pressed();
-    arr[i].delete();
   }
 }
 
@@ -31,8 +30,7 @@ function changeNameActionForElements() {
 }
 
 function toggleDeleteMode() {
-  deleteMode = !deleteMode;
-  deleteMode
+  deleteMode.toggleDeleteMode()
     ? deleteButton.classList.add("delete-on")
     : deleteButton.classList.remove("delete-on");
 }
@@ -82,8 +80,8 @@ function checkCanBeComponent() {
   var ioError = "Be sure component has at least one input & output";
   var wireError = "Select all wires which connecting your gates";
 
-  for (let i = 0; i < selected.length; i++) {
-    const element = selected[i];
+  for (let i = 0; i < select.selected.length; i++) {
+    const element = select.selected[i];
 
     if (element instanceof InputOutput) {
       element.type ? inputs++ : outputs++;
@@ -98,10 +96,10 @@ function checkCanBeComponent() {
       for (let i = 0; i < element.clonedInputs.length; i++) {
         const input = element.clonedInputs[i];
         if (!input.wire) return ioError;
-        else if (!selected.includes(input.wire)) return wireError;
+        else if (!select.selected.includes(input.wire)) return wireError;
         if (
-          !selected.includes(input.wire?.startNode.parent) ||
-          !selected.includes(input.wire?.endNode.parent)
+          !select.selected.includes(input.wire?.startNode.parent) ||
+          !select.selected.includes(input.wire?.endNode.parent)
         ) {
           return connectErr;
         }
@@ -110,11 +108,11 @@ function checkCanBeComponent() {
       for (let i = 0; i < element.clonedOutputs.length; i++) {
         const output = element.clonedOutputs[i];
         if (!output.wire) return ioError;
-        else if (!selected.includes(output.wire)) return wireError;
+        else if (!select.selected.includes(output.wire)) return wireError;
 
         if (
-          !selected.includes(output.wire?.startNode.parent) ||
-          !selected.includes(output.wire?.endNode.parent)
+          !select.selected.includes(output.wire?.startNode.parent) ||
+          !select.selected.includes(output.wire?.endNode.parent)
         ) {
           return connectErr;
         }
@@ -124,24 +122,29 @@ function checkCanBeComponent() {
       var inp2W = element.input2 ? element.input2.wire : true;
       var outW = element.output?.wire;
 
-      var q = element instanceof NotGate ? false : !selected.includes(inp2W);
+      var q =
+        element instanceof NotGate ? false : !select.selected.includes(inp2W);
 
       if (!inp1W || !inp2W || !outW) return ioError;
-      else if (!selected.includes(inp1W) || q || !selected.includes(outW))
+      else if (
+        !select.selected.includes(inp1W) ||
+        q ||
+        !select.selected.includes(outW)
+      )
         return wireError;
 
       var p =
         element instanceof NotGate
           ? false
-          : !selected.includes(inp2W?.startNode?.parent) ||
-            !selected.includes(inp2W?.endNode?.parent);
+          : !select.selected.includes(inp2W?.startNode?.parent) ||
+            !select.selected.includes(inp2W?.endNode?.parent);
 
       if (
-        !selected.includes(inp1W?.startNode?.parent) ||
-        !selected.includes(inp1W?.endNode?.parent) ||
+        !select.selected.includes(inp1W?.startNode?.parent) ||
+        !select.selected.includes(inp1W?.endNode?.parent) ||
         p ||
-        !selected.includes(outW?.startNode?.parent) ||
-        !selected.includes(outW?.endNode?.parent)
+        !select.selected.includes(outW?.startNode?.parent) ||
+        !select.selected.includes(outW?.endNode?.parent)
       ) {
         return connectErr;
       }
@@ -150,7 +153,7 @@ function checkCanBeComponent() {
   return true;
 }
 
-function clone(original = selected) {
+function clone(original = select.selected) {
   if (!original.length) {
     closeCcg();
     return;
@@ -175,16 +178,16 @@ function clone(original = selected) {
 
   for (let i = 0; i < wires.length; i++) {
     const element = wires[i];
-    var cloned = cloneWire(element, myHash, original !== selected);
+    var cloned = cloneWire(element, myHash, original !== select.selected);
     cloned && newSelected.push(cloned);
   }
-  selected = newSelected;
+  select.selected = newSelected;
   closeCcg();
   return newSelected;
 }
 
 function createCustomGate() {
-  if (!selected.length) {
+  if (!select.selected.length) {
     error.innerText = "There is no any selected gates";
   }
 
@@ -206,18 +209,18 @@ function createCustomGate() {
     return;
   }
 
-  let cgX = selected[Math.floor(selected.length / 2)].x;
-  let cgY = selected[Math.floor(selected.length / 2)].y;
+  let cgX = select.selected[Math.floor(select.selected.length / 2)].x;
+  let cgY = select.selected[Math.floor(select.selected.length / 2)].y;
 
-  let cg = new CustomGate(selected, cgX, cgY);
+  let cg = new CustomGate(select.selected, cgX, cgY);
   cg.setIO();
   cg.hideComponents();
   currentComponents.push(cg);
 
   cg.changeName(ccgNameInput.value);
-  createCustomButton(selected);
+  createCustomButton(select.selected);
   closeCcg();
-  selected = [];
+  select.clearSelected();
 }
 
 function closeCcg() {
@@ -300,4 +303,12 @@ function drawLines() {
   paint.drawings.forEach((el) => {
     el.draw();
   });
+}
+
+function updateDeleted() {
+  currentIOs = currentIOs.filter((el) => !el.toBeDeleted);
+  currentGates = currentGates.filter((el) => !el.toBeDeleted);
+  currentComponents = currentComponents.filter((el) => !el.toBeDeleted);
+  currentWires = currentWires.filter((el) => !el.toBeDeleted);
+  currentNodes = currentNodes.filter((el) => !el.toBeDeleted);
 }

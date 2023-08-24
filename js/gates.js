@@ -16,9 +16,11 @@ class InputOutput extends Draggable {
   }
 
   show() {
-    const isFilled = currentIOs.find(
-      (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
-    );
+    const isFilled = organizer
+      .getIOs()
+      .find(
+        (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
+      );
     if (isFilled) {
       this.y = this.y - 50;
     }
@@ -30,7 +32,7 @@ class InputOutput extends Draggable {
     fill(255);
     strokeWeight(2);
 
-    this.rollover || this.selected ? stroke(173, 216, 230) : noStroke();
+    this.rollover || this.isSelected ? stroke(173, 216, 230) : noStroke();
 
     fill(255, 255, 255, 0);
     rect(hitboxX, this.y - 10, this.width, 20);
@@ -69,7 +71,7 @@ class NotGate extends Draggable {
 
   show() {
     strokeWeight(2);
-    this.rollover || this.selected ? stroke(173, 216, 230) : noStroke();
+    this.rollover || this.isSelected ? stroke(173, 216, 230) : noStroke();
 
     fill(255, 255, 255, 0);
     rect(this.x - 55, this.y - 35, this.width, this.height);
@@ -121,7 +123,7 @@ class Gates extends Draggable {
 
     strokeWeight(2);
 
-    this.rollover || this.selected ? stroke(173, 216, 230) : noStroke();
+    this.rollover || this.isSelected ? stroke(173, 216, 230) : noStroke();
 
     fill(255, 255, 255, 0);
     rect(this.imgX, this.imgY, this.width, this.height);

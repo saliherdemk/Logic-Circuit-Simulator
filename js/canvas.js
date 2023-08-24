@@ -10,6 +10,8 @@ function preload() {
 
 function setup() {
   paint = new Brush();
+  select = new Select();
+  organizer = new Organizer();
   let cnv = createCanvas(windowWidth - 230, windowHeight - 80);
   cnv.style("position", "absolute");
   cnv.style("right", "0");
@@ -22,18 +24,11 @@ function setup() {
 function draw() {
   background(255);
 
-  drawForElements(selects);
-  drawForElements(currentGates);
-  drawForElements(currentIOs);
-  drawForElements(currentWires);
-  drawForElements(currentComponents);
-  drawForElements(currentNodes);
+  select.draw();
+  organizer.draw();
 
   drawLines();
-  if (paint.isDrawing) {
-    paint.update();
-    return;
-  }
+  paint.isDrawing && paint.update();
 }
 
 function mousePressed() {
@@ -43,44 +38,26 @@ function mousePressed() {
   }
 
   if (mouseButton === RIGHT && !isComponentOpen) {
-    selectDiv.style.display = "flex";
-    selectDiv.style.left = mouseX + 200 + "px";
-    selectDiv.style.top = mouseY + "px";
+    popUpContainer.style.display = "flex";
+    popUpContainer.style.left = mouseX + 200 + "px";
+    popUpContainer.style.top = mouseY + "px";
     isMenuOpen = true;
 
     return;
   }
-
-  selectMode = true;
-
-  selected.find((el) => el.rollover) || isMenuOpen ? null : (selected = []);
-
-  pressedActionForElements(currentIOs);
-  pressedActionForElements(currentGates);
-  pressedActionForElements(currentComponents);
-
-  for (let i = 0; i < currentNodes.length; i++) {
-    currentNodes[i].active();
-  }
-
-  for (let i = 0; i < currentWires.length; i++) {
-    currentWires[i].destroy();
-  }
-  let sel = new Select(mouseX, mouseY, 0, 0, true);
-  selects.push(sel);
+  select.onMousePressed();
+  organizer.onMousePressed();
 }
 
 function mouseReleased() {
-  releasedActionForElements(currentIOs);
-  releasedActionForElements(currentGates);
-  releasedActionForElements(selects);
-  releasedActionForElements(currentComponents);
+  organizer.onMouseReleased();
+  select.deActivateSelectMode();
   paint.active && paint.closeIsDrawing();
   paint.active && paint.closeEraser();
 }
 
 function doubleClicked() {
-  changeValueActionForElements(currentNodes);
+  organizer.onDoubleClicked();
   changeNameActionForElements();
 }
 
@@ -89,6 +66,7 @@ function windowResized() {
 }
 
 function keyPressed() {
+  // R => 82
   if (keyCode == 82) {
     paint.clear();
   }

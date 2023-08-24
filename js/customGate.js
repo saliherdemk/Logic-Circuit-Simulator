@@ -14,12 +14,12 @@ class CustomGate extends Draggable {
   }
 
   getInputs() {
-    var clones = this.clones;
+    var clones = this.clones.sort((a, b) => b.y - a.y);
     for (let i = 0; i < clones.length; i++) {
       const element = clones[i];
       if (element instanceof InputOutput) {
         var el = element.node;
-        el.isInput ? this.outputs.unshift(el) : this.inputs.unshift(el);
+        el.isOutput ? this.outputs.unshift(el) : this.inputs.unshift(el);
       }
     }
   }
@@ -35,7 +35,7 @@ class CustomGate extends Draggable {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       let node = new Node(0, this, true);
-      currentNodes.push(node);
+      organizer.addNode(node);
       this.clonedInputs.push(node);
 
       let hdWire = new HiddenWire(input, node);
@@ -45,7 +45,7 @@ class CustomGate extends Draggable {
     for (let i = 0; i < this.outputs.length; i++) {
       const output = this.outputs[i];
       let node = new Node(0, this, false);
-      currentNodes.push(node);
+      organizer.addNode(node);
       this.clonedOutputs.push(node);
 
       let hdWire = new HiddenWire(node, output);
@@ -63,7 +63,7 @@ class CustomGate extends Draggable {
   }
 
   show() {
-    if (this.rollover || this.selected) {
+    if (this.rollover || this.isSelected) {
       stroke(173, 216, 230);
       fill(255, 255, 255, 0);
       strokeWeight(1);

@@ -4,11 +4,15 @@ function cloneIO(element, nodeMap) {
     element.y - 100,
     element.type
   );
-  var clonedNode = new Node(element.node.value, clonedEl, element.node.isInput);
+  var clonedNode = new Node(
+    element.node.value,
+    clonedEl,
+    element.node.isOutput
+  );
 
   clonedEl.setNode(clonedNode);
-  currentIOs.push(clonedEl);
-  currentNodes.push(clonedNode);
+  organizer.addIO(clonedEl);
+  organizer.addNode(clonedNode);
 
   nodeMap.set(element.node, clonedNode);
   return clonedEl;
@@ -18,28 +22,28 @@ function cloneGates(element, nodeMap) {
   var clonedEl;
   if (element instanceof NotGate) {
     clonedEl = new NotGate(element.x + 100, element.y - 100);
-    currentGates.push(clonedEl);
+    organizer.addGate(clonedEl);
 
     let input = new Node(element.input1, clonedEl, true);
-    currentNodes.push(input);
+    organizer.addNode(input);
 
     let output = new Node(element.output, clonedEl, false);
-    currentNodes.push(output);
+    organizer.addNode(output);
 
     nodeMap.set(element.input1, input);
     nodeMap.set(element.output, output);
   } else {
     clonedEl = new Gates(element.x + 100, element.y - 100, element.type);
-    currentGates.push(clonedEl);
+    organizer.addGate(clonedEl);
 
     let input1 = new Node(element.input1.value, clonedEl, true);
-    currentNodes.push(input1);
+    organizer.addNode(input1);
 
     let input2 = new Node(element.input2.value, clonedEl, true);
-    currentNodes.push(input2);
+    organizer.addNode(input2);
 
     let output = new Node(element.output.value, clonedEl, false);
-    currentNodes.push(output);
+    organizer.addNode(output);
 
     nodeMap.set(element.input1, input1);
     nodeMap.set(element.input2, input2);
@@ -50,15 +54,15 @@ function cloneGates(element, nodeMap) {
 
 function cloneWire(element, nodeMap, force = false) {
   if (
-    (selected.includes(element.startNode?.parent) &&
-      selected.includes(element.endNode?.parent)) ||
+    (select.isIncludes(element.startNode?.parent) &&
+      select.isIncludes(element.endNode?.parent)) ||
     force
   ) {
     var startNode = nodeMap.get(element.startNode);
     var endNode = nodeMap.get(element.endNode);
     var wire = new Wire(startNode, endNode, true);
     wire.isLineActive = false;
-    currentWires.push(wire);
+    organizer.addWire(wire);
     return wire;
   }
   return false;
@@ -70,7 +74,7 @@ function cloneCustomGate(element, nodeMap) {
   clonedEl.setIO();
   clonedEl.hideComponents();
   clonedEl.changeName(element.name);
-  currentComponents.push(clonedEl);
+  organizer.addComponent(clonedEl);
 
   for (let i = 0; i < element.clonedInputs.length; i++) {
     nodeMap.set(element.clonedInputs[i], clonedEl.clonedInputs[i]);

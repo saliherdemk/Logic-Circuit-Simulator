@@ -17,7 +17,8 @@ class Organizer {
   }
 
   removeIO(io) {
-    this.currentIOs.indexOf(io) > -1 && this.currentIOs.splice(index, 1);
+    let index = this.currentIOs.indexOf(io);
+    index > -1 && this.currentIOs.splice(index, 1);
   }
 
   // Gates
@@ -30,7 +31,8 @@ class Organizer {
   }
 
   removeGate(gate) {
-    this.currentGates.indexOf(gate) > -1 && this.currentGates.splice(index, 1);
+    let index = this.currentGates.indexOf(gate);
+    index > -1 && this.currentGates.splice(index, 1);
   }
 
   // Wires
@@ -43,7 +45,8 @@ class Organizer {
   }
 
   removeGate(wire) {
-    this.currentWires.indexOf(wire) > -1 && this.currentWires.splice(index, 1);
+    let index = this.currentWires.indexOf(wire);
+    index > -1 && this.currentWires.splice(index, 1);
   }
 
   // Nodes
@@ -56,7 +59,8 @@ class Organizer {
   }
 
   removeNode(node) {
-    this.currentNodes.indexOf(node) > -1 && this.currentNodes.splice(index, 1);
+    let index = this.currentNodes.indexOf(node);
+    index > -1 && this.currentNodes.splice(index, 1);
   }
 
   // Custom Components
@@ -69,8 +73,8 @@ class Organizer {
   }
 
   removeComponent(component) {
-    this.currentComponents.indexOf(component) > -1 &&
-      this.currentComponents.splice(index, 1);
+    let index = this.currentComponents.indexOf(component);
+    index > -1 && this.currentComponents.splice(index, 1);
   }
 
   // Stack for storing previous state of the canvas. Parameter is an array

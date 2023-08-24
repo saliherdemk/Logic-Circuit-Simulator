@@ -254,7 +254,8 @@ function openCompShownMode(willShown) {
 
     element.isShown = willShown.includes(element);
   }
-  prevStateStack.push([prevShown, prevHidden, compForNameChange]);
+
+  organizer.addState([prevShown, prevHidden, compForNameChange]);
 }
 
 function closeCompShownMode() {
@@ -265,12 +266,11 @@ function closeCompShownMode() {
     ...organizer.getComponents(),
   ];
 
-  var state = prevStateStack.pop();
+  var state = organizer.popState();
   var willShown = state[0];
   var willHide = state[1];
-  var gate = prevStateStack.length
-    ? prevStateStack[prevStateStack.length - 1][2]
-    : null;
+  var stateStack = organizer.getStates();
+  var gate = stateStack.length ? stateStack[stateStack.length - 1][2] : null;
 
   for (let i = 0; i < all.length; i++) {
     const element = all[i];
@@ -279,7 +279,7 @@ function closeCompShownMode() {
   }
   compForNameChange = gate;
   compInp.value = compForNameChange?.name;
-  if (!prevStateStack.length) {
+  if (!stateStack.length) {
     topSection.style.display = "none";
     disabledBg.style.display = "none";
     isComponentOpen = false;

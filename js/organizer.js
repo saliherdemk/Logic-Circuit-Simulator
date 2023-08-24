@@ -73,6 +73,20 @@ class Organizer {
       this.currentComponents.splice(index, 1);
   }
 
+  // Stack for storing previous state of the canvas. Parameter is an array
+  getStates() {
+    return this.prevStateStack;
+  }
+
+  addState(state) {
+    this.prevStateStack.push(state);
+  }
+
+  popState() {
+    return this.prevStateStack.pop();
+  }
+
+  // Others
   getAll() {
     return [
       ...this.currentGates,

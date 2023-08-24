@@ -1,5 +1,3 @@
-var prevStateStack = [];
-
 var deleteMode = false;
 var isMenuOpen = false;
 var isComponentOpen = false;

@@ -14,12 +14,12 @@ class CustomGate extends Draggable {
   }
 
   getInputs() {
-    var clones = this.clones;
+    var clones = this.clones.sort((a, b) => b.y - a.y);
     for (let i = 0; i < clones.length; i++) {
       const element = clones[i];
       if (element instanceof InputOutput) {
         var el = element.node;
-        el.isInput ? this.outputs.unshift(el) : this.inputs.unshift(el);
+        el.isOutput ? this.outputs.unshift(el) : this.inputs.unshift(el);
       }
     }
   }

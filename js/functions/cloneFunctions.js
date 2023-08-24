@@ -4,7 +4,11 @@ function cloneIO(element, nodeMap) {
     element.y - 100,
     element.type
   );
-  var clonedNode = new Node(element.node.value, clonedEl, element.node.isInput);
+  var clonedNode = new Node(
+    element.node.value,
+    clonedEl,
+    element.node.isOutput
+  );
 
   clonedEl.setNode(clonedNode);
   currentIOs.push(clonedEl);

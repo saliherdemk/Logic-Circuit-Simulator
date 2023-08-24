@@ -2,117 +2,118 @@ document.addEventListener("contextmenu", (event) => event.preventDefault());
 
 function generateInput() {
   let input = new InputOutput(width / 10 / 5, height - 20, true);
-  currentIOs.push(input);
+  organizer.addIO(input);
 
   let node = new Node(0, input, false);
-  currentNodes.push(node);
+  organizer.addNode(node);
 
   input.setNode(node);
 }
 
 function generateOutput() {
   let output = new InputOutput((width / 10) * 1.3, height - 20, false);
-  currentIOs.push(output);
+  organizer.addIO(output);
 
   let node = new Node(0, output, true);
-  currentNodes.push(node);
+  organizer.addNode(node);
 
   output.setNode(node);
 }
 
 function generateANDGate() {
   let andGate = new Gates((width / 10) * 2, height - 20, "andGate");
-  currentGates.push(andGate);
+  organizer.addGate(andGate);
 
   let input1 = new Node(0, andGate, true);
-  currentNodes.push(input1);
+  organizer.addNode(input1);
 
   let input2 = new Node(0, andGate, true);
-  currentNodes.push(input2);
+  organizer.addNode(input2);
 
   let output = new Node(0, andGate, false);
-  currentNodes.push(output);
+
+  organizer.addNode(output);
 }
 
 function generateNOTGate() {
   let notGate = new NotGate((width / 10) * 4.1, height - 20);
-  currentGates.push(notGate);
+  organizer.addGate(notGate);
 
   let input = new Node(0, notGate, true);
-  currentNodes.push(input);
+  organizer.addNode(input);
 
   let output = new Node(0, notGate, false);
-  currentNodes.push(output);
+  organizer.addNode(output);
 }
 
 function generateORGate() {
   let orGate = new Gates((width / 10) * 3, height - 20, "orGate");
-  currentGates.push(orGate);
+  organizer.addGate(orGate);
 
   let input1 = new Node(0, orGate, true);
-  currentNodes.push(input1);
+  organizer.addNode(input1);
 
   let input2 = new Node(0, orGate, true);
-  currentNodes.push(input2);
+  organizer.addNode(input2);
 
   let output = new Node(0, orGate, false);
-  currentNodes.push(output);
+  organizer.addNode(output);
 }
 
 function generateNANDGate() {
   let nandGate = new Gates((width / 10) * 5.2, height - 20, "nandGate");
-  currentGates.push(nandGate);
+  organizer.addGate(nandGate);
 
   let input1 = new Node(0, nandGate, true);
-  currentNodes.push(input1);
+  organizer.addNode(input1);
 
   let input2 = new Node(0, nandGate, true);
-  currentNodes.push(input2);
+  organizer.addNode(input2);
 
   let output = new Node(0, nandGate, false);
-  currentNodes.push(output);
+  organizer.addNode(output);
 }
 
 function generateNORGate() {
   let norGate = new Gates((width / 10) * 6.3, height - 20, "norGate");
-  currentGates.push(norGate);
+  organizer.addGate(norGate);
 
   let input1 = new Node(0, norGate, true);
-  currentNodes.push(input1);
+  organizer.addNode(input1);
 
   let input2 = new Node(0, norGate, true);
-  currentNodes.push(input2);
+  organizer.addNode(input2);
 
   let output = new Node(0, norGate, false);
-  currentNodes.push(output);
+  organizer.addNode(output);
 }
 
 function generateXORGate() {
   let xorGate = new Gates((width / 10) * 7.3, height - 20, "xorGate");
-  currentGates.push(xorGate);
+  organizer.addGate(xorGate);
 
   let input1 = new Node(0, xorGate, true);
-  currentNodes.push(input1);
+  organizer.addNode(input1);
 
   let input2 = new Node(0, xorGate, true);
-  currentNodes.push(input2);
+  organizer.addNode(input2);
 
   let output = new Node(0, xorGate, false);
-  currentNodes.push(output);
+  organizer.addNode(output);
 }
 
 function generateXNORGate() {
   let xnorGate = new Gates((width / 10) * 8.4, height - 20, "xnorGate");
-  currentGates.push(xnorGate);
+  organizer.addGate(xnorGate);
 
   let input1 = new Node(0, xnorGate, true);
-  currentNodes.push(input1);
+  organizer.addNode(input1);
 
   let input2 = new Node(0, xnorGate, true);
-  currentNodes.push(input2);
+  organizer.addNode(input2);
 
   let output = new Node(0, xnorGate, false);
-  currentNodes.push(output);
+  organizer.addNode(output);
 }
 
 function generateCustomGate(components, name) {
@@ -125,7 +126,7 @@ function generateCustomGate(components, name) {
   cg.changeName(name);
 
   cg.setIO();
-  currentComponents.push(cg);
+  organizer.addComponent(cg);
 }
 
 function deleteSelected() {
@@ -137,7 +138,7 @@ function deleteSelected() {
     }
   }
   select.clearSelected();
-  closeCcg();
+  closeMenu();
 }
 
 function toggleBrush(element) {

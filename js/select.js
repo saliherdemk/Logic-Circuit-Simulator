@@ -53,14 +53,17 @@ class Select {
     }
   }
 
+  onMousePressed() {
+    this.activateSelectMode();
+    this.setInitialCoordinates(mouseX, mouseY);
+
+    this.selected.find((el) => el.rollover) || isMenuOpen
+      ? null
+      : this.clearSelected();
+  }
+
   addSelectedGates(w, h) {
-    let all = [
-      ...currentGates,
-      ...currentIOs,
-      ...currentNodes,
-      ...currentWires,
-      ...currentComponents,
-    ];
+    let all = organizer.getAll();
     let absX = mouseX > this.x ? this.x : mouseX;
     let absY = mouseY > this.y ? this.y : mouseY;
     w = Math.abs(w);

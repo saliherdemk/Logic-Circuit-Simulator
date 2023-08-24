@@ -24,7 +24,11 @@ function changeValueActionForElements(arr) {
 }
 
 function changeNameActionForElements() {
-  let all = [...currentGates, ...currentIOs, ...currentComponents];
+  let all = [
+    ...organizer.getGates(),
+    ...organizer.getIOs(),
+    ...organizer.getComponents(),
+  ];
   for (let i = 0; i < all.length; i++) {
     all[i].specifyElement();
   }
@@ -152,7 +156,7 @@ function checkCanBeComponent() {
 
 function clone(original = select.getSelected()) {
   if (!original.length) {
-    closeCcg();
+    closeMenu();
     return;
   }
   var myHash = new WeakMap();
@@ -179,7 +183,7 @@ function clone(original = select.getSelected()) {
     cloned && newSelected.push(cloned);
   }
   select.setSelected(newSelected);
-  closeCcg();
+  closeMenu();
   return newSelected;
 }
 
@@ -213,16 +217,16 @@ function createCustomGate() {
   let cg = new CustomGate(selected, cgX, cgY);
   cg.setIO();
   cg.hideComponents();
-  currentComponents.push(cg);
+  organizer.addComponent(cg);
 
   cg.changeName(ccgNameInput.value);
   createCustomButton(selected);
-  closeCcg();
+  closeMenu();
   select.clearSelected();
 }
 
-function closeCcg() {
-  selectDiv.style.display = "none";
+function closeMenu() {
+  popUpContainer.style.display = "none";
   error.innerText = "";
   ccgNameInput.value = "";
   error.style.display = "none";
@@ -235,10 +239,10 @@ function openCompShownMode(willShown) {
   topSection.style.display = "flex";
   disabledBg.style.display = "block";
   let all = [
-    ...currentGates,
-    ...currentIOs,
-    ...currentWires,
-    ...currentComponents,
+    ...organizer.getGates(),
+    ...organizer.getIOs(),
+    ...organizer.getWires(),
+    ...organizer.getComponents(),
   ];
 
   var prevShown = [];
@@ -255,10 +259,10 @@ function openCompShownMode(willShown) {
 
 function closeCompShownMode() {
   let all = [
-    ...currentGates,
-    ...currentIOs,
-    ...currentWires,
-    ...currentComponents,
+    ...organizer.getGates(),
+    ...organizer.getIOs(),
+    ...organizer.getWires(),
+    ...organizer.getComponents(),
   ];
 
   var state = prevStateStack.pop();

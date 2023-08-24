@@ -35,9 +35,9 @@ class Wire {
     let d = dist(this.startNode.x, this.startNode.y, mouseX, mouseY);
 
     if (d < 25 && this.isLineActive) {
-      const index = currentWires.indexOf(this);
+      const index = organizer.getWires().indexOf(this);
       if (index > -1) {
-        currentWires.splice(index, 1);
+        organizer.getWires().splice(index, 1);
       }
       this.startNode.isLineActive = false;
       this.startNode.wire = this;
@@ -79,9 +79,9 @@ class Wire {
 
   destroy(type = "natural") {
     if ((this.isMouseOver() && deleteMode) || type === "force") {
-      const index = currentWires.indexOf(this);
+      const index = organizer.getWires().indexOf(this);
       if (index > -1) {
-        currentWires.splice(index, 1);
+        organizer.getWires().splice(index, 1);
       }
 
       this.startNode.isLineActive = false;

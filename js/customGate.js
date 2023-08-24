@@ -35,7 +35,7 @@ class CustomGate extends Draggable {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       let node = new Node(0, this, true);
-      currentNodes.push(node);
+      organizer.addNode(node);
       this.clonedInputs.push(node);
 
       let hdWire = new HiddenWire(input, node);
@@ -45,7 +45,7 @@ class CustomGate extends Draggable {
     for (let i = 0; i < this.outputs.length; i++) {
       const output = this.outputs[i];
       let node = new Node(0, this, false);
-      currentNodes.push(node);
+      organizer.addNode(node);
       this.clonedOutputs.push(node);
 
       let hdWire = new HiddenWire(node, output);

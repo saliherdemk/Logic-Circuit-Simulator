@@ -38,16 +38,20 @@ class Draggable {
     this.x = this.x > width ? width : this.x < 20 ? 20 : this.x;
     this.y = this.y > height ? height - 40 : this.y < yLimit ? yLimit : this.y;
     if (this.isCustom) {
-      const isFilled = currentComponents.find(
-        (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
-      );
+      const isFilled = organizer
+        .getComponents()
+        .find(
+          (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
+        );
       if (isFilled) {
         this.x = this.x + 120;
       }
     } else {
-      const isFilled = currentGates.find(
-        (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
-      );
+      const isFilled = organizer
+        .getGates()
+        .find(
+          (e) => dist(e.x, e.y, this.x, this.y) < 5 && e !== this && e.isShown
+        );
       if (isFilled) {
         this.y = this.y - 50;
       }
@@ -104,36 +108,35 @@ class Draggable {
 
   delete(type = "natural") {
     if ((this.rollover && deleteMode) || type == "force") {
-      const index = currentIOs.indexOf(this);
-      if (index > -1) {
-        currentIOs.splice(index, 1);
-      }
+      organizer.removeIO(this);
 
-      const index1 = currentGates.indexOf(this);
+      const index1 = organizer.getGates().indexOf(this);
       if (index1 > -1) {
-        currentGates.splice(index1, 1);
+        organizer.getGates().splice(index1, 1);
       }
 
-      const index2 = currentComponents.indexOf(this);
+      const index2 = organizer.getComponents().indexOf(this);
       if (index2 > -1) {
-        currentComponents.splice(index2, 1);
+        organizer.getComponents().splice(index2, 1);
       }
 
-      const wires = currentWires.filter(
-        (e) => e.startNode.parent === this || e.endNode.parent === this
-      );
+      const wires = organizer
+        .getWires()
+        .filter(
+          (e) => e.startNode.parent === this || e.endNode.parent === this
+        );
       for (let i = 0; i < wires.length; i++) {
-        const index = currentWires.indexOf(wires[i]);
+        const index = organizer.getWires().indexOf(wires[i]);
         if (index > -1) {
           wires[i].destroy("force");
         }
       }
 
-      const nodes = currentNodes.filter((e) => e.parent == this);
+      const nodes = organizer.getNodes().filter((e) => e.parent == this);
       for (let i = 0; i < nodes.length; i++) {
-        const index = currentNodes.indexOf(nodes[i]);
+        const index = organizer.getNodes().indexOf(nodes[i]);
         if (index > -1) {
-          currentNodes.splice(index, 1);
+          organizer.getNodes().splice(index, 1);
         }
       }
     }

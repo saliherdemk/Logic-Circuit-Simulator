@@ -78,7 +78,7 @@ class Node {
   }
 
   active() {
-    const control = currentWires.find((el) => el.isLineActive == true);
+    const control = organizer.getWires().find((el) => el.isLineActive == true);
 
     if (this.isrollover && !control) {
       this.isLineActive = !this.isLineActive;
@@ -90,7 +90,7 @@ class Node {
     this.color = this.value ? color(0, 255, 0) : color(255, 0, 0);
     var element = this.parent;
 
-    if (currentGates.includes(element)) {
+    if (organizer.getGates().includes(element)) {
       if (!element.input1) {
         this.parent.input1 = this;
         if (!(element instanceof NotGate)) {
@@ -121,13 +121,13 @@ class Node {
   drawLine() {
     if (this.isLineActive && !this.isOutput) {
       let wire = new Wire(this, null);
-      currentWires.push(wire);
+      organizer.addWire(wire);
       this.isLineActive = false;
     }
   }
 
   receive(force = false) {
-    const element = currentWires.find((el) => el.isLineActive == true);
+    const element = organizer.getWires().find((el) => el.isLineActive == true);
     this.rollover();
     if ((this.isOutput && element && this.isrollover) || force) {
       if (!this.wire) {

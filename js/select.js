@@ -1,14 +1,44 @@
 class Select {
-  constructor(x, y, w, h, isActive) {
+  constructor(x, y, w, h) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
-    this.isActive = isActive;
+    this.selectMode = false;
+    this.selected = [];
+  }
+
+  setInitialCoordinates(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  clearSelected() {
+    this.selected = [];
+  }
+
+  isIncludes(element) {
+    return this.selected.includes(element);
+  }
+
+  setSelected(selected) {
+    this.selected = selected;
+  }
+
+  getSelected() {
+    return this.selected;
+  }
+
+  activateSelectMode() {
+    this.selectMode = true;
+  }
+
+  deActivateSelectMode() {
+    this.selectMode = false;
   }
 
   draw() {
-    if (selectMode && !isMenuOpen) {
+    if (this.selectMode && !isMenuOpen) {
       let w = mouseX - this.x;
       let h = mouseY - this.y;
 
@@ -22,10 +52,6 @@ class Select {
       strokeWeight(4);
     }
   }
-  released() {
-    selects = [];
-    selectMode = false;
-  }
 
   addSelectedGates(w, h) {
     let all = [
@@ -37,7 +63,6 @@ class Select {
     ];
     let absX = mouseX > this.x ? this.x : mouseX;
     let absY = mouseY > this.y ? this.y : mouseY;
-
     w = Math.abs(w);
     h = Math.abs(h);
     for (let i = 0; i < all.length; i++) {
@@ -52,12 +77,12 @@ class Select {
         element.y < absY + h &&
         element.height + element.y > absY
       ) {
-        selected.includes(element) ? null : selected.push(element);
+        this.selected.includes(element) ? null : this.selected.push(element);
         element.rollover = true;
       } else {
-        const index = selected.indexOf(element);
+        const index = this.selected.indexOf(element);
         if (index > -1) {
-          selected.splice(index, 1);
+          this.selected.splice(index, 1);
         }
       }
     }

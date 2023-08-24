@@ -63,7 +63,7 @@ class CustomGate extends Draggable {
   }
 
   show() {
-    if (this.rollover || this.selected) {
+    if (this.rollover || this.isSelected) {
       stroke(173, 216, 230);
       fill(255, 255, 255, 0);
       strokeWeight(1);

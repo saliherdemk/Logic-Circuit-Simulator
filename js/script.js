@@ -129,13 +129,14 @@ function generateCustomGate(components, name) {
 }
 
 function deleteSelected() {
+  let selected = select.getSelected();
   if (selected.length) {
     for (let i = 0; i < selected.length; i++) {
       const element = selected[i];
       !(element instanceof Wire) && element.delete("force");
     }
   }
-  selected = [];
+  select.clearSelected();
   closeCcg();
 }
 

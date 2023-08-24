@@ -4,8 +4,7 @@ var currentGates = [];
 var currentWires = [];
 var currentNodes = [];
 var currentComponents = [];
-var selects = [];
-var selected = [];
+var select;
 
 var prevStateStack = [];
 

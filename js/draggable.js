@@ -10,11 +10,11 @@ class Draggable {
     this.offsetY = 0;
     this.name = "";
     this.isShown = true;
-    this.selected = false;
+    this.isSelected = false;
   }
 
   selectedControl() {
-    this.selected = selected.includes(this);
+    this.isSelected = select.isIncludes(this);
   }
 
   over() {
@@ -54,6 +54,7 @@ class Draggable {
     }
 
     if (this.dragging) {
+      let selected = select.getSelected();
       for (let i = 0; i < selected.length; i++) {
         const element = selected[i];
         if (element == this) {
@@ -77,7 +78,7 @@ class Draggable {
       this.dragging = true;
       this.offsetX = this.x - mouseX;
       this.offsetY = this.y - mouseY;
-      selectMode = false;
+      select.deActivateSelectMode();
     }
   }
 

@@ -27,7 +27,7 @@ class Wire {
   }
 
   selectedControl() {
-    this.isSelected = selected.includes(this);
+    this.isSelected = select.isIncludes(this);
     this.color = this.isSelected ? color(173, 216, 230) : this.color;
   }
 

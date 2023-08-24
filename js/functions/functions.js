@@ -81,7 +81,7 @@ function checkCanBeComponent() {
   var connectErr = "Select all connected gates";
   var ioError = "Be sure component has at least one input & output";
   var wireError = "Select all wires which connecting your gates";
-
+  var selected = select.getSelected();
   for (let i = 0; i < selected.length; i++) {
     const element = selected[i];
 
@@ -98,10 +98,10 @@ function checkCanBeComponent() {
       for (let i = 0; i < element.clonedInputs.length; i++) {
         const input = element.clonedInputs[i];
         if (!input.wire) return ioError;
-        else if (!selected.includes(input.wire)) return wireError;
+        else if (!select.isIncludes(input.wire)) return wireError;
         if (
-          !selected.includes(input.wire?.startNode.parent) ||
-          !selected.includes(input.wire?.endNode.parent)
+          !select.isIncludes(input.wire?.startNode.parent) ||
+          !select.isIncludes(input.wire?.endNode.parent)
         ) {
           return connectErr;
         }
@@ -110,11 +110,11 @@ function checkCanBeComponent() {
       for (let i = 0; i < element.clonedOutputs.length; i++) {
         const output = element.clonedOutputs[i];
         if (!output.wire) return ioError;
-        else if (!selected.includes(output.wire)) return wireError;
+        else if (!select.isIncludes(output.wire)) return wireError;
 
         if (
-          !selected.includes(output.wire?.startNode.parent) ||
-          !selected.includes(output.wire?.endNode.parent)
+          !select.isIncludes(output.wire?.startNode.parent) ||
+          !select.isIncludes(output.wire?.endNode.parent)
         ) {
           return connectErr;
         }
@@ -124,24 +124,24 @@ function checkCanBeComponent() {
       var inp2W = element.input2 ? element.input2.wire : true;
       var outW = element.output?.wire;
 
-      var q = element instanceof NotGate ? false : !selected.includes(inp2W);
+      var q = element instanceof NotGate ? false : !select.isIncludes(inp2W);
 
       if (!inp1W || !inp2W || !outW) return ioError;
-      else if (!selected.includes(inp1W) || q || !selected.includes(outW))
+      else if (!select.isIncludes(inp1W) || q || !select.isIncludes(outW))
         return wireError;
 
       var p =
         element instanceof NotGate
           ? false
-          : !selected.includes(inp2W?.startNode?.parent) ||
-            !selected.includes(inp2W?.endNode?.parent);
+          : !select.isIncludes(inp2W?.startNode?.parent) ||
+            !select.isIncludes(inp2W?.endNode?.parent);
 
       if (
-        !selected.includes(inp1W?.startNode?.parent) ||
-        !selected.includes(inp1W?.endNode?.parent) ||
+        !select.isIncludes(inp1W?.startNode?.parent) ||
+        !select.isIncludes(inp1W?.endNode?.parent) ||
         p ||
-        !selected.includes(outW?.startNode?.parent) ||
-        !selected.includes(outW?.endNode?.parent)
+        !select.isIncludes(outW?.startNode?.parent) ||
+        !select.isIncludes(outW?.endNode?.parent)
       ) {
         return connectErr;
       }
@@ -150,7 +150,7 @@ function checkCanBeComponent() {
   return true;
 }
 
-function clone(original = selected) {
+function clone(original = select.getSelected()) {
   if (!original.length) {
     closeCcg();
     return;
@@ -175,15 +175,16 @@ function clone(original = selected) {
 
   for (let i = 0; i < wires.length; i++) {
     const element = wires[i];
-    var cloned = cloneWire(element, myHash, original !== selected);
+    var cloned = cloneWire(element, myHash, original !== select.getSelected());
     cloned && newSelected.push(cloned);
   }
-  selected = newSelected;
+  select.setSelected(newSelected);
   closeCcg();
   return newSelected;
 }
 
 function createCustomGate() {
+  var selected = select.getSelected();
   if (!selected.length) {
     error.innerText = "There is no any selected gates";
   }
@@ -217,7 +218,7 @@ function createCustomGate() {
   cg.changeName(ccgNameInput.value);
   createCustomButton(selected);
   closeCcg();
-  selected = [];
+  select.clearSelected();
 }
 
 function closeCcg() {

@@ -10,6 +10,7 @@ function preload() {
 
 function setup() {
   paint = new Brush();
+  select = new Select();
   let cnv = createCanvas(windowWidth - 230, windowHeight - 80);
   cnv.style("position", "absolute");
   cnv.style("right", "0");
@@ -22,7 +23,7 @@ function setup() {
 function draw() {
   background(255);
 
-  drawForElements(selects);
+  select.draw();
   drawForElements(currentGates);
   drawForElements(currentIOs);
   drawForElements(currentWires);
@@ -51,9 +52,12 @@ function mousePressed() {
     return;
   }
 
-  selectMode = true;
+  select.activateSelectMode();
+  select.setInitialCoordinates(mouseX, mouseY);
 
-  selected.find((el) => el.rollover) || isMenuOpen ? null : (selected = []);
+  select.getSelected().find((el) => el.rollover) || isMenuOpen
+    ? null
+    : select.clearSelected();
 
   pressedActionForElements(currentIOs);
   pressedActionForElements(currentGates);
@@ -66,14 +70,12 @@ function mousePressed() {
   for (let i = 0; i < currentWires.length; i++) {
     currentWires[i].destroy();
   }
-  let sel = new Select(mouseX, mouseY, 0, 0, true);
-  selects.push(sel);
 }
 
 function mouseReleased() {
   releasedActionForElements(currentIOs);
   releasedActionForElements(currentGates);
-  releasedActionForElements(selects);
+  select.deActivateSelectMode();
   releasedActionForElements(currentComponents);
   paint.active && paint.closeIsDrawing();
   paint.active && paint.closeEraser();

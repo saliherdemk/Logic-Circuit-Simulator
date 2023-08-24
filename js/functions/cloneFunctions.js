@@ -54,8 +54,8 @@ function cloneGates(element, nodeMap) {
 
 function cloneWire(element, nodeMap, force = false) {
   if (
-    (selected.includes(element.startNode?.parent) &&
-      selected.includes(element.endNode?.parent)) ||
+    (select.isIncludes(element.startNode?.parent) &&
+      select.isIncludes(element.endNode?.parent)) ||
     force
   ) {
     var startNode = nodeMap.get(element.startNode);

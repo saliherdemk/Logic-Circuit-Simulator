@@ -186,6 +186,7 @@ function clone(original = select.getSelected()) {
 }
 
 function createCustomGate() {
+  error.innerText = "";
   var selected = select.getSelected();
   if (!selected.length) {
     error.innerText = "There is no any selected gates";

@@ -12,6 +12,9 @@ function setup() {
   paint = new Brush();
   select = new Select();
   organizer = new Organizer();
+  menuOrganizer = new MenuOrganizer();
+  deleteMode = new DeleteMode();
+
   let cnv = createCanvas(windowWidth - 230, windowHeight - 80);
   cnv.style("position", "absolute");
   cnv.style("right", "0");
@@ -37,11 +40,11 @@ function mousePressed() {
     return;
   }
 
-  if (mouseButton === RIGHT && !isComponentOpen) {
+  if (mouseButton === RIGHT && !menuOrganizer.isComponentOpen()) {
     popUpContainer.style.display = "flex";
     popUpContainer.style.left = mouseX + 200 + "px";
     popUpContainer.style.top = mouseY + "px";
-    isMenuOpen = true;
+    menuOrganizer.openMenu();
 
     return;
   }

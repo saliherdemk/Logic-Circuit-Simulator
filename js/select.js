@@ -38,7 +38,7 @@ class Select {
   }
 
   draw() {
-    if (this.selectMode && !isMenuOpen) {
+    if (this.selectMode && !menuOrganizer.isMenuOpen()) {
       let w = mouseX - this.x;
       let h = mouseY - this.y;
 
@@ -57,7 +57,7 @@ class Select {
     this.activateSelectMode();
     this.setInitialCoordinates(mouseX, mouseY);
 
-    this.selected.find((el) => el.rollover) || isMenuOpen
+    this.selected.find((el) => el.rollover) || menuOrganizer.isMenuOpen()
       ? null
       : this.clearSelected();
   }

@@ -40,11 +40,15 @@ class Organizer {
     return this.currentWires;
   }
 
+  getActiveWire() {
+    return this.currentWires.find((el) => el.isLineActive == true);
+  }
+
   addWire(wire) {
     this.currentWires.push(wire);
   }
 
-  removeGate(wire) {
+  removeWire(wire) {
     let index = this.currentWires.indexOf(wire);
     index > -1 && this.currentWires.splice(index, 1);
   }

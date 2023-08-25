@@ -34,7 +34,7 @@ class Draggable {
   }
 
   update() {
-    var yLimit = isComponentOpen ? 100 : 30;
+    var yLimit = menuOrganizer.isComponentOpen() ? 100 : 30;
     this.x = this.x > width ? width : this.x < 20 ? 20 : this.x;
     this.y = this.y > height ? height - 40 : this.y < yLimit ? yLimit : this.y;
     if (this.isCustom) {
@@ -93,10 +93,10 @@ class Draggable {
   specifyElement() {
     if (this.rollover && this.isShown) {
       if (this instanceof CustomGate) {
-        compForNameChange = this;
+        menuOrganizer.setComponentForNameChange(this);
         openCompShownMode(this.clones, this.name);
       } else {
-        elForNameChange = this;
+        menuOrganizer.setElementForNameChange(this);
         openPopup();
       }
     }
@@ -107,7 +107,7 @@ class Draggable {
   }
 
   delete(type = "natural") {
-    if ((this.rollover && deleteMode) || type == "force") {
+    if ((this.rollover && deleteMode.isOn()) || type == "force") {
       organizer.removeIO(this);
 
       const index1 = organizer.getGates().indexOf(this);

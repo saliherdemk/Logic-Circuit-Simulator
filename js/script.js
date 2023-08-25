@@ -161,6 +161,5 @@ function setBrushColor(clr) {
 }
 
 function setBrushThickness(size) {
-  console.log(size);
   paint.setSize(size);
 }

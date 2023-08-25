@@ -78,9 +78,7 @@ class Node {
   }
 
   active() {
-    const control = organizer.getWires().find((el) => el.isLineActive == true);
-
-    if (this.isrollover && !control) {
+    if (this.isrollover && !organizer.getActiveWire()) {
       this.isLineActive = !this.isLineActive;
     }
     this.receive();
@@ -127,7 +125,7 @@ class Node {
   }
 
   receive(force = false) {
-    const element = organizer.getWires().find((el) => el.isLineActive == true);
+    const element = organizer.getActiveWire();
     this.rollover();
     if ((this.isOutput && element && this.isrollover) || force) {
       if (!this.wire) {

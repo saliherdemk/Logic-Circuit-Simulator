@@ -1,10 +1,6 @@
 var deleteMode = false;
-var isMenuOpen = false;
-var isComponentOpen = false;
 
-var elForNameChange = null;
-var compForNameChange = null;
-
+// ccg = Create Custom Gate
 const popUpContainer = document.querySelector(".popup-click");
 const deleteButton = document.querySelector(".delete-btn");
 const ccgNameInput = document.querySelector("#ccg-inp");
@@ -19,3 +15,4 @@ const brushMenu = document.querySelector(".toggle-paint-menu");
 var paint;
 var select;
 var organizer;
+var menuOrganizer;

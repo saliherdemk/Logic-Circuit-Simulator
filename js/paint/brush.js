@@ -10,7 +10,6 @@ class Brush {
 
   setColor(clr) {
     this.color = clr;
-    console.log(this.drawings);
   }
 
   setSize(size) {

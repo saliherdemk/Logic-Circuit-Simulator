@@ -31,10 +31,10 @@ class Wire {
     this.color = this.isSelected ? color(173, 216, 230) : this.color;
   }
 
-  cancelled() {
+  cancelled(force = false) {
     let d = dist(this.startNode.x, this.startNode.y, mouseX, mouseY);
 
-    if (d < 25 && this.isLineActive) {
+    if ((d < 25 && this.isLineActive) || force) {
       const index = organizer.getWires().indexOf(this);
       if (index > -1) {
         organizer.getWires().splice(index, 1);
@@ -78,7 +78,7 @@ class Wire {
   }
 
   destroy(type = "natural") {
-    if ((this.isMouseOver() && deleteMode) || type === "force") {
+    if ((this.isMouseOver() && deleteMode.isOn()) || type === "force") {
       const index = organizer.getWires().indexOf(this);
       if (index > -1) {
         organizer.getWires().splice(index, 1);

@@ -35,10 +35,8 @@ function changeNameActionForElements() {
 }
 
 function toggleDeleteMode() {
-  deleteMode = !deleteMode;
-  deleteMode
-    ? deleteButton.classList.add("delete-on")
-    : deleteButton.classList.remove("delete-on");
+  organizer.getActiveWire()?.cancelled(true);
+  deleteMode.toggleDeleteMode();
 }
 
 function openPopup() {
@@ -56,7 +54,7 @@ function closeInformation() {
 
 function handlePopupInput() {
   var name = inp.value;
-  elForNameChange.changeName(name);
+  menuOrganizer.getCurrentElementForNameChange().changeName(name);
   closePopup();
 }
 
@@ -230,12 +228,12 @@ function closeMenu() {
   error.innerText = "";
   ccgNameInput.value = "";
   error.style.display = "none";
-  isMenuOpen = false;
+  menuOrganizer.closeMenu();
 }
 
 function openCompShownMode(willShown) {
-  isComponentOpen = true;
-  compInp.value = compForNameChange.name;
+  menuOrganizer.openComponent();
+  compInp.value = menuOrganizer.getCurrentComponentForNameChange().name;
   topSection.style.display = "flex";
   disabledBg.style.display = "block";
   let all = [
@@ -255,7 +253,11 @@ function openCompShownMode(willShown) {
     element.isShown = willShown.includes(element);
   }
 
-  organizer.addState([prevShown, prevHidden, compForNameChange]);
+  organizer.addState([
+    prevShown,
+    prevHidden,
+    menuOrganizer.getCurrentComponentForNameChange(),
+  ]);
 }
 
 function closeCompShownMode() {
@@ -277,17 +279,17 @@ function closeCompShownMode() {
     if (willShown.includes(element)) element.isShown = true;
     if (willHide.includes(element)) element.isShown = false;
   }
-  compForNameChange = gate;
-  compInp.value = compForNameChange?.name;
+  menuOrganizer.setComponentForNameChange(gate);
+  compInp.value = menuOrganizer.getCurrentComponentForNameChange()?.name;
   if (!stateStack.length) {
     topSection.style.display = "none";
     disabledBg.style.display = "none";
-    isComponentOpen = false;
+    menuOrganizer.closeComponent();
   }
 }
 
 function changeCompName() {
-  compForNameChange.changeName(compInp.value);
+  menuOrganizer.getCurrentComponentForNameChange().changeName(compInp.value);
   compInp.value = "";
   closeCompShownMode();
 }

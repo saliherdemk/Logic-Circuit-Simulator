@@ -146,20 +146,3 @@ function toggleBrush(element) {
     ? "./img/paintActive.png"
     : "./img/paintInActive.png";
 }
-
-function openBrushMenu() {
-  noLoop();
-  brushMenu.style.marginLeft = 0;
-}
-function closeBrushMenu() {
-  loop();
-  brushMenu.style.marginLeft = "-190px";
-}
-
-function setBrushColor(clr) {
-  paint.setColor(color(clr));
-}
-
-function setBrushThickness(size) {
-  paint.setSize(size);
-}

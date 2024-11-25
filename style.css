@@ -351,9 +351,3 @@ ul {
   transition: all 0.2s ease;
   transform: rotate(15deg);
 }
-
-.toggle-paint-menu {
-  margin-left: -190px;
-  transition: all 0.2s ease;
-  background-color: white;
-}

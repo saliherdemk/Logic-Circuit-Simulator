@@ -8,14 +8,6 @@ class Brush {
     this.drawings = [];
   }
 
-  setColor(clr) {
-    this.color = clr;
-  }
-
-  setSize(size) {
-    this.size = size;
-  }
-
   openEraser() {
     this.isEraserActive = true;
   }
@@ -47,7 +39,7 @@ class Brush {
 
   update() {
     this.drawings.push(
-      new Drew(pmouseX, pmouseY, mouseX, mouseY, this.color, this.size)
+      new Drew(pmouseX, pmouseY, mouseX, mouseY, this.color, this.size),
     );
   }
 }

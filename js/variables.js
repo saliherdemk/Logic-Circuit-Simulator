@@ -10,7 +10,6 @@ const inp = document.getElementById("inp");
 const topSection = document.querySelector(".top-section");
 const compInp = document.getElementById("comp-inp");
 const disabledBg = document.querySelector(".disabled-background");
-const brushMenu = document.querySelector(".toggle-paint-menu");
 
 var paint;
 var select;

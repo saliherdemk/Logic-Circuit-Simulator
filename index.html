@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -162,21 +162,7 @@
         </div>
       </div>
     </div>
-    <button
-      class="toggle-paint-container"
-      onmouseover="openBrushMenu()"
-      onmouseout="closeBrushMenu()"
-    >
-      <div class="toggle-paint-menu">
-        <input type="color" onchange="setBrushColor(this.value)" />
-        <input
-          type="range"
-          min="1"
-          max="60"
-          value="5"
-          onchange="setBrushThickness(this.value)"
-        />
-      </div>
+    <button class="toggle-paint-container">
       <div class="paint-icon" onclick="toggleBrush(this)">
         <img src="./img/paintInActive.png" alt="" />
       </div>

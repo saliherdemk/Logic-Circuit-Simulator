@@ -177,6 +177,8 @@ function clone(original = select.getSelected()) {
 
   for (let i = 0; i < wires.length; i++) {
     const element = wires[i];
+    if (!element.endNode) continue;
+
     var cloned = cloneWire(element, myHash, original !== select.getSelected());
     cloned && newSelected.push(cloned);
   }

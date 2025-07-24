@@ -117,6 +117,7 @@ function generateXNORGate() {
 }
 
 function generateCustomGate(components, name) {
+  select.clearSelected();
   var clones = clone(components);
   for (let i = 0; i < clones.length; i++) {
     var e = clones[i];
@@ -127,7 +128,6 @@ function generateCustomGate(components, name) {
 
   cg.setIO();
   organizer.addComponent(cg);
-  select.clearSelected();
 }
 
 function deleteSelected() {

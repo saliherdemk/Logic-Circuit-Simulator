@@ -127,6 +127,7 @@ function generateCustomGate(components, name) {
 
   cg.setIO();
   organizer.addComponent(cg);
+  select.clearSelected();
 }
 
 function deleteSelected() {
